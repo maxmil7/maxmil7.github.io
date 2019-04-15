@@ -1,0 +1,60 @@
+
+<html>
+  <body>
+    <datalist id="flavors">
+      <option value="chocolate"></option>
+      <option value="butterscotch"></option>
+    </datalist>
+    <input list="flavors" />
+    <dl>
+      <dt>cpu</dt>
+      <dd>central processing unit of a machine</dd>
+      <dt>memory</dt>
+      <dd>Random access memory available</dd>
+    </dl>
+    <p>This text is <del>wrong</del> no longer applicable</p>
+    <p>A <dfn>compliler</dfn> is a program which converts code to machine readable format</p>
+    <div>
+      Wrap me in a div to create a logical container
+    </div>
+    New element
+    <dialog open>
+      <p>Greetings, one and all!</p>
+    </dialog>
+    <dialog id="mydialogbox">
+      <form method="dialog">
+        <p>
+          <label>Favorite icecream</label>
+          <select>
+            <option></option>
+            <option>Vanilla</option>
+            <option>Strabbery</option>
+            <option>3d bar</option>
+          </select>
+        </p>
+        <menu>
+          <button value="cancel">cancel</button>
+          <button id="confirm" value="default">Confirm</button>
+        </menu>
+      </form>
+    </dialog>
+    <menu>
+      <button id="update">Update details</button>
+    </menu>
+    <output></output>
+    <script>
+      (function() {
+        const updateButton = document.getElementById('update');
+        const dialogbox = document.getElementById('mydialogbox');
+        const outputbox = document.getElementsByTagName('output')[0];
+        const selectElement = document.getElementsByTagName('select')[0];
+        const confirmBtn = document.getElementById('confirm');
+
+        updateButton.addEventListener('click', () => dialogbox.showModal());
+        selectElement.addEventListener('change', (e) => { confirmBtn.value = selectElement.value });
+        dialogbox.addEventListener('close', () => outputbox.value += dialogbox.returnValue + " clicked");
+
+      })()
+    </script>
+  </body>
+</html>
