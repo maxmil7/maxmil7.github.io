@@ -1,0 +1,32 @@
+<!-- <object></object>
+<ol></ol>
+<optgroup></optgroup>
+<option></option>
+<output></output> -->
+
+<object type="application/pdf"
+data="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+height="200"
+width="500">
+</object>
+<h5>Ordered list</h5>
+<ol>
+  <li>sugar</li>
+  <li>salt</li>
+  <li>paprika</li>
+</ol>
+
+<label for="sel">Select a color</label>
+<select name="color_select" id="sel">
+  <optgroup label="colors">
+    <option>Teal</option>
+    <option>Brown</option>
+    <option>Yellow</option>
+  </optgroup>
+</select>
+
+<form oninput="result.value=parseInt(a.value) + parseInt(b.value)">
+  <input type="range" name="a" value="50"> +
+  <input type="text" name="b" value="10"> =
+  <output name="result">60</output>
+</form>
