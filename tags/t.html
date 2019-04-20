@@ -1,0 +1,55 @@
+<!-- <table></table><thead></thead>
+<tbody></tbody>
+<textarea></textarea>
+<tr><th></th><td></td></tr>
+<tfoot></tfoot>
+<title></title>
+<time></time> -->
+<html>
+  <head>
+    <title>The T tag</title>
+    <style>
+        td {
+          text-align: center;
+        }
+        label {
+          text-decoration: underline;
+        }
+    </style>
+    <body>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th scope="col">Population</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>York</td>
+            <td>1000</td>
+          </tr>
+          <tr>
+            <td>Townsville</td>
+            <td>3000</td>
+          </tr>  
+        </tbody>
+        <tfoot>
+          <tr>
+            <th sope="row">Total</th>
+            <td>4000</td>
+          </tr>
+        </tfoot>
+      </table>
+      <br/>
+      <form>
+        <label for="comments" >Enter your comments</label>
+        <br/>
+        <textarea id="comments" rows="5" cols="20">Comments...
+        </textarea>
+      </form>
+      <p>The event is scheduled for <time datetime="2018-10-06">Oct 6th</time></p>
+    </body>
+  </head>
+</html>
+
