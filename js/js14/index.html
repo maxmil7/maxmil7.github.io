@@ -8,9 +8,26 @@
 
   <script>
     // start with strings, numbers and booleans
+    let age = 12;
+    let age2 = age;
+    console.log(age, age2);
+    age = 15;
+    console.log(age, age2);
+
+
+    let name = 'max';
+    let name2 = name;
+    console.log('name', 'name2');
+    name2 = 'joe';
+    console.log('name', 'name2');
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+    const team = players;
+   
+    console.log(players, team);
+    team[3] = 'joe';
+    console.log(players, team);
 
     // and we want to make a copy of it.
 
@@ -27,13 +44,27 @@
     // So, how do we fix this? We take a copy instead!
 
     // one way
+    const players2 = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+    const team2 = Array.from(players2);
+    team2[3] = 'joe';
+    console.log(players2, team2);
 
     // or create a new array and concat the old one in
 
-    // or use the new ES6 Spread
+    const team3 = [].concat(players2);
+    team3[3] = 'joe';
+    console.log(players2, team3);
 
-    // now when we update it, the original one isn't changed
+    // or use slice
 
+    const team4 = players2.slice();
+    team4[3] = 'joe';
+    console.log(players2, team4);
+
+    // or ES6 spread
+    const team5 = [...players2];
+    team5[3] = 'joe';
+    console.log(players2, team5);
     // The same thing goes for objects, let's say we have a person object
 
     // with Objects
@@ -43,12 +74,55 @@
     };
 
     // and think we make a copy:
-
+    const larry = person;
+    larry.age = 99;
+    console.log(person, larry);
     // how do we take a copy instead?
 
+    const person2 = {
+      name: 'Wes Bos',
+      age: 80
+    };
+
+    const larry2 = Object.assign({}, person2, {age: 99});
+    console.log(person2, larry2);
+
     // We will hopefully soon see the object ...spread
+    // const larry3 = {...person2};
+    // larry3.age = 99;
+    // console.log(person2, larry3);
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+      const wes = {
+        name: 'wes',
+        age: 100,
+        social: {
+          twitter: '@abc',
+          facebook: 'abc'
+        }
+      }
+
+      const dev = Object.assign({}, wes);
+      dev.name = 'lee';
+      dev.social.twitter = '@lee';
+
+      console.log(wes, dev);
+
+      const wes2 = {
+        name: 'wes',
+        age: 100,
+        social: {
+          twitter: '@abc',
+          facebook: 'abc'
+        }
+      }
+
+      const dev2 = JSON.parse(JSON.stringify(wes2));
+      dev2.name = 'max';
+      dev2.social.twitter = '@coolman';
+
+      console.log(wes2, dev2);
 
   </script>
 
