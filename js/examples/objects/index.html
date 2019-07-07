@@ -1,0 +1,167 @@
+<html>
+  <head>
+    <title>JS objects</title>
+  </head>
+  <body>
+    <script>
+      //Objects are KV pairs
+      const mike = {
+        name: 'mike',
+        age: 23,
+        fetch: function() {
+          console.log('what would you like?')
+        },
+        hobbies: {
+          'sports': ['soccer', 'cricket']
+        },
+        ['extra']: 'some other value',
+
+        get newprop() {
+          return 1;
+        }
+         
+      }
+
+      console.log(`mike obj is ${mike}`);
+      console.log(`mike.fetch ${mike.fetch()}`);
+      console.log(`mike.newprop ${mike.newprop}`);
+
+      //enumerable properties
+      console.log(`%cEnumerable properties`, 'font-weight: bold');
+      console.log(`%cusing for...in`, 'font-weight: bold');
+      for(let prop in mike) {
+        console.log(mike[prop]);
+      }
+      console.log('%cusing object.entries', 'font-weight: bold');
+      console.log(Object.entries(mike));
+
+      //definining new property (non-enumerable)
+
+      Object.defineProperty(mike, 'via1', { value: 1, writable: true, enumerable: false });
+      //definining new property (with getter/setter)
+      let val = 'test';
+      Object.defineProperty(mike, 'via2', {enumerable: true, get() { return val }, set(value) { val = value} });
+
+      console.log(`%cdefining new non-enumerable prop`, 'font-weight: bold');
+      console.log(`via1 is ${mike.via1}`);
+      console.log(`%cdefining enumerable prop with getter`, 'font-weight: bold'); 
+      console.log(`via2 is ${mike.via2}`);
+
+      //all objects have a constructor function. constructor function points to prototype object
+      console.log(`mike.constructor function is ${mike.constructor}`);
+      console.log(`mike.constructor.prototype object is ${mike.constructor.prototype}`);
+
+      //symbols are used for defining object properties
+      let pie = Symbol['pie'];
+      mike[pie] = 'tasty';
+      console.log('%cusing symbol for property', 'font-weight: bold');
+      console.log(`mike[pie] is ${mike[pie]}`);
+      
+      //proxy
+      //new proxy(obj, handler(traps))
+      const t = new Proxy(mike, {
+        //traps
+	      set: function(obj, prop, value) {
+		      if(!Object.keys(obj).includes(prop)) {
+			      console.log(`setting new prop ${prop}`);
+			      obj[prop] = value;
+          } else  {
+			      console.log(`prop already present. Ignoring ${prop}`);
+          }
+        }
+      });
+
+      console.log(`%caccessing object via proxy`, 'font-weight: bold');
+      console.log(`setting t.age ${t.age = 12}`);
+      console.log(`setting t.height ${t.height = 6}`);
+
+      //Reflection on an object
+      console.log(`%cReflection to print keys`, 'font-weight: bold');
+      console.log(Reflect.ownKeys(mike));
+      //Reflection on a function
+      console.log(`%cReflection on a function`, 'font-weight: bold');
+      console.log(Reflect.apply(Math.floor, null, [1.75]));
+    </script>
+
+    <pre>
+        //Objects are KV pairs
+        const mike = {
+          name: 'mike',
+          age: 23,
+          fetch: function() {
+            console.log('what would you like?')
+          },
+          hobbies: {
+            'sports': ['soccer', 'cricket']
+          },
+          ['extra']: 'some other value',
+  
+          get newprop() {
+            return 1;
+          }
+           
+        }
+  
+        console.log(`mike obj is ${mike}`);
+        console.log(`mike.fetch ${mike.fetch()}`);
+        console.log(`mike.newprop ${mike.newprop}`);
+  
+        //enumerable properties
+        console.log(`%cEnumerable properties`, 'font-weight: bold');
+        console.log(`%cusing for...in`, 'font-weight: bold');
+        for(let prop in mike) {
+          console.log(mike[prop]);
+        }
+        console.log('%cusing object.entries', 'font-weight: bold');
+        console.log(Object.entries(mike));
+  
+        //definining new property (non-enumerable)
+  
+        Object.defineProperty(mike, 'via1', { value: 1, writable: true, enumerable: false });
+        //definining new property (with getter/setter)
+        let val = 'test';
+        Object.defineProperty(mike, 'via2', {enumerable: true, get() { return val }, set(value) { val = value} });
+  
+        console.log(`%cdefining new non-enumerable prop`, 'font-weight: bold');
+        console.log(`via1 is ${mike.via1}`);
+        console.log(`%cdefining enumerable prop with getter`, 'font-weight: bold'); 
+        console.log(`via2 is ${mike.via2}`);
+  
+        //all objects have a constructor function. constructor function points to prototype object
+        console.log(`mike.constructor function is ${mike.constructor}`);
+        console.log(`mike.constructor.prototype object is ${mike.constructor.prototype}`);
+  
+        //symbols are used for defining object properties
+        let pie = Symbol['pie'];
+        mike[pie] = 'tasty';
+        console.log('%cusing symbol for property', 'font-weight: bold');
+        console.log(`mike[pie] is ${mike[pie]}`);
+        
+        //proxy
+        //new proxy(obj, handler(traps))
+        const t = new Proxy(mike, {
+          //traps
+          set: function(obj, prop, value) {
+            if(!Object.keys(obj).includes(prop)) {
+              console.log(`setting new prop ${prop}`);
+              obj[prop] = value;
+            } else  {
+              console.log(`prop already present. Ignoring ${prop}`);
+            }
+          }
+        });
+  
+        console.log(`%caccessing object via proxy`, 'font-weight: bold');
+        console.log(`setting t.age ${t.age = 12}`);
+        console.log(`setting t.height ${t.height = 6}`);
+  
+        //Reflection on an object
+        console.log(`%cReflection to print keys`, 'font-weight: bold');
+        console.log(Reflect.ownKeys(mike));
+        //Reflection on a function
+        console.log(`%cReflection on a function`, 'font-weight: bold');
+        console.log(Reflect.apply(Math.floor, null, [1.75]));
+      </pre>
+
+  </body>
+</html>
