@@ -1,0 +1,186 @@
+<html>
+  <head>
+    <title>JS functions</title>
+  </head>
+  <body>
+    <script>
+      //function is invoked with arguments, this, and context
+      const sampleFunction = function() {
+        console.log('this is ', this);
+        console.log('arguments are ', arguments);
+      }
+     
+      console.log('Simple function invocation (window)');
+      sampleFunction(1, 2, 3);
+      
+      console.log('Invocation as a method of object (object)');
+      const customObject = { 
+        name: 'custom_object',
+        obj_method: sampleFunction 
+      }
+      customObject.obj_method();
+
+      console.log('Invocation as a contructor (object)');
+      let test = new sampleFunction();
+
+      console.log('invocation with call/apply (first)');
+      sampleFunction.call({name: 'custom call'});
+      sampleFunction.apply({name: 'custom apply'});
+
+      console.log('bind function (always bound)');
+      let boundFunction = sampleFunction.bind({name: 'bind to me'});
+      boundFunction();
+
+      console.log('arrow function (always creation context)');
+      let arrowFunction = () => { console.log('this is ', this) };
+      arrowFunction();
+
+      console.log(`prototype is ${sampleFunction.prototype}`);
+      console.log(`Internal prop environment maintains link to creation context, enabling closures`);
+
+      //this - function(window), method, new(obj), call, apply (first), bind(bound), arrow(create)
+
+      console.log('Function closures');
+
+      function outer() {
+        let outer_var = 5;
+        function inner() {
+          return outer_var;
+        }
+        return inner;
+      }
+      console.log(`Inner can print outer val via retaining 
+        context (closure): ${outer()()}`);
+
+      console.log('Closures used for private object properties');
+
+      function Ninja() {
+        let privateVal = 5;
+        this.getPrivateVal = function() { return privateVal };
+      }
+
+      let yuko = new Ninja();
+      console.log('getter using function constructor:', yuko.getPrivateVal());
+
+
+      class Newinja {
+        constructor() {
+          let privateVal = 7;
+          this.getPrivateVal = function() { return privateVal };
+        }
+      }
+
+      let duko = new Newinja();
+      console.log('getter using class constructor: ', duko.getPrivateVal());
+
+      console.log('closure used to retain context in callback');
+
+      function times(count, msg) {
+        let _count = 0;
+        let interval = null;
+        const innerFunction = function() {
+          _count++;
+          if(_count > count) { 
+            clearInterval(interval);
+          } else {
+            return console.log(msg);
+          }
+        }
+        interval = setInterval(innerFunction, 10);
+      };
+
+      console.log(times(2, 'hello'));      
+    </script>
+
+    <pre>
+      //function is invoked with arguments, this, and context
+      const sampleFunction = function() {
+        console.log('this is ', this);
+        console.log('arguments are ', arguments);
+      }
+     
+      console.log('Simple function invocation (window)');
+      sampleFunction(1, 2, 3);
+      
+      console.log('Invocation as a method of object (object)');
+      const customObject = { 
+        name: 'custom_object',
+        obj_method: sampleFunction 
+      }
+      customObject.obj_method();
+
+      console.log('Invocation as a contructor (object)');
+      let test = new sampleFunction();
+
+      console.log('invocation with call/apply (first)');
+      sampleFunction.call({name: 'custom call'});
+      sampleFunction.apply({name: 'custom apply'});
+
+      console.log('bind function (always bound)');
+      let boundFunction = sampleFunction.bind({name: 'bind to me'});
+      boundFunction();
+
+      console.log('arrow function (always creation context)');
+      let arrowFunction = () => { console.log('this is ', this) };
+      arrowFunction();
+
+      console.log(`prototype is ${sampleFunction.prototype}`);
+      console.log(`Internal prop environment maintains link to creation context, enabling closures`);
+
+      //this - function(window), method, new(obj), call, apply (first), bind(bound), arrow(create)
+
+      console.log('Function closures');
+
+      function outer() {
+        let outer_var = 5;
+        function inner() {
+          return outer_var;
+        }
+        return inner;
+      }
+      console.log(`Inner can print outer val via retaining 
+        context (closure): ${outer()()}`);
+
+      console.log('Closures used for private object properties');
+
+      function Ninja() {
+        let privateVal = 5;
+        this.getPrivateVal = function() { return privateVal };
+      }
+
+      let yuko = new Ninja();
+      console.log('getter using function constructor:', yuko.getPrivateVal());
+
+
+      class Newinja {
+        constructor() {
+          let privateVal = 7;
+          this.getPrivateVal = function() { return privateVal };
+        }
+      }
+
+      let duko = new Newinja();
+      console.log('getter using class constructor: ', duko.getPrivateVal());
+
+      console.log('closure used to retain context in callback');
+
+      function times(count, msg) {
+        let _count = 0;
+        let interval = null;
+        const innerFunction = function() {
+          _count++;
+          if(_count > count) { 
+            clearInterval(interval);
+          } else {
+            return console.log(msg);
+          }
+        }
+        interval = setInterval(innerFunction, 10);
+      };
+
+      console.log(times(2, 'hello'));   
+
+    </pre>
+
+  </body>
+</html>

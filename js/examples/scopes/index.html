@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>JS scopes</title>
+  </head>
+  <body>
+    <script>
+      //global scope
+      console.log('function scope (global window)')
+      var globe = '123';
+      console.log(globe, window.globe); 
+      
+      //function scope
+      console.log('function scope (function)')
+
+      const test = function() {
+        let a = 5;
+        console.log(`a inside the function is ${a}`);
+      }
+      console.log(`a outside the function is ${a}`);
+
+      //block scope
+      console.log('block scope');
+      try { 
+        let insideTry = 1;
+      } finally {
+        console.log(`insideTry is ${insideTry}`);
+      }
+
+      console.log(`HOISTING: functions w/ declations are hoisted 
+        at the very top'. Happens whenver a new lexical environment is created`);
+    
+      function hello() {
+        test();
+        function test() { console.log('test')};
+      }
+
+      console.log(`HOISTING: var, let, const are hosited too but assignment doesn't 
+        happen until the actual line. var is undefined. let, const throw "connot access 
+        before initiazliation"`)
+
+    </script>
+
+    <pre>
+        //global scope
+        console.log('function scope (global window)')
+        var globe = '123';
+        console.log(globe, window.globe); 
+        
+        //function scope
+        console.log('function scope (function)')
+  
+        const test = function() {
+          let a = 5;
+          console.log(`a inside the function is ${a}`);
+        }
+        console.log(`a outside the function is ${a}`);
+  
+        //block scope
+        console.log('block scope');
+        try { 
+          let insideTry = 1;
+        } finally {
+          console.log(`insideTry is ${insideTry}`);
+        }
+  
+        console.log(`HOISTING: functions w/ declations are hoisted 
+          at the very top'. Happens whenver a new lexical environment is created`);
+      
+        function hello() {
+          test();
+          function test() { console.log('test')};
+        }
+  
+        console.log(`HOISTING: var, let, const are hosited too but assignment doesn't 
+          happen until the actual line. var is undefined. let, const throw "connot access 
+          before initiazliation"`)
+      
+    </pre>
+
+  </body>
+</html>

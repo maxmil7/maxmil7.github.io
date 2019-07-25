@@ -1,0 +1,187 @@
+<html>
+  <head>
+    <title> JS in browser</title>
+    <style>
+        #outer, #middle, #inner {
+          border-style: solid;
+          border-color: blue;
+          border-width: 1px;
+          padding: 30px 30px;
+        }
+        #outer {
+          width: 200px;
+          margin: 30px;
+        }
+        #middle {
+          border-color: magenta;
+        }
+        #inner {
+          border-color: orange;
+        }
+        </style>
+  </head>
+  <body>
+    <ul>
+        different ways of attaching event handlers</br>
+        event capturing, bubbling, this</br>
+        custom events: ajax example</br>
+    </ul>
+
+    <label for='inlineinput'>Inline event handler</label>
+    <input id='inlineinput' type='text' value='default inline value' onclick="inline(event)"></br>
+    <code>    
+      input id='inlineinput' type='text' value='default inline value' onclick="inline(event)"
+    </code></br></br>
+    
+    <label for='eventListener'>Add event handler</label>
+    <input id='eventListener' type='text' value='default event value'></br>
+    <code>
+        eventInput.addEventListener('click', handleEvent);
+    </code></br></br>
+
+    <label for='attachListener'>Elemement.on listener</label>
+    <input id='attachListener' type='text' value='default attach value'></br>
+    <code>
+        attachInput.onclick = eventProperty;
+    </code></br></br>
+    
+    <label for='arrowListener'>Arrow listener</label>
+    <input id='arrowListener' type='text' value='default arrow border'></br>
+    <code>
+        arrowInput.addEventListener('click', arrowListener);
+    </code></br></br>
+
+    <input id='customButton' type='button' value='Custom button'></br>
+    <code>
+        const event = new CustomEvent(eventType, { detail: eventDetail});
+        target.dispatchEvent(event);
+    </code><br></br>
+
+    <div id='outer'><div id='middle'><div id='inner'></div></div></div>
+
+    <script>
+
+      console.log('%cdifferent ways of attaching event handlers', 'font-weight: bold');
+      //different ways of attaching event (what is this?)
+      //this by default is element to be created
+      //event propagation, bubbling & capture
+      
+      function inline() {
+        console.log('%cinline handler', 'font-weight: bold');
+        console.log('event is ', event);
+        console.log('this is ', this);
+        console.log('arguments are ', arguments);
+        console.log('changing input value using inline function');
+        document.getElementById('inlineinput').value = 'new inline value';
+      }
+
+
+      function handleEvent(event) {
+        console.log('%add event handler', 'font-weight: bold');
+        console.log('event is ', event);
+        console.log('this is ', this);
+        console.log('arguments are ', arguments);
+        console.log('changing input value using addEventListener function');
+        this.value = 'new event value';
+      }
+
+      let eventInput = document.getElementById('eventListener');
+      eventInput.addEventListener('click', handleEvent);
+
+      function eventProperty(event) {
+        console.log('%celement property handler', 'font-weight: bold');
+        console.log('event is ', event);
+        console.log('this is ', this);
+        console.log('arguments are ', arguments);
+        console.log('changing input value using attach event function');
+        this.value = 'new attach value';
+      }
+
+      let attachInput = document.getElementById('attachListener');
+      attachInput.onclick = eventProperty;
+      
+      const arrowListener = (eve) => {
+        console.log('%carrow handler', 'font-weight: bold');
+        console.log('eve is ', eve);
+        console.log('window.eventis current event ', event === window.event);
+        console.log('this is ', this);
+        console.log('arguments not available');
+        console.log('changing input value using arrow function');
+        document.getElementById('arrowListener').style = 'border: solid 1px #6E6E6E';
+;
+      }
+
+      let arrowInput = document.getElementById('arrowListener');
+      arrowInput.addEventListener('click', arrowListener);
+
+     
+      window.addEventListener('load', () => { console.log('page loaded')});
+      window.onload = () => console.log('page load via attach');
+
+      console.log('%cevent capturing, bubbling, this', 'font-weight: bold');
+
+      console.log('%ccustom events: ajax example', 'font-weight:bold');
+
+      //event bubbling capturing
+      //`this` referes to element on which listener is registered
+      //custom events
+
+      console.log(`"this" keyword refers to the element on which 
+        the event handler has been registered`);
+      console.log(`event.target referes to the element on which event
+        has occured`);
+      console.log(`event is captured first, then bubbles. 
+        By default event handlers are invoked on bubble`)
+
+      const outer = document.getElementById('outer');
+      const middle = document.getElementById('middle');
+      const inner = document.getElementById('inner');
+
+      outer.addEventListener('click', function(event) {
+        console.log('outer clicked');
+        console.log('this is ', this);
+        console.log('event.target is ', event.target);
+      });
+
+      middle.addEventListener('click', function(event) {
+        console.log('middle clicked');
+        console.log('this is', this);
+        console.log('event.target is ', event.target);
+
+      }, true); //capture true
+
+      inner.addEventListener('click', function(event) {
+        console.log('inner clicked');
+        console.log('this is', this);
+        console.log('event.target is ', event.target);
+
+      });
+
+      //custom events (create, dispatch, listen)
+
+      //listen to custom event
+      document.addEventListener('ajaxy', function(event) {
+        console.log('%ccustom event triggered', 'font-weight: bold');
+        console.log('this is ', this);
+        console.log('event is ', event);
+      });
+      
+
+      //generic function to trigger events
+      function triggerEvent(target, eventType, eventDetail) {
+        const event = new CustomEvent(eventType, { detail: eventDetail});
+        target.dispatchEvent(event);
+      }
+
+      //trigger custom event
+      const button = document.getElementById('customButton');
+      button.addEventListener('click', (e) => {
+        console.log('%cclick event triggered', 'font-weight: bold');
+        fetch('https://jsonplaceholder.typicode.com/todos/1')
+        .then(response => response.json())
+        .then(json => triggerEvent(document, 'ajaxy', json));
+      });
+
+    </script>
+  </body>
+</html>
