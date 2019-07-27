@@ -1,0 +1,256 @@
+<html>
+  <head>
+    <title>JS functions</title>
+  </head>
+  <body>
+   
+    <p>
+      Number precision</br>
+      Garbage collection</br>
+      Memory leaks</br>
+    </p>
+    
+    
+    <h4>Precision</h4>
+    <p>
+      Javascript uses 64bit binary format (double precision floating point) to store numbers.
+      Hence, decimal numbers in base 10 like 0.3 cannot be accurately stored since they need
+      need to be converted to base 2.
+      
+      Hence, 0.1 + 0.2 !== 0.3
+    </p>
+
+    <h4>Garbage collection</h4>
+    <p>
+      Reference couting. Remove when no reference. Problem w/ cyclic references</br>
+      Mark and sweep, Start from root, keep only those that are accessible</br>
+      GC doesn\'t happen at fixed time. Usually happens at new memeory allocation</br>
+    </p>
+    <p>
+      <h4>Four examples of memory leaks</h4>
+      <a href="https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec
+      ">Reference</a>
+      <a href="http://point.davidglasser.net/2013/06/27/surprising-javascript-memory-leak.html">Meteor memory leak</a>
+      <h5>var usage in block scope, invoking constructor w/o new keyword</h5>
+      <pre>
+          function ninja() {
+            this.memLeak1 = 'leaking global' 
+          }
+          const one = ninja();
+          console.log(memLeak1); //leaking global
+          var globalVar = 'test'
+          console.log(globalVar); //test */
+      </pre>
+      <h5>Double referencing DOM elements</h5>
+      <input type='text' value='Sample input box' id='inputbox'/>
+
+      <table id='demotable'>
+        <tr><td id='firstrowcolumn'>1</td><td>2</td></tr>
+        <tr><td>3</td><td>4</td></tr>
+        <caption>Demo</caption>
+      </table>
+      <pre>
+          const inputBox = document.getElementById('inputbox');
+          const tablecolumn = document.getElementById('firstrowcolumn');
+          document.getElementById('inputbox').remove()
+          document.getElementById('demotable').remove();
+          //reference still present
+      </pre>
+
+      <h5>Hanging listeners or observers (modern browsers take care of it)</h5>
+      <input type='text' value='updateme' id='forgotinputinterval'/>
+      <input type='button' value='1' id='forgotbuttonlistener'/>
+      <pre>
+          const someData = 'huge local string';
+          let count = 1;
+          setInterval(() => {
+            let forgotinput = document.getElementById('forgotinputinterval');
+            if(forgotinput) {
+              console.log('updating input');
+              forgotinput.value = someData + count;
+              count++;
+            }
+          }, 1000);
+          
+          setTimeout(() => {
+            document.getElementById('forgotinputinterval').remove();
+            console.log('neither someData nor observer function will be removed');
+          }, 10000);
+          
+          let button = document.getElementById('forgotbuttonlistener');
+        
+          function onClick(e) { this.value++ };
+          button.addEventListener('click', onClick);
+          
+          setTimeout(() => {
+            console.log('removing button');
+            button.remove();
+            console.log('Best practice is to remove listener as well');
+            button.removeEventListener('click', onClick); //to be safe
+          }, 15000);
+      </pre>
+      <h5>Memory leak via closures</h5>
+      <ul>
+        <li>function finishes, all variables in it and functions ared GCed</li>
+        <li>if closure outlasts parent, it is not GCed</li>
+        <li>sibling closures share same context</li>
+        <li>If one closures outlasts parent, unused sibling refers to global element, leak can happen</li>
+      </ul>
+      <pre>
+          var run3 = function() {
+            console.log('running function');
+            var str = 'mega string';
+            var doSomethingWithString = function () {
+              if(str !== 'something') {
+                console.log('string didn\'t match');
+              }
+            }
+            var logIt = function() {
+              console.log('interval3');
+            }
+            setInterval(logIt, 100);
+          };
+          setInterval(run3, 1000);
+      </pre>
+    </p>
+
+
+   
+
+    <script>
+      console.log('%c Precision', 'font-weight: bold');
+      console.log('0.2 + 0.1', 0.2 + 0.1);
+      console.log('Number.MAX_SAFE_INTEGER ', Number.MAX_SAFE_INTEGER);
+      console.log('Number.POSITIVE_INFINITY ', Number.POSITIVE_INFINITY);
+      console.log('To represent whole numbers larger than 253, use BigInt ', BigInt(5));
+      console.log('Possible workarounds for precision');
+
+      console.log("(num1, num2) => Math.round((num1 + num2)*100)/100");
+      let precise = (num1, num2) => Math.round((num1 + num2)*100)/100
+
+      console.log('0.1 + 0.2 using function', precise(0.1, 0.2));
+      console.log();
+
+      console.log('%c Memory leak', 'font-weight: bold');
+      console.log('%c Two types of GC algorithms', 'font-weight: bold');
+      console.log('Reference couting. Remove when no reference. Problem w/ cyclic references');
+      console.log('Mark and sweep, Start from root, keep only those that are accessible');
+      console.log('GC doesn\'t happen at fixed time. Usually happens at new memeory allocation');
+
+      console.log('%c Examples of memory leak', 'font-weight: bold');
+      console.log('1. Global variables')
+      
+      
+      //Type1 memory leak
+      function ninja() {
+	      this.memLeak1 = 'leaking global' 
+      }
+      const one = ninja();
+      console.log(memLeak1); //leaking global
+      var globalVar = 'test'
+      console.log(globalVar); //test */
+
+    
+    console.log('2. Double referencing DOM elements')
+  /* Type2 memory leak (Double referencing DOM elements) */
+    const inputBox = document.getElementById('inputbox');
+    const tablecolumn = document.getElementById('firstrowcolumn');
+
+    console.log(inputBox);
+    console.log(tablecolumn);
+
+    setTimeout(() => {
+      document.getElementById('inputbox').remove()
+      document.getElementById('demotable').remove();
+      console.log('reference still present');
+      console.log(inputBox);
+      console.log(tablecolumn); 
+    }, 5000);
+ 
+
+  /* Type 3: Hanging callbacks or event listeners
+  (should be GC'ed automatically by modern browsers)*/
+  console.log('3. Handing callbacks, listeners (should be auto gced)');
+      const someData = 'huge local string';
+      let count = 1;
+      setInterval(() => {
+        let forgotinput = document.getElementById('forgotinputinterval');
+        if(forgotinput) {
+          console.log('updating input');
+          forgotinput.value = someData + count;
+          count++;
+        }
+      }, 1000);
+      
+      setTimeout(() => {
+        document.getElementById('forgotinputinterval').remove();
+        console.log('neither someData nor observer function will be removed');
+      }, 10000);
+      
+      
+      let button = document.getElementById('forgotbuttonlistener');
+      
+      function onClick(e) { this.value++ };
+      button.addEventListener('click', onClick);
+      
+      
+      setTimeout(() => {
+        console.log('removing button');
+        button.remove();
+        console.log('Best practice is to remove listener as well');
+        button.removeEventListener('click', onClick); //to be safe
+      }, 15000);
+
+
+    
+    /*Type 4*/
+    console.log('4: Leak via closures. Sibling share same context')
+    //When function finishes, all variables in it and functions ared GCed
+    var run = function() {
+      console.log('running function');
+      var str = 'mega string';
+      var doSomethingWithString = function () {
+        if(str !== 'something') {
+          console.log('string didn\'t match');
+          console.log('doSomething, str will be GCed')
+        }
+      
+      }
+      doSomethingWithString();
+    };
+    setInterval(run, 20000);
+
+    //It is possible closure inner function will
+    //outlast parent, their by holding on to variables
+    //it closes over. Only if there are references within
+    var run2 = function() {
+      console.log('running run2 function');
+      var str = 'mega string';
+      var logIt = function() {
+       console.log('closure processing');
+      }
+      setInterval(logIt, 100);
+    };
+    setInterval(run2, 25000);
+
+    //Two sibling closures share execution context
+    //So even if one references, and other keeps 
+    //closures alive due to above, memory leak occurs
+
+    var run3 = function() {
+      console.log('running function');
+      var str = 'mega string';
+      var doSomethingWithString = function () {
+        if(str !== 'something') {
+          console.log('string didn\'t match');
+        }
+      }
+      var logIt = function() {
+        console.log('interval3');
+      }
+      setInterval(logIt, 100);
+    };
+    setInterval(run3, 1000);
+    </script>
+  </body>
+</html>
