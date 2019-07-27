@@ -16,14 +16,21 @@
         let a = 5;
         console.log(`a inside the function is ${a}`);
       }
-      console.log(`a outside the function is ${a}`);
+      try {
+        console.log('a outside the function is ', a);
+      } catch (err) {
+        console.log(err);
+      }
 
       //block scope
       console.log('block scope');
-      try { 
+      { 
         let insideTry = 1;
-      } finally {
-        console.log(`insideTry is ${insideTry}`);
+      } 
+      try {
+        console.log(`insideTry is ${insideBraces}`);
+      } catch (err) {
+        console.log(err);
       }
 
       console.log(`HOISTING: functions w/ declations are hoisted 
@@ -37,6 +44,14 @@
       console.log(`HOISTING: var, let, const are hosited too but assignment doesn't 
         happen until the actual line. var is undefined. let, const throw "connot access 
         before initiazliation"`)
+
+      try {
+        let testObj = new Ninja();
+      } catch (err) {
+        console.log(err);
+      }
+      class Ninja {}
+      console.log(`Class declarations are not hoisted`);
 
     </script>
 
@@ -53,14 +68,21 @@
           let a = 5;
           console.log(`a inside the function is ${a}`);
         }
-        console.log(`a outside the function is ${a}`);
+        try {
+          console.log('a outside the function is ', a);
+        } catch (err) {
+          console.log(err);
+        }
   
         //block scope
         console.log('block scope');
-        try { 
+        { 
           let insideTry = 1;
-        } finally {
-          console.log(`insideTry is ${insideTry}`);
+        } 
+        try {
+          console.log(`insideTry is ${insideBraces}`);
+        } catch (err) {
+          console.log(err);
         }
   
         console.log(`HOISTING: functions w/ declations are hoisted 
@@ -74,6 +96,14 @@
         console.log(`HOISTING: var, let, const are hosited too but assignment doesn't 
           happen until the actual line. var is undefined. let, const throw "connot access 
           before initiazliation"`)
+  
+        try {
+          let testObj = new Ninja();
+        } catch (err) {
+          console.log(err);
+        }
+        class Ninja {}
+        console.log(`Class declarations are not hoisted`);
       
     </pre>
 
