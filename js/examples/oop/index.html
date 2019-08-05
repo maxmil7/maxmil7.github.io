@@ -1,0 +1,649 @@
+<html>
+  <head>
+    <title>JS functions</title>
+  </head>
+  <body>
+    <script>
+      console.log('%cOOP via class', 'font-weight: bold');
+      console.log('%c1. Class example (including getter, static methods, fields)', 'font-weight: bold; color: blue');
+
+      let secretProp = Symbol('secret');
+      let magicMethod = Symbol('magic');
+      class Rectangle { 
+        constructor(height=1, width=1) {
+          this.height = height;
+          this.width = width;
+		      this[secretProp] = Math.floor(Math.random()*100);
+        }
+	
+	      area() {
+		      return this.height * this.width;
+        }
+
+	      get info() {
+		      return this[secretProp];
+        }
+
+	      set info(value) {
+		      this[secretProp] = value;
+        }
+
+        static noOfSides() {
+		      return console.log('rectangle has four sides');
+        }
+
+	      static corners = 4;
+	
+	      magic() { 
+		      return this[magicMethod]();
+        }
+
+	      [magicMethod]() {
+		      return console.log('ready to see some magic');
+        }	
+      }
+
+      const recky = new Rectangle(10, 10);
+      console.log(recky)
+      //Rectangle {height: 10, width: 10, Symbol(secret): 46}
+      console.log(recky.info);
+      //46
+      recky.info = 12
+      //12
+      console.log(recky.info);
+      //12
+      console.log(recky.area());
+      //100
+      recky.magic();
+      //ready to see some magic
+
+      Rectangle.noOfSides();
+      //rectangle has four sides
+      console.log(Rectangle.corners);
+      //4
+
+      console.log('%c2. Public/Private fields (next)', 'font-weight: bold; color: blue');
+
+      class RectanglePrivate {
+	      #height = 5;
+	      #width = 5;
+	      constructor(height, width) {
+		    if (height)
+			    this.#height = height;
+		    if (width)
+			    this.#width = width;
+        }
+	      get height() {
+		      return this.#height;
+        }
+	      set height(value) {
+		      this.#height = value;
+        }
+      }
+
+      const recky2 = new RectanglePrivate();
+      console.log(recky2.height);
+      //>> 5
+      console.log('Browser throws an error trying to access private prop recky2.#width');
+      console.log('Uncaught SyntaxError: Undefined private field undefined: must be declared in an enclosing class');
+      //recky2.#width;
+      //>> Uncaught SyntaxError: Undefined private field undefined: must be declared in an enclosing class
+      
+      console.log('%c3. Extending a class (inheritance)', 'font-weight: bold; color: blue');
+
+      class Cat {
+        constructor(name) {
+          this.name = name;
+        }
+	      speak() {
+		      console.log(`${this.name} makes a noise`);
+        }
+      }
+
+      class Lion extends Cat {
+	      constructor(name) {
+		      super(name); //child constructor has to call super
+		      this.type = 'lion';
+        }
+	      speak() {
+		      console.log(`${this.name} roars`);
+        }
+      }
+    
+      let leon = new Lion('leon');
+      console.log(leon.name);
+      //>> "leon"
+      console.log(leon.type);
+      //>> "lion"
+      leon.speak();
+      //>> leon roars
+      console.log(leon instanceof Lion);
+      //>> true
+      console.log(leon instanceof Cat);
+      //>> true
+
+      console.log('%c4. Abstract class example', 'font-weight: bold; color: blue');
+
+      class Abstract {
+	      onlyOne() {
+		      throw new Error('Child class should implement this');
+        }
+      }
+
+      class Actual extends Abstract {
+        onlyOne() {
+		      console.log('implemented by child class');
+        }
+      }
+
+      class Fake extends Abstract { };
+    
+      let o = new Actual();
+      o.onlyOne();
+      //>> implemented by child class
+      let o1 = new Fake();
+      try {
+        o1.onlyOne();
+      } catch (e) {
+        console.log(e.message);
+      }
+      //>> Uncaught Error: Child class should implement this
+
+      console.log(`%c5. Symbol.species (static property which returns the 
+      constructor to be used for derived objects`, 'font-weight: bold; color: blue');
+      console.log('For eg: Extending Array and want map to return regular array object');
+
+      class MyArray extends Array {
+	      static get[Symbol.species]() { return Array; }
+      }
+      class MyArray1 extends Array {};
+
+      let original = new MyArray(1,2,3);
+      let derived = original.map(e => e*e);
+      console.log(derived instanceof Array);
+      //>> true
+      console.log(derived instanceof MyArray);
+      //>> false
+      let original1 = new MyArray1(1,2,3);
+      let derived1 = original1.map(e => e*e);
+      console.log(derived1 instanceof Array);
+      //>> true
+      console.log(derived1 instanceof MyArray1);
+      //>> true
+      
+      console.log('%c6. Multiple inheritance with mixins', 'font-weight: bold; color: blue');
+
+      let calculatorMixin = Base => class extends Base { 
+        cal() { console.log('i can calculate') }
+      }
+
+      let randomMixin = Base => class extends Base { 
+	      random() { console.log('i can randomize') }
+      }
+
+      class Foo{};
+      class Bar extends calculatorMixin(randomMixin(Foo)){}
+      let multi = new Bar();
+      multi.cal();
+      //>> i can calculate
+      multi.random()
+      //>> i can randomize
+
+
+      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+
+      console.log('%cOOP via prototypes', 'font-weight: bold');
+      console.log('%c1. Prototypal class (including static methods', 'font-weight: bold; color: blue');
+      function Shape(x, y) {
+        //constructor
+        this.x = x;
+        this.y = y;
+      }
+      //class methods
+      Shape.prototype.move = function() { console.log('shape moved') }
+      //abstract properties
+      Shape.sides = Math.random();
+      Shape.id = function(id) { console.log('shape class id is ', id); }
+      console.log(Shape.id('okay')); 
+      //>> shape class id is  okay
+      console.log(Shape.sides);
+      //>> 0.5229372598046722
+
+      const shapeObj = new Shape(5, 5);
+      console.log(shapeObj.constructor);
+      // ƒ Shape(x, y) {
+      //   //constructor
+      //   this.x = x;
+      //   this.y = y;
+      // }
+      console.log(shapeObj.constructor === Shape.prototype.constructor);
+      //>> true
+
+      console.log('%c2. Extending class using Object.create', 'font-weight: bold; color: blue');
+    
+      function Square(x) {
+        Shape.call(this, x); //call super constructor 
+      }
+      //extend superclass
+      Square.prototype = Object.create(Shape.prototype);
+      //reset constructor
+      Square.prototype.constructor = Square;
+      //add additional properties
+      Square.prototype.area = function() { return this.x * this.x; }
+
+      const protosquare = new Square(2, 3);
+      console.log(protosquare.constructor);
+      //  ƒ Square(x) {
+      //    Shape.call(this, x);
+      //  }
+      console.log(protosquare.move()); //super method
+      //>> shape moved
+      console.log(protosquare.area()); //child class method
+      //>> 6
+
+      console.log('%c3. Multiple inheritance', 'font-weight: bold; color: blue');
+
+      function Animal(name) { this.name = name };
+      Animal.prototype.whoami = function() { console.log('I am ', this.name) };
+
+      function Species(type) { this.type = type };
+      Animal.prototype.spec = function() { console.log(' I am ', this.type); } 
+
+      function Pet(name, type, age) {
+        Animal.call(this, name);
+        Species.call(this, type);
+        this.age = age;
+      }
+
+      Pet.prototype = Object.create(Animal.prototype);
+      Object.assign(Pet.prototype, Species.prototype);
+      Pet.prototype.constructor = Pet;
+
+      Pet.prototype.printAge = function() { console.log('My age is ', this.age) };
+
+      const fido = new Pet('fido', 'dog', 2);
+      fido.whoami();
+      //>> I am  fido
+      fido.spec()
+      //>> I am  dog
+      fido.printAge()
+      //>> My age is  2
+
+      console.log('%c4. Abstract class', 'font-weight: bold; color: blue');
+      function Flavor() {};
+      Flavor.prototype.taste = function() { throw new Error('Child class should implement it'); }
+
+      function Vanilla() {};
+      Vanilla.prototype = Object.create(Flavor.prototype);
+      Vanilla.prototype.constructor = Vanilla;
+      
+      const dessert = new Vanilla();
+      try {
+        console.log(dessert.taste());
+      } catch (e) {
+        console.log(e.message);
+      }
+      //Uncaught Error: Child class should implement it
+      //at Vanilla.Flavor.taste (<anonymous>:2:45)
+      //at <anonymous>:9:9
+      Vanilla.prototype.taste = function() { console.log('Vanilla has a subtle taste'); }
+      console.log(dessert.taste());
+      //>> Vanilla has a subtle taste
+
+      console.log('%c5. Object.assign(target, ...sources) to copy props from one object to another', 'font-weight: bold; color: blue');
+      console.log('Enumerable props of source are copied to target obj (shallow copying)');
+      const target = { a:1, b:2 };
+      const source = { b:3, c:4 };
+
+      Object.assign(target, source);
+      console.log(target);
+      //>> {a: 1, b: 3, c: 4}
+
+      console.log('%c6. Object.create(proto, [props]), to create new object with proto as prototype', 'font-weight: bold; color: blue');
+      console.log('returns a new object, using existing object as prototype');
+      const person = {
+        printIntroduction: function() { console.log(`My name is ${this.name}`) }
+      }
+      const josh = Object.create(person);
+      josh.name = 'josh';
+      josh.printIntroduction()
+      //>> My name is josh
+
+      const joshPlus = Object.create(person, { 
+      prop1: {
+        value: 42,
+        writable: true
+        }
+      });
+
+      console.log(joshPlus.prop1);
+      //>> 42
+
+      console.log('%c7. Object.setPrototypeOf(obj, proto) to set prototype of an existing object', 'font-weight: bold; color: blue');
+      console.log('setPrototypeOf is slow (because it modifies existing obj), when possible use Object.create');
+      
+      const setProtoObject = Object.setPrototypeOf({}, Shape.prototype);
+      //Invoking shape constructor(x, y)
+      Shape.call(setProtoObject, 5, 5);
+      setProtoObject.move();
+      //>> shape moved
+    </script>
+
+    <pre>
+      <h2>OOP via class</h2>
+      <h3>1. Class example (including getter, static methods, fields) </h3>
+        let secretProp = Symbol('secret');
+        let magicMethod = Symbol('magic');
+        class Rectangle { 
+          constructor(height=1, width=1) {
+            this.height = height;
+            this.width = width;
+            this[secretProp] = Math.floor(Math.random()*100);
+          }
+          
+          area() {
+            return this.height * this.width;
+          }
+          get info() {
+            return this[secretProp];
+          }
+          set info(value) {
+            this[secretProp] = value;
+          }
+          static noOfSides() {
+            return console.log('rectangle has four sides');
+          }
+          static corners = 4;
+          
+          magic() { 
+            return this[magicMethod]();
+          }
+  
+          [magicMethod]() {
+            return console.log('ready to see some magic');
+          }	
+        }
+  
+        const recky = new Rectangle(10, 10);
+        console.log(recky)
+        //Rectangle {height: 10, width: 10, Symbol(secret): 46}
+        console.log(recky.info);
+        //46
+        recky.info = 12
+        //12
+        console.log(recky.info);
+        //12
+        console.log(recky.area());
+        //100
+        recky.magic();
+        //ready to see some magic
+  
+        Rectangle.noOfSides();
+        //rectangle has four sides
+        console.log(Rectangle.corners);
+        //4
+        
+      <h3>2. Public/Private fields (next) </h3>
+        class RectanglePrivate {
+          #height = 5;
+          #width = 5;
+          constructor(height, width) {
+          if (height)
+            this.#height = height;
+          if (width)
+            this.#width = width;
+          }
+          get height() {
+            return this.#height;
+          }
+          set height(value) {
+            this.#height = value;
+          }
+        }
+  
+        const recky2 = new RectanglePrivate();
+        console.log(recky2.height);
+        //>> 5
+        console.log('Browser throws an error trying to access private prop recky2.#width');
+        console.log('Uncaught SyntaxError: Undefined private field undefined: must be declared in an enclosing class');
+        //recky2.#width;
+        //>> Uncaught SyntaxError: Undefined private field undefined: must be declared in an enclosing class
+          
+      <h3>3. Extending a class (inheritance) </h3>
+        class Cat {
+          constructor(name) {
+            this.name = name;
+          }
+          speak() {
+            console.log(`${this.name} makes a noise`);
+          }
+        }
+      
+        class Lion extends Cat {
+          constructor(name) {
+            super(name); //child constructor has to call super
+            this.type = 'lion';
+          }
+          speak() {
+            console.log(`${this.name} roars`);
+          }
+        }
+      
+        let leon = new Lion('leon');
+        console.log(leon.name);
+        //>> "leon"
+        console.log(leon.type);
+        //>> "lion"
+        leon.speak();
+        //>> leon roars
+        console.log(leon instanceof Lion);
+        //>> true
+        console.log(leon instanceof Cat);
+        //>> true
+        
+      <h3>4. Abstract class example</h3>
+        class Abstract {
+          onlyOne() {
+            throw new Error('Child class should implement this');
+          }
+        }
+  
+        class Actual extends Abstract {
+          onlyOne() {
+            console.log('implemented by child class');
+          }
+        }
+  
+        class Fake extends Abstract { };
+      
+        let o = new Actual();
+        o.onlyOne();
+        //>> implemented by child class
+        let o1 = new Fake();
+        try {
+          o1.onlyOne();
+        } catch (e) {
+          console.log(e.message);
+        }
+        //>> Uncaught Error: Child class should implement this
+        
+      <h3>5. Symbol.species (static property which returns the</h3>
+        constructor to be used for derived objects`, 'font-weight: bold; color: blue');
+        console.log('For eg: Extending Array and want map to return regular array object');
+  
+        class MyArray extends Array {
+          static get[Symbol.species]() { return Array; }
+        }
+        class MyArray1 extends Array {};
+  
+        let original = new MyArray(1,2,3);
+        let derived = original.map(e => e*e);
+        console.log(derived instanceof Array);
+        //>> true
+        console.log(derived instanceof MyArray);
+        //>> false
+        let original1 = new MyArray1(1,2,3);
+        let derived1 = original1.map(e => e*e);
+        console.log(derived1 instanceof Array);
+        //>> true
+        console.log(derived1 instanceof MyArray1);
+        //>> true
+              
+      <h3>6. Multiple inheritance with mixins', 'font-weight: bold; color: blue');</h3>
+        let calculatorMixin = Base => class extends Base { 
+          cal() { console.log('i can calculate') }
+        }
+  
+        let randomMixin = Base => class extends Base { 
+          random() { console.log('i can randomize') }
+        }
+  
+        class Foo{};
+        class Bar extends calculatorMixin(randomMixin(Foo)){}
+        let multi = new Bar();
+        multi.cal();
+        //>> i can calculate
+        multi.random()
+        //>> i can randomize
+  
+  
+        <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create'>Prototype inheritance examples</a>
+  
+        <h2>OOP via prototypes</h2>
+        <h3>1. Prototypal class (including static methods)</h3>
+        function Shape(x, y) {
+          //constructor
+          this.x = x;
+          this.y = y;
+        }
+        //class methods
+        Shape.prototype.move = function() { console.log('shape moved') }
+        //abstract properties
+        Shape.sides = Math.random();
+        Shape.id = function(id) { console.log('shape class id is ', id); }
+        console.log(Shape.id('okay')); 
+        //>> shape class id is  okay
+        console.log(Shape.sides);
+        //>> 0.5229372598046722
+  
+        const shapeObj = new Shape(5, 5);
+        console.log(shapeObj.constructor);
+        // ƒ Shape(x, y) {
+        //   //constructor
+        //   this.x = x;
+        //   this.y = y;
+        // }
+        console.log(shapeObj.constructor === Shape.prototype.constructor);
+        //>> true
+        
+      <h3>2. Extending class using Object.create</h3>
+            
+        function Square(x) {
+          Shape.call(this, x); //call super constructor 
+        }
+        //extend superclass
+        Square.prototype = Object.create(Shape.prototype);
+        //reset constructor
+        Square.prototype.constructor = Square;
+        //add additional properties
+        Square.prototype.area = function() { return this.x * this.x; }
+  
+        const protosquare = new Square(2, 3);
+        console.log(protosquare.constructor);
+        //  ƒ Square(x) {
+        //    Shape.call(this, x);
+        //  }
+        console.log(protosquare.move()); //super method
+        //>> shape moved
+        console.log(protosquare.area()); //child class method
+        //>> 6
+        
+      <h3>3. Multiple inheritance</h3>
+        
+        function Animal(name) { this.name = name };
+        Animal.prototype.whoami = function() { console.log('I am ', this.name) };
+  
+        function Species(type) { this.type = type };
+        Animal.prototype.spec = function() { console.log(' I am ', this.type); } 
+  
+        function Pet(name, type, age) {
+          Animal.call(this, name);
+          Species.call(this, type);
+          this.age = age;
+        }
+  
+        Pet.prototype = Object.create(Animal.prototype);
+        Object.assign(Pet.prototype, Species.prototype);
+        Pet.prototype.constructor = Pet;
+  
+        Pet.prototype.printAge = function() { console.log('My age is ', this.age) };
+  
+        const fido = new Pet('fido', 'dog', 2);
+        fido.whoami();
+        //>> I am  fido
+        fido.spec()
+        //>> I am  dog
+        fido.printAge()
+        //>> My age is  2
+        
+      <h3>4. Abstract class</h3>
+        function Flavor() {};
+        Flavor.prototype.taste = function() { throw new Error('Child class should implement it'); }
+  
+        function Vanilla() {};
+        Vanilla.prototype = Object.create(Flavor.prototype);
+        Vanilla.prototype.constructor = Vanilla;
+        
+        const dessert = new Vanilla();
+        try {
+          console.log(dessert.taste());
+        } catch (e) {
+          console.log(e.message);
+        }
+        //Uncaught Error: Child class should implement it
+        //at Vanilla.Flavor.taste (<anonymous>:2:45)
+        //at <anonymous>:9:9
+        Vanilla.prototype.taste = function() { console.log('Vanilla has a subtle taste'); }
+        console.log(dessert.taste());
+        //>> Vanilla has a subtle taste
+        
+      <h3>5. Object.assign(target, ...sources) to copy props from one object to another</h3>
+        console.log('Enumerable props of source are copied to target obj (shallow copying)');
+        const target = { a:1, b:2 };
+        const source = { b:3, c:4 };
+  
+        Object.assign(target, source);
+        console.log(target);
+        //>> {a: 1, b: 3, c: 4}
+        
+      <h3>6. Object.create(proto, [props]), to create new object with proto as prototype</h3>
+        console.log('returns a new object, using existing object as prototype');
+        const person = {
+          printIntroduction: function() { console.log(`My name is ${this.name}`) }
+        }
+        const josh = Object.create(person);
+        josh.name = 'josh';
+        josh.printIntroduction()
+        //>> My name is josh
+  
+        const joshPlus = Object.create(person, { 
+        prop1: {
+          value: 42,
+          writable: true
+          }
+        });
+  
+        console.log(joshPlus.prop1);
+        //>> 42
+        
+      <h3>7. Object.setPrototypeOf(obj, proto) to set prototype of an existing object</h3>
+        console.log('setPrototypeOf is slow (because it modifies existing obj), when possible use Object.create');
+        
+        const setProtoObject = Object.setPrototypeOf({}, Shape.prototype);
+        //Invoking shape constructor(x, y)
+        Shape.call(setProtoObject, 5, 5);
+        setProtoObject.move();
+        //>> shape moved        
+    </pre>
+  </body>
+</html>
