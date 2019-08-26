@@ -1,0 +1,835 @@
+<html>
+  <head>
+    <title>Async</title>
+  </head>
+  <body>
+    <button id='btn'>Hello</button></br>
+    <img id="image" src="imagenotfound.gif"  />
+
+    <h2>Callbacks (creating, consuming, error-handling, chaining</h2>
+    <h3>1.1 creating callback function</h3>
+    <pre>
+        function callbackSum(a, b, callback) {
+            const c = a + b;
+            let coinflip = Math.round(Math.random());
+            if (coinflip) {
+                const error = new Error('Error while calculating sum');
+                callback(error, null)
+          } else {
+                callback(null, c);
+          }
+        }
+    </pre>
+  
+    <h3>1.2 consuming callback function w/ error handling</h3>
+    <pre>
+        callbackSum(4, 5, (err, sum) => {
+            if (err) {
+                console.log(`error received:, ${err.message}`);
+            } else {
+                console.log(`sum is ${sum}`);
+            }
+        });
+        //>> sum is 9 or err
+        function multiply(x, callback) { callback(x*x) };
+    </pre>
+    <h3>1.3 chaining callback function</h3>
+    <pre>
+        callbackSum(4,5, (err, sum) => {
+            if (err) {
+                console.log(`error received:, ${err.message}`);
+            } else {
+                multiply(sum, function(result) {
+                    console.log('result is ', result);
+                });
+            }
+        })
+        //>> result is 81 or err received
+    </pre>
+    <h2>2. Promises</h2>
+    <p>Promise is an object which represents eventual completion of an asynchronous
+    operation, and its value.</br>
+    Signature new Promise (executor) or new Promise(() => (resolve, reject) {})</br>
+    Prmoise has a 'then' prop for chaining. Promise methods return a promise (resolve, reject, then, catch etc)
+    </p>
+    <h3>2. Promise example</h3>
+    <h4>2.1.1 Resolve only</h4>
+    <pre>
+        const promise1 = new Promise((resolve, reject) => {
+            setTimeout(() => resolve('foo'), 300);
+        });
+        promise1.then(res => console.log(res));
+        //>> foo
+    </pre>
+    <h4>2.1.2 Proimse example (resolve, reject)</h4> 
+    <pre>
+        const sumOfTwoPromises = (x, y) => {
+            return new Promise((resolve, reject) => {
+                const coinFlip = Math.round(Math.random());
+                if (coinFlip) {
+                    reject(new Error('cannot compute sum'))
+                } else {
+                    resolve(x + y);
+                }
+            }) 
+        };
+    </pre>
+    <h3>2.2: Calling promises: .then(successCb, failureCb) or .catch(err)</h3>
+    <pre>
+        sumOfTwoPromises(2, 3).then(res => console.log(res), err => console.log(err));
+        //or
+        sumOfTwoPromises(2,3).then(res => console.log(res))
+        .catch(err => console.log(err));
+        //> 5 or err
+    </pre>   
+    <h3>2.3: Chaining promises ().then</h3>
+    <pre>
+        const multiplyByTwo = (x) => {
+            return new Promise((resolve, reject) => {
+                resolve(x*x);
+            });
+        };
+            
+        sumOfTwoPromises(2,3)
+          .then(res => multiplyByTwo(res))
+          .then(res2 => console.log(res2))
+          .catch(err => console.log(err));
+  
+        //> 25 or err
+    </pre> 
+    <h3>2.4: Promise properties</h3>
+    <p>Promise constructor methods like Promise.all, Promise.race can be useful
+    for processing multiple promises.</br>
+    A promise can only succeed or fail once. It cannot succeed or fail twice, neither can it switch from success to failure or vice versa.</br>
+    If a promise has succeeded or failed and you later add a success/failure callback, the correct callback will be called, even though the event took place earlier.</br>
+    Callbacks will never be called before the completion of the current run of the JavaScript event loop.
+    </p>
+    <h2>3. Events using event emitters</h2>
+    <p>when javascript runtime error occurs, an ErrorEvent is fired at the window object</br>
+    It can be caught by the widnow.onerror => (message, source, lineno, colno, error )
+    </p>
+    <h3>3.1 Event emitter example/consuming</h3>
+    <pre>
+        const btn = document.getElementById('btn');
+        btn.onclick = function(event) {
+            const coinFlip = Math.round(Math.random());
+            if (coinFlip) {
+                throw new Error('error occured while processing button click');
+            } else {
+                console.log('button clicked with event ', event);
+            }
+        }
+        //> Button cliced with event { Event...} or err
+    </pre>
+    <h3>3.2 Error handling</h3>
+    <h4>3.2.1 Event emitter error handling (window)</h4>
+    <p>when runtime error occurs, an errorEvent is fired at window objects.</br>
+    Can be caught using window.onerror on 'error' event handler (funcion sig varies
+    </p>
+    <pre>
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.log(`message is ${message} source is ${source} lineno is ${lineno} colno is ${colno} error is ${error}`)
+            //stops propagation
+            return true; 
+        }
+        //> message is..
+        
+        //or (they have different signatures due to historical reasons)
+        window.addEventListener('error', (event) => {
+            console.log('via add event listener', event);
+        });
+        //> via add event listener { Event ...}
+    </pre>
+    <h4> 3.2.2 Event emitter error handling (element)</h4>
+    <p>when a resource fails to load eg, img or script an ErrorEvent is fired at the element</p>
+    <pre>
+        const image = document.getElementById('image');
+        image.onerror = function(event) {
+            console.log('img error event is ', event);
+            this.onerror = null;
+            this.src = 'https://source.unsplash.com/random/200x200'
+        }
+        //> img error event is { Event... }
+    </pre>
+    <h3>3.3 Other examples include XMLHttpRequest, node event emitters etc </h3> 
+
+    <h2>4. Converting old callbacks to promises</h2>
+    <pre>
+        function promisify(fn) {
+            return function(...args) {
+                return new Promise((resolve, reject) => {
+                    fn.apply(null, [...args, function(err, res) {
+                        if(err) {
+                            reject(err);
+                        } else {
+                            resolve(res);
+                        }
+                    }])
+                });
+            }
+        };
+
+        const promisifiedSum = promisify(callbackSum);
+        promisifiedSum(2,3)
+        .then(res => console.log(res))
+        .catch(err => console.log('error recieved ', err.message));
+        //>> 5 or 'error received'
+    </pre>
+    <h2>5 Converting promises into node sytle callbacks</h2>
+    <pre>
+        function nodify(fn) {
+            return function(...args) {
+                const cb = args[args.length - 1];
+                fn(...args).then(res => cb(null, res))
+                .catch(err => cb(err, null));
+            }
+        }
+
+        let sumCb = nodify(sumOfTwoPromises);
+        sumCb(2,3, (err, res) => err ? console.log('err is ', err) : console.log('res is ', res));  
+        //>> 5   or //err
+    </pre>  
+    <h2>6. Timers (no errors mostly since its a brower timer api)</h2>
+    <h3>6.1 setTimeout</h3>
+    <pre>
+        const timeoutId = setTimeout((param) => console.log('timeout function called with ', param), 2000, 'test');
+        //> timeout function called with  test
+    </pre>
+    <h3>6.2 setInterval</h3>
+    <pre>
+        console.log('%c', 'font-weight: bold;');
+        let counter = 0;
+        const intervalId = setInterval(() => {
+            if(counter <= 2) {
+                console.log('counter is ', counter);
+                counter++;
+            } else {
+                console.log('clearning interval');
+                clearInterval(intervalId);
+            }
+        }, 2000);
+
+        //> counter is  0
+        //> counter is  1
+        //> counter is  2
+    </pre>
+    <h2>7. Generators (iterator, iterable)</h2>
+    <p>Generators generate a sequence of values on a per request basis
+    suspending execution between requests
+    </p>
+    <h3>7.1 generator example</h3>
+    <pre>
+        function* getNames() {
+            yield 'Sally';
+            yield 'Simon';
+            yield 'Larry';
+        }
+
+        const it2 = getNames();
+        for(let names of it2) {
+            console.log(names);
+        }
+        //sally
+        //simon
+        //larry
+    </pre>
+    <h3>7.2. Iterator object</h3>
+    <p>returned by generator, has next method (returns obj w/ value and done)
+    and throw method</p>
+    <pre>
+        const iterator = getNames(); 
+        console.log(iterator.next()); //  {value: "Sally", done: false}
+        console.log(iterator.next().value); //simon
+        console.log(iterator.next().value); //larry
+        console.log(iterator.next().done); //true
+
+        //> {value: "Sally", done: false}
+        //> Simon //> Larry //> true
+
+        console.log(`iterable objects have Symbol.iterator prop 
+            which returns an iterator object`);
+
+        const str = 'ABCDE';
+        const iteratorObject = str[Symbol.iterator]();
+        console.log(iteratorObject.next().value); 
+
+        //> 'A'
+    </pre>
+    <h3>7.3 chaining generators</h3>
+    <pre>
+        function* getAllNames() {
+            yield 'Rani'
+            yield* getNames()
+            yield 'Adam'
+        }
+        for (let names of getAllNames()) {
+            console.log(names);
+        }
+
+        //>> Rani //>> Sally //>> Simon //>> Larry //>> Adam
+    </pre>
+    <h3>7.4 Passing value to generator (next or throw)</h3>
+    <p>Passed values/throw  are the result of the PREVIOUS yield</p>
+    <h4>7.4.1 Passing value via next</h4>
+    <pre>
+              
+        function* passValues() {
+            const greeting = yield 'sal'
+            yield greeting + ' sal'
+        }
+
+        let o = passValues();
+        o.next();
+        //> { value: "sal", done: false }
+        o.next('hi');
+        //> {value: "hi sal", done: false}
+    </pre>
+    <h4>7.4.2 Passing value via throw</h4>
+    <pre>
+        function* pv() {
+            var value;
+            try {
+                yield 'hi'
+            } catch (e) {
+                value = e;
+            }
+            yield `here too ${value}`
+        }
+
+        let ox = pv();
+        ox.next()
+        //>> {value: "hi", done: false}
+        ox.throw('hi')
+        //>> {value: "here too hi", done: false}
+    </pre>  
+    <h2>8. Generator + promise = async/await</h2>
+    <pre>
+        function async(generator) {
+            var it = generator();
+                function handle(itResult) {
+                    if (itResult.done) { return }
+                    const value = itResult.value;
+                    if(value instanceof Promise) {
+                        value.then(res => handle(it.next(res)))
+                        .catch(err => it.throw(err))
+                    }
+                }
+            try {
+                handle(it.next())
+            } catch(err) {
+                //can be a regular catch as well
+                it.throw(err);
+            }
+        }
+
+        function* gen() {
+            try {
+                let x = yield new Promise(resolve => { console.log('resolving with test'); resolve('test')})
+                let y = yield new Promise(resolve => { console.log('resolving with ', x); resolve(x)}) 
+            } catch (e) {
+            console.log('err occured');
+            }
+        }
+
+        async(gen);
+        //>> resolving with test
+        //>> resolving with  test
+
+    </pre>
+    <h2>9. Async/await</h2>   
+    <p>async returns promise, await waits for promise completion,
+    code executes in sequence, try/catch (with await) for error handling.</br>
+    Currently await within async only
+    </p>
+    <h3>9.1 sample async function</h3>
+    <pre>
+        async function sumAsync(x, y) {
+            let result;
+            try {
+                result = await sumOfTwoPromises(x, y);
+            } catch (err) {
+            result = err;
+            }
+            return result;
+        }
+
+        sumAsync(2,3);
+        //>> 5 or err
+    </pre>
+    <h3>9.2 sequential async tasks execution (default)</h3>
+    <pre>
+        let promiseAfter2 = () => new Promise(resolve => setTimeout(() => resolve('2 second resolved'), 2000));
+        let promiseAfter1 = () => new Promise(resolve => setTimeout(() => resolve('1 second resolved'), 1000));
+
+        const sequentialAsync = async () => {
+            try {
+                let two = await promiseAfter2();
+                console.log(two);
+                let one = await promiseAfter1();
+                console.log(one);
+
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        console.time('asyncSeq');
+        async () => await sequentialAsync (); 
+        console.timeEnd('asyncSeq');
+
+        //>> 2 second resolved
+        //>> 1 second resolved
+        //>> asyncSeq: 3004.494140625ms
+    </pre>
+    <h3>9.3 parallel async task execution</h3>
+    <h4>9.3.1 promise.all</h4>
+    <pre>
+        const concurrentAsync = async () => {
+            const [two, one] = await Promise.all([promiseAfter2(), promiseAfter1()]);
+                console.log(two);
+            console.log(one);
+        }
+
+        console.time('asyncCon1');
+        //currently await can only be used within async
+        (async () => await concurrentAsync())(); 
+        console.timeEnd('asyncCon1');
+
+        //>> 2 second resolved
+        //>> 1 second resolved
+        //>> asyncCon1: 2005.942626953125ms
+    </pre>
+    <h4>9.3.2 define/await</h4>
+    <pre>
+        const concurrentAsync2 = async () => {
+            try {
+                let two = promiseAfter2();
+                let one = promiseAfter1();
+                console.log(await two);
+                console.log(await one);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        console.time('asyncCon2');
+        (async () => await concurrentAsync2())();
+        console.timeEnd('asyncCon2');
+
+        //>> 2 second resolved
+        //>> 1 second resolved
+        //>> asyncCon2: 2000.554931640625ms
+    </pre>  
+
+    <script>
+      console.log('Async excution basics: creating, consuming, error-handling, chaing');
+      console.log('%c1. Callbacks', 'font-weight: bold; color: blue');
+      console.log('%c1.1 creating callback function', 'font-weight: bold;');
+      
+      function callbackSum(a, b, callback) {
+	      const c = a + b;
+	      let coinflip = Math.round(Math.random());
+	      if (coinflip) {
+		      const error = new Error('Error while calculating sum');
+		      callback(error, null)
+        } else {
+		      callback(null, c);
+        }
+      }
+
+      console.log('%c1.2 consuming callback function w/ error handling', 'font-weight: bold;');
+
+      callbackSum(4, 5, (err, sum) => {
+	      if (err) {
+		      console.log(`error received:, ${err.message}`);
+        } else {
+		      console.log(`sum is ${sum}`);
+        }
+      });
+
+      //>> sum is 9 or err
+
+      function multiply(x, callback) { callback(x*x) };
+
+      console.log('%c1.3 chaining callback function', 'font-weight: bold;');
+
+      callbackSum(4,5, (err, sum) => {
+          if (err) {
+            console.log(`error received:, ${err.message}`);
+          } else {
+              multiply(sum, function(result) {
+                console.log('result is ', result);
+              });
+          }
+      })
+
+      //>> result is 81 or err received
+    
+      console.log('%c2. Promises', 'font-weight: bold; color: blue');
+      console.log(`Promise is an object which represents eventual completion of an asynchronous
+        operation, and its value`);
+      console.log(`Signature new Promise (executor) or new Promise(() => (resolve, reject) {})`);
+      console.log(`Prmoise has a 'then' prop for chaining. Promise methods return a promise (resolve, reject, then, catch etc)`);
+      
+      console.log('%c2.1.1: Promise example (resolve only)', 'font-weight: bold;');
+      const promise1 = new Promise((resolve, reject) => {
+        setTimeout(() => resolve('foo'), 300);
+      });
+      promise1.then(res => console.log(res));
+      //>> foo
+
+      console.log('%c2.1.2: Proimse example (resolve, reject)', 'font-weight: bold;');
+      const sumOfTwoPromises = (x, y) => {
+        return new Promise((resolve, reject) => {
+          const coinFlip = Math.round(Math.random());
+          if (coinFlip) {
+            reject(new Error('cannot compute sum'))
+          } else {
+            resolve(x + y);
+          }
+        }) 
+      };
+
+    
+      console.log('%c2.2: Calling promises: .then(successCb, failureCb) or .catch(err)', 'font-weight: bold;');
+      
+      sumOfTwoPromises(2, 3).then(res => console.log(res), err => console.log(err));
+      //or
+      sumOfTwoPromises(2,3).then(res => console.log(res))
+        .catch(err => console.log(err));
+
+      //> 5 or err
+
+      
+      console.log('%c2.3: Chaining promises ().then)', 'font-weight: bold;');
+
+      const multiplyByTwo = (x) => {
+	      return new Promise((resolve, reject) => {
+		      resolve(x*x);
+        });
+      };
+      
+      sumOfTwoPromises(2,3)
+        .then(res => multiplyByTwo(res))
+        .then(res2 => console.log(res2))
+        .catch(err => console.log(err));
+
+      //> 25 or err
+
+     console.log('%c2.4: Promise properties', 'font-weight: bold;');
+     console.log(`Promise constructor methods like Promise.all, Promise.race can be useful
+     for processing multiple promises.
+     A promise can only succeed or fail once. It cannot succeed or fail twice, neither can it switch from success to failure or vice versa.
+     If a promise has succeeded or failed and you later add a success/failure callback, the correct callback will be called, even though the event took place earlier.
+     Callbacks will never be called before the completion of the current run of the JavaScript event loop.`);
+
+
+      console.log('%c3. Events using event emitters', 'font-weight: bold; color: blue');
+
+        //when javascript runtime error occurs, an ErrorEvent is fired at the window object 
+        //It can be caught by the widnow.onerror => (message, source, lineno, colno, error )
+        console.log('%c3.1: Event emitter example/consuming', 'font-weight: bold;');
+        const btn = document.getElementById('btn');
+        btn.onclick = function(event) {
+        const coinFlip = Math.round(Math.random());
+          if (coinFlip) {
+            throw new Error('error occured while processing button click');
+          } else {
+              console.log('button clicked with event ', event);
+          }
+        }
+        //> Button cliced with event { Event...} or err
+
+        console.log('%c3.2.1: Event emitter error handling (window)', 'font-weight: bold;');
+        console.log(`when runtime error occurs, an errorEvent is fired at window objects.
+        Can be caught using window.onerror on 'error' event handler (funcion sig varies`);
+
+        window.onerror = function(message, source, lineno, colno, error) { console.log(`message is 
+        ${message} source is ${source} lineno is ${lineno} colno is ${colno} error is ${error}`)
+        //stops propagation
+        return true; }
+
+        //> message is..
+
+        //or (they have different signatures due to historical reasons)
+        window.addEventListener('error', (event) => {
+            console.log('via add event listener', event);
+        });
+
+        //> via add event listener { Event ...}
+
+        console.log('%c3.2.2: Event emitter error handling (element)', 'font-weight: bold;');
+        console.log(`when a resource fails to load eg, img or script an ErrorEvent is fired at the element`);
+        
+        const image = document.getElementById('image');
+        image.onerror = function(event) {
+            console.log('img error event is ', event);
+            this.onerror = null;
+            this.src = 'https://source.unsplash.com/random/200x200'
+        }
+
+        //> img error event is { Event... }
+        
+        console.log('%c3.3: Other examples include XMLHttpRequest, node event emitters etc', 'font-weight: bold;');
+
+		console.log('%c4. Converting old callbacks to promises', 'font-weight: bold; color: blue');
+		function promisify(fn) {
+        	return function(...args) {
+	        	return new Promise((resolve, reject) => {
+		        	fn.apply(null, [...args, function(err, res) {
+						if(err) {
+							reject(err);
+        				} else {
+							resolve(res);
+        				}
+    				}])
+				});
+			}
+		};
+
+		const promisifiedSum = promisify(callbackSum);
+		promisifiedSum(2,3)
+			.then(res => console.log(res))
+			.catch(err => console.log('error recieved ', err.message));
+
+        //>> 5 or 'error received'
+
+        console.log('%c5. Converting promises into node sytle callbacks', 'font-weight: bold; color: blue');
+
+        function nodify(fn) {
+	        return function(...args) {
+		        const cb = args[args.length - 1];
+		        fn(...args).then(res => cb(null, res))
+			    .catch(err => cb(err, null));
+            }
+        }
+
+        let sumCb = nodify(sumOfTwoPromises);
+        sumCb(2,3, (err, res) => err ? console.log('err is ', err) : console.log('res is ', res));  
+        //>> 5   or //err
+
+
+        console.log('%c6. Timers', 'font-weight: bold; color: blue');
+	    console.log('no errors mostly since its a brower timer api')
+		
+        console.log('%c6.1 setTimeout', 'font-weight: bold;');
+		const timeoutId = setTimeout((param) => console.log('timeout function called with ', param), 2000, 'test');
+		//> timeout function called with  test
+
+        console.log('%c6.2 setInterval', 'font-weight: bold;');
+		let counter = 0;
+		const intervalId = setInterval(() => {
+		    if(counter <= 2) {
+				console.log('counter is ', counter);
+				counter++;
+    		} else {
+				console.log('clearning interval');
+				clearInterval(intervalId);
+    		}
+		}, 2000);
+
+		//> counter is  0
+ 		//> counter is  1
+		//> counter is  2
+
+    
+        console.log('%c7. Generators (iterator, iterable)', 'font-weight: bold; color: blue');
+		console.log(`Generators generate a sequence of values on a per request basis
+		suspending execution between requests`);
+
+            console.log('%c7.1. generator example', 'font-weight: bold;');
+            function* getNames() {
+                yield 'Sally';
+                yield 'Simon';
+                yield 'Larry';
+            }
+
+            const it2 = getNames();
+            for(let names of it2) {
+                console.log(names);
+            }
+            //sally
+            //simon
+            //larry
+
+            console.log('%c7.2. Iterator object', 'font-weight: bold;');
+            console.log(`returned by generator, has next method (returns obj w/ value and done)
+             and throw method`);
+
+            const iterator = getNames(); 
+            console.log(iterator.next()); //  {value: "Sally", done: false}
+            console.log(iterator.next().value); //simon
+            console.log(iterator.next().value); //larry
+            console.log(iterator.next().done); //true
+
+            //> {value: "Sally", done: false}
+            //> Simon //> Larry //> true
+    
+            console.log(`iterable objects have Symbol.iterator prop 
+                which returns an iterator object`);
+
+            const str = 'ABCDE';
+            const iteratorObject = str[Symbol.iterator]();
+            console.log(iteratorObject.next().value); 
+
+            //> 'A'
+
+            console.log('%c7.3 chaining generators', 'font-weight: bold;');
+
+            function* getAllNames() {
+                yield 'Rani'
+                yield* getNames()
+                yield 'Adam'
+            }
+            for (let names of getAllNames()) {
+	            console.log(names);
+            }
+
+            //>> Rani //>> Sally //>> Simon //>> Larry //>> Adam
+
+            console.log('%c7.4 Passing value to generator (next or throw)', 'font-weight: bold');
+            console.log('Passed values/throw  are the result of the PREVIOUS yield');
+            console.log('%c7.4.1 Passing value via next', 'font-weight: bold;');
+            
+            function* passValues() {
+	            const greeting = yield 'sal'
+	            yield greeting + ' sal'
+            }
+
+            let o = passValues();
+            o.next();
+            //> { value: "sal", done: false }
+            o.next('hi');
+            //> {value: "hi sal", done: false}
+
+
+            console.log('%c7.4.2 Passing value via throw', 'font-weight: bold;');
+
+            function* pv() {
+	            var value;
+	            try {
+		            yield 'hi'
+                } catch (e) {
+		            value = e;
+                }
+		        yield `here too ${value}`
+            }
+
+            let ox = pv();
+            ox.next()
+            //>> {value: "hi", done: false}
+            ox.throw('hi')
+            //>> {value: "here too hi", done: false}
+
+            console.log('%c8. Generator + promise = async/await', 'font-weight: bold; color: blue');
+     
+            function async(generator) {
+                var it = generator();
+	                function handle(itResult) {
+		                if (itResult.done) { return }
+		                const value = itResult.value;
+		                if(value instanceof Promise) {
+			                value.then(res => handle(it.next(res)))
+			                .catch(err => it.throw(err))
+                        }
+                    }
+		        try {
+		            handle(it.next())
+                } catch(err) {
+                    //can be a regular catch as well
+		            it.throw(err);
+                }
+            }
+
+            function* gen() {
+                try {
+	                let x = yield new Promise(resolve => { console.log('resolving with test'); resolve('test')})
+	                let y = yield new Promise(resolve => { console.log('resolving with ', x); resolve(x)}) 
+                } catch (e) {
+	            console.log('err occured');
+                }
+            }
+
+            async(gen);
+            //>> resolving with test
+            //>> resolving with  test
+
+            console.log('%c9. Async/await', 'font-weight: bold; color: blue');
+            console.log(`async returns promise, await waits for promise completion,
+                        code executes in sequence, try/catch (with await) for error handling`);
+
+            console.log('%c9.1 sample async function', 'font-weight: bold;');
+            async function sumAsync(x, y) {
+	            let result;
+	            try {
+		            result = await sumOfTwoPromises(x, y);
+                } catch (err) {
+		        result = err;
+                }
+	            return result;
+            }
+
+            sumAsync(2,3);
+            //>> 5 or err
+
+            console.log('%c9.2 sequential async tasks execution (default)', 'font-weight: bold;');
+            let promiseAfter2 = () => new Promise(resolve => setTimeout(() => resolve('2 second resolved'), 2000));
+            let promiseAfter1 = () => new Promise(resolve => setTimeout(() => resolve('1 second resolved'), 1000));
+
+            const sequentialAsync = async () => {
+	            try {
+		            let two = await promiseAfter2();
+		            console.log(two);
+		            let one = await promiseAfter1();
+		            console.log(one);
+
+                } catch (err) {
+		            console.log(err);
+                }
+            }
+            console.time('asyncSeq');
+            async () => await sequentialAsync (); 
+            console.timeEnd('asyncSeq');
+
+            //>> 2 second resolved
+            //>> 1 second resolved
+            //>> asyncSeq: 3004.494140625ms
+
+            console.log('%c9.3.1 parallel async tasks execution (promise.all)', 'font-weight: bold;');
+            const concurrentAsync = async () => {
+	            const [two, one] = await Promise.all([promiseAfter2(), promiseAfter1()]);
+  				console.log(two);
+				console.log(one);
+            }
+
+            console.time('asyncCon1');
+            //currently await can only be used within async
+            (async () => await concurrentAsync())(); 
+            console.timeEnd('asyncCon1');
+
+            //>> 2 second resolved
+            //>> 1 second resolved
+            //>> asyncCon1: 2005.942626953125ms
+
+            console.log('%c9.3.2 prallel async tasks execution (define/await)', 'font-weight: bold;');
+            const concurrentAsync2 = async () => {
+                try {
+                    let two = promiseAfter2();
+                    let one = promiseAfter1();
+                    console.log(await two);
+                    console.log(await one);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            
+	        console.time('asyncCon2');
+            (async () => await concurrentAsync2())();
+            console.timeEnd('asyncCon2');
+
+            //>> 2 second resolved
+            //>> 1 second resolved
+            //>> asyncCon2: 2000.554931640625ms
+   
+    </script>
+
+  </body>
+</html>
