@@ -1,30 +1,384 @@
 <html>
   <head>
     <title>Modules</title>
+    <style>
+        .blue {
+            color: blue;
+            font-size: 14px;
+        }
+        .jbutton {
+            color: green;
+        }
+    </style>
   </head>
   <body>
+    <button id='mybutton' class='blue'>Mod pattern</button>
+    <button id='jbutton' class = 'blue jbutton'>J Button</button>
+    <h1>Modules</h1>(to run use 'serve' module)
+    <p>
+        Modules are units of oranizing code that belong together. They expose an interface for usage and hide internals therey avoiding
+        global namespace polution 
+    </p>
+    <h2>1. Module pattern (function, closure and objects)</h2>
+    <h3>1.1: Overview, advantags, disadvantages</h3>
+    <p><ol>
+        <li>From a function module, return an object which represents
+        the public interface</li>
+        <li>Its methods will keep the internal module variables
+        alive through closures after module function finishes execution</li>
+        <li>Drawbacks include inability to share internal variables between module
+        extensions and lack of inbuilt dependency management</li>
+        </ol>
+    </p>
+    <h3>1.2.1: Simple example (function/closure)</h3>
+    <pre>
+        let nextCounter = (function() {
+            let count = 1;
+            return function () {
+                return count++;
+            }
+        })();
+        console.log(nextCounter());
+        console.log(nextCounter());
+        //>1 //>2
+    </pre>
+    <h3>1.2.2 Module pattern example</h3>
+    <pre>
+        const decoratorModule = (function () {
+            let noOfClicks = 0;	
+            let countClicks = function (element) {
+                element.addEventListener('click', function() {
+                    noOfClicks++
+                    console.log(noOfClicks);
+                })
+            };                          
+                                    
+            let toggleText = function (element) {
+                element.addEventListener('click', function() {
+                    if (noOfClicks % 2 === 0) {
+                        this.innerText = 'module pattern';
+                    } else {
+                        this.innerText = 'mod pattern';
+                    }
+                });
+            }
+            return { toggleText,
+                        countClicks };
+        })();
+
+        btn = document.getElementById('mybutton');
+        decoratorModule.countClicks(btn);
+        decoratorModule.toggleText(btn);
+    </pre>
+    <h2>2. AMD(Asynchronous Module Definition)</h2>
+    <h3>2.1: Overview, advantages, disadvantages</h3>
+    <p>
+        Provides a function which takes moduleId (optional), dependencies, 
+        and an initialization function
+        Advantages include:
+        <ol>
+        <li>automatic resolution of dependencies</li>
+        <li>async loading</li>
+        <li>defining multiple modules in one file (via moduleIds)</li>
+        </ol>
+    </p>
+    <h3>2.2: Example</h3>
+    <pre>
+        &lt;script data-main="amd/main" src="amd/require.js"&gt;&lt;/script&gt;
+        //>> Loaded via AMD: name is  max
+        //>> J Button
+
+        //main.js
+        require(['user', 'jquery'], function(u, $){
+            console.log('AMD example: name is ', u.name);
+            console.log($("#jbutton").text());
+        });
+
+        //user.js
+        define('',[], function () {
+            return { name: 'max' }
+        });
+
+        //jquery.js
+        ...
+    </pre>
+    <h2>3. CommonJS</h2>
+    <h3>3.1: Overview, advantags, disadvantages</h3>
+    <p>
+        <ol>
+        <li>File based modules, one module per file</li>
+        <li>Each module has a module.exports property which is exposed as modules public interface</li>
+        <li>File is synchronously loaded, popular on server because file read is quick (NodeJS). To use 'require' file</li>
+        </ol>
+    </p>
+    <h3>3.2: Example</h3>
+    <pre>
+        &lt;script src="commonjs/browserifyTwice.js"&gt;&lt;/script&gt;
+        //>> CommonJS Example: Using twice function: 10
+
+        //twice.js
+        let x = 2;
+        module.exports = (val) => val * x;
+        //exports is just a pointer to module.exports
+
+        //main.js
+        const twice = require('./twice');
+        console.log('CommonJS Example: Using twice function ', twice(5));
+        //browserify main.js to include it in script tag
+    </pre>
+    <h3>Require implementation</h3>
+    <pre>
+        function implementRequire(name) {
+            if (name in implementRequire.cache) {
+                return implementRequire.cache[name];
+            }
+            //ideally readFile will read from server, hardcoding because of browser env
+            //const code = new Function('exports, module', readFile(name));
+            const code = new Function('exports, module', `let x = 3;
+            module.exports = (val) => val * x;`);
+            const exports = {}, module = { exports: exports};
+            code(exports, module);
+            implementRequire.cache[name] = module.exports;
+            return module.exports;
+        }
+        implementRequire.cache = Object.create(null);
+        const thrice = implementRequire('./commonjs/thrice');
+        console.log('self require: ', thrice(3));
+        //>> self require: 9
+    </pre>
+    <h2>4. ES6 modules</h2>
+    <h3>4.1: Overview, advantags, disadvantages</h3>
+    <p>
+        ES6 modues are:
+        <ol>
+        <li>file based (one module per file)</li>
+        <li>support asynchronous loading</li>
+        <li>only identifiers explicitly exported using export keyword are aviable outside of module</li>
+        </ol>
+    </p>
+    <h3>4.2: Example</h3>
+    <pre>
+        //greet.js
+        //Individual export
+        const ninja = 'yoshi';
+        export const message = 'hello';
+
+        export function sayHi() {
+            return message + ' ' + ninja;
+        }
+
+        //Grouped export
+        const samurai = 'maxy';
+        const swingIt = function() {
+            return 'swing it ' + samurai;
+        }
+
+        export { swingIt, samurai };
+
+        //Named export
+        const personName = 'joshua';
+        export { personName as pii };
+
+        //Default export
+        export default function heyAll() {
+            return `${ninja} and ${samurai} say hello`;
+        }
+        
+        &lt;script type='module'&gt;
+            //modules imported within `type=module` are private to the module
+            //Grouped or individual import
+            import { message, sayHi } from './es6modules/greet.js';
+            console.log(`Regular import: ${message} ${sayHi()}`);
+            //Default import
+            import hey from './es6modules/greet.js';
+            console.log(`Default import: ${hey()}`);
+            //Renamed import
+            import { pii as name} from './es6modules/greet.js';
+            console.log(`Renamed import: ${name}`);
+            //all import
+            import * as greet from './es6modules/greet.js';
+            console.log(`All import: ${greet.message}`); 
+        &lt;/script&gt;
+
+        //>> Regular import: hello hello yoshi
+        //>> Default import: yoshi and maxy say hello
+        //>> Renamed import: joshua
+        //>> All import: hello
+    </pre>
+    <h3>4.3: Different ways of export/import</h3>
+    <p>
+        Different ways of export 
+        <ol>
+            <li>Regular export: export const message</li>
+            <li>Grouped export: export { message, sayHi}</li>
+            <li>Default export: export default message</li>
+            <li>Renamed export: export { message as somethingNew }</li>
+        </ol>
+        Different ways of import
+        <ol>
+            <li>Regular/grouped import: import { message } from './myMod.js'</li>
+            <li>Default import: import anyName from './myMod.js'</li>
+            <li>Renamed import: import { message as abc } from './myMod.js'</li>
+            <li>All import: import { * as myMod } from './myMod.js'</li>
+        </ol>
+    </p>
     <script>
-        console.log(`Modules are units of oranizing code that belong together. They expose an interface for usage and hide internals therey avoiding' +
-        global namespace poolution`);
-        console.log('%c1. Module pattern (function, closure and objects', 'font-weight: bold; color: blue');
+        console.log(`Modules are units of oranizing code that belong together. They expose an interface for usage and hide internals therey avoiding
+        global namespace polution`);
+        console.log('%c1. Module pattern (function, closure and objects)', 'font-weight: bold; color: blue;');
         console.log('%c1.1 Overview, advantags, disadvantages', 'font-weight: bold;');
-        console.log('%c1.2 Example', 'font-weight: bold;');
+        console.log(`From a function module, return an object which represents
+        the public interface. Its methods will keep the internal module variables
+        alive through closures after module function finishes execution.
+        Drawbacks include inability to share internal variables between module
+        extensions and lack of inbuilt dependency management`);
+        console.log('%c1.2.1 Simple example (function/closure)', 'font-weight: bold;');
+        let nextCounter = (function() {
+	        let count = 1;
+	        return function () {
+		        return count++;
+            }
+        })();
+        console.log(nextCounter());
+        console.log(nextCounter());
+        //>1 //>2
+        console.log('%c1.2.2 Module pattern example', 'font-weight: bold;');
+        console.log(`First button clicks and text`);
+        const decoratorModule = (function () {
+            let noOfClicks = 0;	
+			let countClicks = function (element) {
+				element.addEventListener('click', function() {
+                    noOfClicks++
+					console.log(noOfClicks);
+                })
+            };                          
+                                    
+            let toggleText = function (element) {
+                element.addEventListener('click', function() {
+                    if (noOfClicks % 2 === 0) {
+                        this.innerText = 'module pattern';
+                    } else {
+                        this.innerText = 'mod pattern';
+                    }
+                });
+            }
+			return { toggleText,
+					 countClicks };
+        })();
+
+        btn = document.getElementById('mybutton');
+        decoratorModule.countClicks(btn);
+        decoratorModule.toggleText(btn);
+
+
         console.log('%c1.3 Extending module pattern', 'font-weight: bold;');
-        console.log('%c2. AMD (Asynchronous Module Definition', 'font-weight: bold;');
+        console.log(`First button text color`);
+        (function (module) {
+	        //can't share private variables
+	        let noOfClicks = 0;
+	        function changeFontColor(element) {
+	        	element.addEventListener('click', function() {
+			        if (noOfClicks % 2 === 0) {
+				        this.style.color = 'brown';
+        	        }  else {
+				        this.style.color = 'blue';
+        	        }
+			        noOfClicks++;
+                })
+            }
+	        module.changeFontColor = changeFontColor;
+        })(decoratorModule);
+       
+        decoratorModule.changeFontColor(btn);
+        //>> Toggle button to see results
+
+
+        console.log('%c2. AMD (Asynchronous Module Definition)', 'font-weight: bold; color: blue;');
         console.log('%c2.1 Overview, advantags, disadvantages', 'font-weight: bold;');
-        console.log('%c2.2 Example', 'font-weight: bold;');
-        console.log('%c3. CommonJS', 'font-weight: bold;');
+        console.log(`Provides a function which takes moduleId (optional), dependencies, and an initialization function
+        define('person',[jquery], function ($) {
+            let text = $('#persondiv').text()
+            return { name: 'max', value: text }
+        });`)
+
+        console.log(`Advantages include 
+        1. automatic resolution of dependencies
+        2. async loading
+        3. defining multiple modules in one file (via moduleIds)`);
+
+        console.log('%c2.2 Example', 'font-weight: bold;');  
+        console.log('example printed in console (async)')
+    </script>
+    <!--AMD module example-->
+    <script data-main="amd/main" src="amd/require.js"></script>
+    <script>
+        //>> Loaded via AMD: name is  max
+        //>> J Button
+        console.log('%c3. CommonJS', 'font-weight: bold; color: blue;');
         console.log('%c3.1 Overview, advantags, disadvantages', 'font-weight: bold;');
-        console.log('%c3.2 Example', 'font-weight: bold;');
-        console.log('%c3.3 Implementing exports function', 'font-weight: bold;');
-        console.log('%c3.4 Browserify commonJS module', 'font-weight: bold;');
-        console.log('%c4. ES6 modules', 'font-weight: bold;');
+        console.log(`File based modules, one module per file
+        Each module has a module.exports property which is exposed as modules public interface
+        File is synchronously loaded, popular on server because file read is quick (NodeJS)
+        To use require file`);
+        console.log('%c3.2 Example', 'font-weight: bold;');</script>
+        <!--CommonJS module example (sync)-->
+        <script src="commonjs/browserifyTwice.js"></script>
+        <script>
+        console.log('%c3.3 Implementing require function (commonjs)', 'font-weight: bold;');
+        function implementRequire(name) {
+            if (name in implementRequire.cache) {
+                return implementRequire.cache[name];
+            }
+            //ideally readFile will read from server, hardcoding because of browser env
+            //const code = new Function('exports, module', readFile(name));
+            const code = new Function('exports, module', `let x = 3;
+            module.exports = (val) => val * x;`);
+            const exports = {}, module = { exports: exports};
+            code(exports, module);
+            implementRequire.cache[name] = module.exports;
+            return module.exports;
+        }
+        implementRequire.cache = Object.create(null);
+        const thrice = implementRequire('./commonjs/thrice');
+        console.log('self require: ', thrice(3));
+        //>> self require: 9
+        console.log('%c4. ES6 modules', 'font-weight: bold; color: blue;');
         console.log('%c4.1 Overview, advantags, disadvantages', 'font-weight: bold;');
+        console.log(`ES6 modues are 
+        1. file based (one module per file) 
+        2. support asynchronous loading
+        3. only identifiers explicitly exported using export keyword are aviable outside of module`);
         console.log('%c4.2 Example', 'font-weight: bold;');
+        console.log('example printed in console (async)');
+    </script>
+    <!--ES6 module example-->
+    <script type='module'>
+            //modules imported within `type=module` are private to the module
+            //Grouped or individual import
+            import { message, sayHi } from './es6modules/greet.js';
+            console.log(`Regular import: ${message} ${sayHi()}`);
+            //Default import
+            import hey from './es6modules/greet.js';
+            console.log(`Default import: ${hey()}`);
+            //Renamed import
+            import { pii as name} from './es6modules/greet.js';
+            console.log(`Renamed import: ${name}`);
+            //all import
+            import * as greet from './es6modules/greet.js';
+            console.log(`All import: ${greet.message}`); 
+    </script>
+    <script>
         console.log('%c4.3 Different ways of export/import', 'font-weight: bold;');
-        console.log('%c4.3.1 Named exports and imports (individual, group, all)', 'font-weight: bold;');
-        console.log('%c4.3.2 Default export and import', 'font-weight: bold;');
-        console.log('%c4.3.3 Renaming export and import', 'font-weight: bold;');
+        console.log(`Different ways of export 
+            1. Regular export: export const message
+            2. Grouped export: export { message, sayHi}
+            3. Default export: export default message
+            4. Renamed export: export { message as somethingNew }
+        Different ways of import
+            1. Regular/grouped import: import { message } from './myMod.js'
+            2. Default import: import anyName from './myMod.js'
+            3. Renamed import: import { message as abc } from './myMod.js'
+            4. All import: import { * as myMod } from './myMod.js'`);
     </script>
   </body>
 </html>
