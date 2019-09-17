@@ -1,0 +1,240 @@
+<html>
+  <head>
+    <title>JS functions</title>
+  </head>
+  <body>
+    <h2>Event loop</h2>
+    <table><caption>Sync table</caption><tbody id='tbodySync'></tbody></table>
+    <table>Async table w/ timeout<tbody id='tbodyAsync'></tbody></table>
+    <h2>1 Javascript engine/runtime architecture</h2>
+    <h3>1.1 Browser event loop</h3>
+    <img src='eventloop/js_eventloop.png' height='700' width='700'>
+    <h3>1.2 NodeJS event loop</h3>
+    <img src='eventloop/node_eventloop.png' height='700' width='700'>
+    <h2>2 Macro and micro task examples</h2>
+    <h3>2.1 Macro task examples</h3>
+    <ol>
+        <li>setTimeout</li>
+        <li>setInterval</li>
+        <li>events</li>
+        <li>network calls</li>
+        <li>mainline JS</li>
+    </ol>
+    <pre>
+        setTimeout(() => console.log('response form setTimeout task'), 0);
+        let x = 1;
+        const intervalId = setInterval(() => { 
+            console.log('logging from setInterval');
+            x++;
+            if (x > 2) {
+                clearInterval(intervalId);
+            }
+        }, 0);
+        //response form setTimeout task
+        //logging from setInterval
+        //logging from setInterval
+    </pre>
+    <h3>2.2 Micro task examples</h3>
+    <ol>
+        <li>promise callbacks</li>
+        <li>DOM mutation observers</li>
+    </ol>
+    <pre>
+        Promise.resolve().then(() => console.log('returning from promise'));
+        //returning from promise
+    </pre>
+    <h3>2.3 NodeJS task examples</h3>
+    Additional tasks in NodeJS
+    <ol>
+        <li>process.nextTick (microtask, separate queue)</li>
+        <li>setImmediate</li>
+        <li>FileIO operations</li>
+    </ol>
+    <pre>
+        const fs = require('fs');
+        fs.readFile(__filename, () => {
+            setTimeout(() => {
+            console.log('timeout');
+            //microtasks (promise, nextTick)
+            Promise.resolve().then(() => console.log('promTime1'));
+            Promise.resolve().then(() => console.log('promTime2'));
+            Promise.resolve().then(() => console.log('promTime3'));
+            process.nextTick(() => console.log('tick 1'));
+            process.nextTick(() => console.log('tick 2'));
+            process.nextTick(() => console.log('tick 3'));
+            }, 0);
+            setImmediate(() => {
+            Promise.resolve().then(() => console.log('prom1'));
+            Promise.resolve().then(() => console.log('prom2'));
+            Promise.resolve().then(() => console.log('prom3'));
+            console.log('immediate');
+            });
+            
+            setImmediate(() => {
+            console.log('immediate2');
+            });
+            setImmediate(() => {
+            console.log('immediate3');
+            });
+            setTimeout(() => {
+            console.log('timeout1');
+            }, 0);
+            setImmediate(() => {
+            console.log('immediate4');
+            });
+        });
+        Output:
+        immediate
+        immediate2
+        immediate3
+        immediate4
+        prom1
+        prom2
+        prom3
+        timeout
+        timeout1
+        tick 1
+        tick 2
+        tick 3
+        promTime1
+        promTime2
+        promTime3
+    </pre>
+    <h2>3 Breaking long running tasks using timers</h2>
+    <h3>3.1 Browser</h3>
+    <h4>3.1.1 Sync table</h4>
+    <pre>
+        const tbodySync = document.querySelector('#tbodySync');
+        for (let i=0; i&lt;2; i++) {
+            const tr = document.createElement('tr');
+            for (let t=0; t&lt;2; t++) {
+                const td = document.createElement('td');
+                td.appendChild(document.createTextNode(`${i}-${t}`));
+                tr.appendChild(td);
+            }
+            tbodySync.appendChild(tr);
+        }
+    </pre>
+    <h4>3.1.2 Async table</h4>
+    <pre>
+        const tbodyAsync = document.querySelector('#tbodyAsync');
+        const rowCount = 2;
+        const divideInto = 2;
+        const chunkSize = rowCount / divideInto;
+        let iteration = 0;
+        setTimeout(function generateRows() {
+            const base = chunkSize * iteration;
+            for (let i = 0; i &lt; chunkSize; i++) {
+                const tr = document.createElement('tr');
+                for (let t = 0; t &lt; 2; t++) {
+                    const td = document.createElement('td');
+                    td.appendChild(document.createTextNode((i + base) + '-' + t));
+                    tr.appendChild(td);
+                }
+                tbodyAsync.appendChild(tr);
+            }
+            iteration++;
+            if (iteration &lt; divideInto)
+                setTimeout(generateRows, 0);
+        }, 0);
+    </pre>
+    <h3>3.2 NodeJS</h3>
+    <pre>
+        let foo, bar;
+
+        function someAsyncAPICall(callback) { callback() };
+        someAsyncAPICall(() => console.log('foo', foo));
+        
+        foo = 1;
+        //foo undefined
+        
+        function betterAsyncAPICall(callback) { process.nextTick(callback) };
+        betterAsyncAPICall(() => console.log('bar', bar));
+        
+        bar = 1;
+        //bar 1
+    </pre>
+
+    <script>
+        console.log('%c1. Javascript engine/runtime architecture', 'font-weight: bold; color: blue;');
+        console.log('%c1.1 Browser event loop', 'font-weight: bold;');
+        console.log('Image in browser');
+        console.log('%c1.2 NodeJS event loop', 'font-weight: bold;');
+        console.log('Image in browser');
+        console.log('%c2 Micro and macro task examples', 'font-weight: bold; color: blue;');
+        console.log('%c2.1 Macro tasks', 'font-weight: bold;');
+        console.log(`Examples of macro tasks include:
+            1. setTimeout
+            2. setInterval
+            3. network calls
+            4. mainlineJS
+            5. events`);
+        
+        setTimeout(() => console.log('response form setTimeout task'), 0);
+        let x = 1;
+        const intervalId = setInterval(() => { 
+            console.log('logging from setInterval');
+            x++;
+            if (x > 2) {
+                clearInterval(intervalId);
+            }
+        }, 0);
+
+        //response form setTimeout task
+        //logging from setInterval
+        //logging from setInterval
+        console.log('%c2.2 Micro tasks', 'font-weight: bold;');
+        console.log(`Examples of micro tasks include:
+            1. promise callbacks
+            2. DOM mutation observers`);
+        Promise.resolve().then(() => console.log('returning from promise'));
+        //returning from promise
+
+        console.log('%c2.3 NodeJS task example', 'font-weight: bold;');
+        console.log(`Additional tasks in NodeJS include:
+            1. process.nextTick (microtask), separate queue
+            2. setImmediate 
+            3. fileIO operations`);
+        console.log('Examples in node/timer.js');
+
+        console.log('%c3. Breaking long running tasks (timeout, nextTick)', 'font-weight: bold; color: blue;');
+        console.log('%c3.1 Browser tasks', 'font-weight: bold;');
+        console.log('sync/async table');
+        const tbodySync = document.querySelector('#tbodySync');
+        for (let i=0; i<2; i++) {
+            const tr = document.createElement('tr');
+            for (let t=0; t<2; t++) {
+                const td = document.createElement('td');
+                td.appendChild(document.createTextNode(`${i}-${t}`));
+                tr.appendChild(td);
+            }
+            tbodySync.appendChild(tr);
+        }
+
+        const tbodyAsync = document.querySelector('#tbodyAsync');
+        const rowCount = 2;
+        const divideInto = 2;
+        const chunkSize = rowCount / divideInto;
+        let iteration = 0;
+        setTimeout(function generateRows() {
+            const base = chunkSize * iteration;
+            for (let i = 0; i < chunkSize; i++) {
+                const tr = document.createElement('tr');
+                for (let t = 0; t < 2; t++) {
+                    const td = document.createElement('td');
+                    td.appendChild(document.createTextNode((i + base) + '-' + t));
+                    tr.appendChild(td);
+                }
+                tbodyAsync.appendChild(tr);
+            }
+            iteration++;
+            if (iteration < divideInto)
+                setTimeout(generateRows, 0);
+        }, 0);
+        
+        console.log('%c3.2 NodeJS tasks', 'font-weight: bold;');
+        console.log('Eg: Node nextTick.js');
+
+    </script>
+  </body>
+</html>
