@@ -55,6 +55,9 @@
           document.getElementById('inputbox').remove()
           document.getElementById('demotable').remove();
           //reference still present
+          //remove reference
+          inputBox = null;
+          tablecolumn = null
       </pre>
 
       <h5>Hanging listeners or observers (modern browsers take care of it)</h5>
@@ -165,6 +168,9 @@
       console.log('reference still present');
       console.log(inputBox);
       console.log(tablecolumn); 
+      //remove reference
+      inputBox = null;
+      tablecolumn = null;
     }, 5000);
  
 

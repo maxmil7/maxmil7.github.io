@@ -786,8 +786,10 @@
                 }
             }
             console.time('asyncSeq');
-            async () => await sequentialAsync (); 
-            console.timeEnd('asyncSeq');
+            (async () => {
+                await sequentialAsync ();
+                console.timeEnd('asyncSeq');
+            })();
 
             //>> 2 second resolved
             //>> 1 second resolved
@@ -795,15 +797,17 @@
 
             console.log('%c9.3.1 parallel async tasks execution (promise.all)', 'font-weight: bold;');
             const concurrentAsync = async () => {
-	            const [two, one] = await Promise.all([promiseAfter2(), promiseAfter1()]);
-  				console.log(two);
-				console.log(one);
+              const [two, one] = await Promise.all([promiseAfter2(), promiseAfter1()]);
+              console.log(two);
+              console.log(one);
             }
 
             console.time('asyncCon1');
             //currently await can only be used within async
-            (async () => await concurrentAsync())(); 
-            console.timeEnd('asyncCon1');
+            (async () => {
+                await concurrentAsync();
+                console.timeEnd('asyncCon1');
+            })();
 
             //>> 2 second resolved
             //>> 1 second resolved
@@ -822,8 +826,10 @@
             }
             
 	        console.time('asyncCon2');
-            (async () => await concurrentAsync2())();
-            console.timeEnd('asyncCon2');
+            (async () => {
+                await concurrentAsync2();
+                console.timeEnd('asyncCon2');
+                })();
 
             //>> 2 second resolved
             //>> 1 second resolved
