@@ -71,15 +71,17 @@
         console.log('this is ', this);
         console.log('arguments are ', arguments);
         console.log('changing input value using inline function');
+        console.log('window.eventis current event ', event === window.event);
         document.getElementById('inlineinput').value = 'new inline value';
       }
 
 
       function handleEvent(event) {
-        console.log('%add event handler', 'font-weight: bold');
+        console.log('%cadd event handler', 'font-weight: bold');
         console.log('event is ', event);
         console.log('this is ', this);
         console.log('arguments are ', arguments);
+        console.log('window.eventis current event ', event === window.event);
         console.log('changing input value using addEventListener function');
         this.value = 'new event value';
       }
@@ -91,6 +93,7 @@
         console.log('%celement property handler', 'font-weight: bold');
         console.log('event is ', event);
         console.log('this is ', this);
+        console.log('window.eventis current event ', event === window.event);
         console.log('arguments are ', arguments);
         console.log('changing input value using attach event function');
         this.value = 'new attach value';
