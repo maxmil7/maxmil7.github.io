@@ -3,14 +3,42 @@
     <title>Visual CSS: General</title>
     <link rel='stylesheet' type='text/css' href='external.css' />
     <style>
+      :root {
+        --global-var: blue;
+      }
+      .paragraph {
+        --local-var: green;
+        color: var(--local-var);
+      }
+
+      #global {
+        color: var(--global-var);
+      }
+
 	    #internal {
 	      color: brown;
 	      font-size: 17px;
 	    }
+
 	    pre {
 	      font-size: 18px;
 				white-space: pre-line;
+        /*comment*/
 	    }
+      blockquote {
+        color: blue;
+        all: unset;
+      }
+      #calculated {
+        font-size: 10px + 10px;
+        color: blue;
+      }
+      div {
+        font-size: 40px;
+      }
+      #text {
+        font-size: 0.5em
+      }
     </style>
   </head>
   <body>
@@ -37,17 +65,63 @@
     <h2>4. Assignment patterns</h2>
 		<h3>4.1. Shorthand</h3>
 		<pre>
-			
-		</pre>
-		<h3>4.2. Inherit</h3>
-    <h3>4.3. Calc</h3>
-		<h3>4.4. Computed values</h3>
+      //background
+      background: background-color background-image background-repeat background-positon
+      background: #000 url(images/bg.gif) no-repeat left top;
 
+      //font
+      font: font-style font-weight font-size line-height font-family
+      font: italic bold .8em/1.2 Arial, sans-serif;
+
+      //border
+      border: border-width border-style border-color
+      border: 1px solid #000
+
+      //margin and padding
+      margin: margin-top margin-right margin-bottom margin-left
+      margin: 10px 5px 10px 5px;
+
+      //border-radius
+      //can specify two values vertical and horizontal
+      border-radius: border-top-left-radius border-top-right-radius border-bottom-right-radius border-bottom-left-radius
+      border-radius: 4px 2px 3px 4px
+      border-radius: border-radius: 4px 3px 6px / 2px 4px;
+      //Equivalent to T: 4px 2px R: 3px 4px B: 6px 2px L: 3px 4px
+
+      //all - resets all element properties. Possible values: unset, initial, inherit
+    </pre>
+    <blockquote id="quote">
+      Blockquote styling doesn't apply due to all:unset
+    </blockquote>
+    <h3>4.3. Calc</h3>
+    <p id='calculated'>Font size is caluculated using calc for this element</p>
+    <pre>Add, substract, multiply and divide is supported (except division by px)</pre>
+    <h3>4.4. Computed values</h3>
+    <div><span id='text'>Computed font size</span></div>
+    <pre>div: 40px, #text: 0.5em Computed: 20px
+    window.getComputedSize()</pre>
     <h2>5. Miscellaneous</h2>
 		<h3>5.1. Variables</h3>
+    <pre> Variables are specified by `--` prefix. Eg: --default-color
+    Global in :root or local specific to a parent
+    <p id='global'> Color set using global var </p>
+    <p class=paragraph id='local'> Color set using global var </p>
 		<h3>5.2. Comments</h3>
+    <pre>Wrap comments in /* */</pre>
 		<h3>5.3. Pre-processors</h3>
+    <pre>Pre-processors add new features (eg. looping, conditions etc) not available in CSS
+    Usually a superset of standard CSS features
+    Examples include SASS, LESS</pre>
+    <code>
+      $sizes: 40px, 50px, 80px;
+      @each $size in $sizes {
+        .icon-#{$size} {
+          font-size: $size;
+          height: $size;
+          width: $size;
+        }
+      }
+    </code>
 
 </body>
-
 </html>
