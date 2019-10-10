@@ -3,7 +3,7 @@
     <title>Visual CSS: Pseudo Elements and Pseudo classes</title>
     <style>
     pre {
-        font-size: 18px;
+        font-size: 17px;
         white-space: pre-line;
     }
     #after:after {
@@ -17,7 +17,15 @@
     #first::first-letter {
       font-size: 1.5em;
     }
-
+    #first-line::first-line {
+      color: brown;
+    }
+    #selection::selection {
+      background-color: yellow;
+    }
+    template::slotted {
+      content: 'hello';
+    }
     </style>
   </head>
   <body>
@@ -31,12 +39,27 @@
     <h3>1.3. ::first-letter</h3>
     <p id='first'>Once upon a time</p>
     <h3>1.4. ::first-line</h3>
+    <p id='first-line'>First important line of long paragraph.<br/>
+    There are other lines as well but the styling
+    will apply to first line only.</p>
     <h3>1.5. ::selection</h3>
+    <p id='selection'>Select me to see the highlighting.</p>
     <h3>1.6. ::slotted</h3>
-    <pre>
+    <button id='showTemplate' style='font-size: 14px;'>Show template content</button>
+    <template id='myTemplate'>
+      <p>My hidden template</p>
+      <slot name='mySlot'>My default text</slot></br>
+      <slot name='other'>Styling applied by :slotted pseudo element</slot>
 
-		</pre>
-
-
+    </template>
+    <script>
+      const btn = document.getElementById('showTemplate');
+      btn.onclick = function(event) {
+        const temp = document.getElementsByTagName('template')[0];
+        const clon = temp.content.cloneNode(true);
+        document.body.appendChild(clon);
+    }
+      // console.log(firstLetter.)
+    </script>
 </body>
 </html>
