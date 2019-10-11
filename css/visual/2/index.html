@@ -23,10 +23,23 @@
     #selection::selection {
       background-color: yellow;
     }
-    template::slotted {
-      content: 'hello';
+    ::slotted(*) {
+      color: 'red';
     }
     </style>
+    <script>
+customElements.define('my-paragraph',
+  class extends HTMLElement {
+    constructor() {
+      super();
+      let template = document.getElementById('my-paragraph');
+      let templateContent = template.content;
+
+      const shadowRoot = this.attachShadow({mode: 'open'})
+        .appendChild(templateContent.cloneNode(true));
+  }
+})
+    </script>
   </head>
   <body>
     <h2>1. Pseudo elements</h2>
@@ -52,14 +65,31 @@
       <slot name='other'>Styling applied by :slotted pseudo element</slot>
 
     </template>
+
+    <template id="my-paragraph">
+            <style>
+              p {
+                color: white;
+                background-color: #666;
+                padding: 5px;
+              }
+            </style>
+            <p>My paragraph</p>
+          </template>
+
+      <my-paragraph>yo</my-paragraph>
+
     <script>
-      const btn = document.getElementById('showTemplate');
-      btn.onclick = function(event) {
-        const temp = document.getElementsByTagName('template')[0];
-        const clon = temp.content.cloneNode(true);
-        document.body.appendChild(clon);
-    }
-      // console.log(firstLetter.)
+        // let template = document.getElementById('my-paragraph');
+        // let templateContent = template.content;
+        // document.body.appendChild(templateContent);
+        const btn = document.getElementById('showTemplate');
+        btn.onclick = function(event) {
+            const temp = document.getElementsByTagName('template')[0];
+            const clon = temp.content.cloneNode(true);
+            document.body.appendChild(clon);
+        }
+        // console.log(firstLetter.)
     </script>
 </body>
 </html>
