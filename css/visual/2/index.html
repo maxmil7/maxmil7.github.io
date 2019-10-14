@@ -25,7 +25,7 @@
       }
 
     </style>
-    <!-- <script>
+    <script>
       customElements.define('my-paragraph',
         class extends HTMLElement {
           constructor() {
@@ -40,7 +40,7 @@
     </script>
   </head>
   <body>
-    <h2>1. Pseudo elements</h2>
+    <!-- <h2>1. Pseudo elements</h2>
     <pre>Create new fake elements based on existing elements.
     Start with '::'</pre>
     <h3>1.1. ::after</h3>
@@ -68,8 +68,8 @@
           padding: 5px;
         }
       </style>
-      <!--Slot is identified by name when cloning content-->
-      <!-- <p><slot name="my-text">My paragraph</slot></p>
+      <!-- Slot is identified by name when cloning content
+      <p><slot name="my-text">My paragraph</slot></p>
     </template>
 
     <my-paragraph>
@@ -79,7 +79,7 @@
     <h2>2. Pseudo classes</h2>
     <pre>A pseudo class filters existing elements.
     Start with ':'</pre> -->
-    <style>
+     <style>
       #linkme:link {
         font-family: sans-serif;
       }
@@ -89,29 +89,51 @@
       #hover:hover {
         color: green;
       }
-      #active:active: {
+      #active:active {
         color: pink;
-        background-color: white;
+        background-color: black;
       }
     </style>
-    <h3>2.1. Links</h3>
+    <!-- <h3>2.1. Links</h3>
       <h4>2.1.1. :link  - similar to a[href]</h4>
       <a id='linkme' href='https://www.paypal.com'>:link</a> selects any link on page
+      <a href='https://www.paypal.com'>:link</a> regular link
       <h4>2.1.2. :visited</h4>
       <a id='visit' href='https://www.paypal.com'>:visited</a> selects 'cliked' link
       <h4>2.1.3. :hover</h4>
       <a id='hover' href='https://www.paypal.com'>:hover</a> selects a link on mouse hover
       <h4>2.1.4. :active</h4>
-      <a id='active' href='https://www.paypal.com'>:active</a> selects link being clicked
+      <a id='active' href='https://www.paypal.com'>:active</a> selects link being clicked -->
+    <style>
+      #ifocus:focus {
+        border-color: #ADD8E6;
+        border-width: medium;
+      }
+      #enable:enabled {
+        border-style: dotted;
+      }
+      #disable:disabled {
+        outline: 1px solid red;
+      }
+      #default:default {
+
+      }
+
+    </style>
     <h3>2.2. Element state</h3>
       <h4>2.2.1. :focus</h4>
+      <input id='ifocus' type='text'/><label>&nbsp Selects focused element link, input, textarea</label>
       <h4>2.2.2. :enabled</h4>
+      <input id='enable' type='text'/><label>&nbsp Selects any element which is enabled (can be clicked, focused, typed into)</label>
       <h4>2.2.3. :disabled</h4>
+      <input id='disable' type='radio' disabled/><label>&nbsp Selects disabled enabled (can't be activated or accept focus)</label>
       <h4>2.2.4. :default</h4>
-      <h4>2.2.5. :intermediate</h4>
-      <h4>2.2.6. :required</h4>
-      <h4>2.2.7. :optional</h4>
-      <h4>2.2.8. :read-only</h4>
+      <input id='default' type='checkbox' checked/><label>&nbsp Selects disabled enabled (can't be activated or accept focus)</label>
+      <h4>2.2.5. :checked</h4>
+      <h4>2.2.6. :intermediate</h4>
+      <h4>2.2.7. :required</h4>
+      <h4>2.2.8. :optional</h4>
+      <h4>2.2.9. :read-only</h4>
     <h3>2.3. Element of type</h3>
       <h4>2.3.1. :only-of-type</h4>
       <h4>2.3.2. :first-of-type</h4>
