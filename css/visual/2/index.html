@@ -40,7 +40,7 @@
     </script>
   </head>
   <body>
-    <!-- <h2>1. Pseudo elements</h2>
+    <h2>1. Pseudo elements</h2>
     <pre>Create new fake elements based on existing elements.
     Start with '::'</pre>
     <h3>1.1. ::after</h3>
@@ -68,7 +68,7 @@
           padding: 5px;
         }
       </style>
-      <!-- Slot is identified by name when cloning content
+      <!-- Slot is identified by name when cloning content -->
       <p><slot name="my-text">My paragraph</slot></p>
     </template>
 
@@ -78,8 +78,10 @@
 
     <h2>2. Pseudo classes</h2>
     <pre>A pseudo class filters existing elements.
-    Start with ':'</pre> -->
-     <style>
+    Start with ':'</pre>
+
+    <h3>2.1. Links</h3>
+    <style>
       #linkme:link {
         font-family: sans-serif;
       }
@@ -94,16 +96,19 @@
         background-color: black;
       }
     </style>
-    <!-- <h3>2.1. Links</h3>
-      <h4>2.1.1. :link  - similar to a[href]</h4>
-      <a id='linkme' href='https://www.paypal.com'>:link</a> selects any link on page
-      <a href='https://www.paypal.com'>:link</a> regular link
-      <h4>2.1.2. :visited</h4>
-      <a id='visit' href='https://www.paypal.com'>:visited</a> selects 'cliked' link
-      <h4>2.1.3. :hover</h4>
-      <a id='hover' href='https://www.paypal.com'>:hover</a> selects a link on mouse hover
-      <h4>2.1.4. :active</h4>
-      <a id='active' href='https://www.paypal.com'>:active</a> selects link being clicked -->
+
+    <h4>2.1.1. :link  - similar to a[href]</h4>
+    <a id='linkme' href='https://www.paypal.com'>:link</a> selects any link on page
+    <a href='https://www.paypal.com'>:link</a> regular link
+    <h4>2.1.2. :visited</h4>
+    <a id='visit' href='https://www.paypal.com'>:visited</a> selects 'cliked' link
+    <h4>2.1.3. :hover</h4>
+    <a id='hover' href='https://www.paypal.com'>:hover</a> selects a link on mouse hover
+    <h4>2.1.4. :active</h4>
+    <a id='active' href='https://www.paypal.com'>:active</a> selects link being clicked
+
+
+    <h3>2.2. Element state</h3>
     <style>
       #ifocus:focus {
         border-color: #ADD8E6;
@@ -143,36 +148,37 @@
         color: gray;
         font-size: 12px;
       }
-
     </style>
-    <!-- <h3>2.2. Element state</h3>
-      <h4>2.2.1. :focus</h4>
-      <input id='ifocus' type='text'/><label>&nbsp; Selects focused element link, input, textarea</label>
-      <h4>2.2.2. :enabled</h4>
-      <input id='enable' type='text'/><label>&nbsp; Selects any element which is enabled (can be clicked, focused, typed into)</label>
-      <h4>2.2.3. :disabled</h4>
-      <input id='disable' type='radio' disabled/><label>&nbsp; Selects disabled element (can't be activated or accept focus)</label>
-      <h4>2.2.4. :default</h4>
-        <fieldset id='field'>
-          <legend>Favorite season</legend>
-          <input type="radio" name="season" id="spring">
-          <label for="spring">Spring</label>
-          <input type="radio" name="season" id="summer" checked>
-          <label for="summer">Summer</label>
-        </fieldset>
-      <h4>2.2.5. :checked</h4>
-        <input id='check' type='checkbox' checked/><label>&nbsp; Selects checked element</label>
-      <h4>2.2.6. :indeterminate</h4>
-        <progress id='indeterminate' type='progress'>50%</progress><label>&nbsp; Selects element which hasn't been assigned a state yet. Eg. progress bar w/o value, checkbox or radiobutton</label>
-      <h4>2.2.7. :required</h4>
-        <label for='nameReq'>Name</label>
-        <input type='text' id='nameReq' required/>&nbsp; selects input with required attribute
-      <h4>2.2.8. :optional</h4>
-        <label for='nameOp'>Last name (optional)</label>
-        <input type='text' id='nameOp'/>&nbsp; selects input without required attribute
-      <h4>2.2.9. :read-only</h4>
-      <label for='readOnlyInput'>Language</label>&nbsp;
-      <input type='text' id='readOnly' value='CSS - read only' readOnly/>&nbsp; selects input without required attribute -->
+
+    <h4>2.2.1. :focus</h4>
+    <input id='ifocus' type='text'/><label>&nbsp; Selects focused element link, input, textarea</label>
+    <h4>2.2.2. :enabled</h4>
+    <input id='enable' type='text'/><label>&nbsp; Selects any element which is enabled (can be clicked, focused, typed into)</label>
+    <h4>2.2.3. :disabled</h4>
+    <input id='disable' type='radio' disabled/><label>&nbsp; Selects disabled element (can't be activated or accept focus)</label>
+    <h4>2.2.4. :default</h4>
+      <fieldset id='field'>
+        <legend>Favorite season</legend>
+        <input type="radio" name="season" id="spring">
+        <label for="spring">Spring</label>
+        <input type="radio" name="season" id="summer" checked>
+        <label for="summer">Summer</label>
+      </fieldset>
+    <h4>2.2.5. :checked</h4>
+      <input id='check' type='checkbox' checked/><label>&nbsp; Selects checked element</label>
+    <h4>2.2.6. :indeterminate</h4>
+      <progress id='indeterminate' type='progress'>50%</progress><label>&nbsp; Selects element which hasn't been assigned a state yet. Eg. progress bar w/o value, checkbox or radiobutton</label>
+    <h4>2.2.7. :required</h4>
+      <label for='nameReq'>Name</label>
+      <input type='text' id='nameReq' required/>&nbsp; selects input with required attribute
+    <h4>2.2.8. :optional</h4>
+      <label for='nameOp'>Last name (optional)</label>
+      <input type='text' id='nameOp'/>&nbsp; selects input without required attribute
+    <h4>2.2.9. :read-only</h4>
+    <label for='readOnlyInput'>Language</label>&nbsp;
+    <input type='text' id='readOnly' value='CSS - read only' readOnly/>&nbsp; selects input without required attribute
+
+    <h3>2.3. Element of type</h3>
     <style>
       #container p:only-of-type {
         color: green;
@@ -188,28 +194,31 @@
         font-weight: bold;
       }
     </style>
-    <!-- <h3>2.3. Element of type</h3>
-      <h4>2.3.1. :only-of-type</h4>
-      <div id='container'>
-        <p>Selects element that has no siblings of the same type</p>
-      </div>
-      <h4>2.3.2. :first-of-type</h4>
-      <div id='container2'>
-        <p>Selects the first element of the type</p>
-        <p>Second element</p>
-      </div>
-      <h4>2.3.3: :last-of-type</h4>
-      <div id='container3'>
-        <p>First element</p>
-        <p>Selects the last element of the type</p>
-      </div>
-      <h4>2.3.4. :nth-of-type(number)</h4>
-      <div id='container4'>
-        <span>first, </span>
-        <span>second,</span>
-        <span>Selects nth of type,</span>
-        <span>fourth</span>
-      </div> -->
+
+    <p>element:type pseudo selector</p>
+    <h4>2.3.1. :only-of-type</h4>
+    <div id='container'>
+      <p>Selects element that has no siblings of the same type</p>
+    </div>
+    <h4>2.3.2. :first-of-type</h4>
+    <div id='container2'>
+      <p>Selects the first element of the type</p>
+      <p>Second element</p>
+    </div>
+    <h4>2.3.3: :last-of-type</h4>
+    <div id='container3'>
+      <p>First element</p>
+      <p>Selects the last element of the type</p>
+    </div>
+    <h4>2.3.4. :nth-of-type(number)</h4>
+    <div id='container4'>
+      <span>first, </span>
+      <span>second,</span>
+      <span>Selects nth of type,</span>
+      <span>fourth</span>
+    </div>
+
+    <h3>2.4. Children (select children irrespective of type)</h3>
     <style>
       #container5 :first-child {
         color: green;
@@ -235,61 +244,105 @@
       #even tr:nth-child(even) {
         background-color: pink;
       }
-
-
     </style>
-    <h3>2.4. Children (select children irrespective of type)</h3>
-      <h4>2.4.1. :first-child</h4>
-      <div id='container5'>
-        <span>first, </span>
-        <span>second,</span>
-        <input type='radio'/>
-      </div>
-      <h4>2.4.2. :last-child</h4>
-      <div id='container6'>
-        <span>first, </span>
-        <span>second,</span>
-        <input type='radio'/>
-      </div>
-      <h4>2.4.3. :only-child</h4>
-      <div id='container7'>
-        <span>Selects if only child of parent (no siblings)</span>
-      </div>
-      <h4>2.4.4. :nth-child(number)</h4>
-      <div id='container8'>
-        <span>first, </span>
-        <span>second,</span>
-        <kbd>Selects nth child irrespective of type,</kbd>
-        <span>fourth</span>
-      </div>
-      <h4>2.4.5. :nth-last-child(number)</h4>
-      <div id='container9'>
-        <span>first, </span>
-        <span>second,</span>
-        <label for=radioInput>Radio</label><input id='radioInput' type='radio'/>
-        <span>fourth</span>
-      </div>
-      <h4>2.4.6. :nth-child(odd)</h4>
-      <table id='odd'>
-        <tr><td>1</td><td>2</td><td>3</td></tr>
-        <tr><td>4</td><td>5</td><td>6</td></tr>
-        <tr><td>7</td><td>8</td><td>9</td></tr>
-        <tr><td>10</td><td>11</td><td>12</td></tr>
-      </table>
-      <h4>2.4.7. :nth-child(even)</h4>
-      <table id='even'>
-        <tr><td>1</td><td>2</td><td>3</td></tr>
-        <tr><td>4</td><td>5</td><td>6</td></tr>
-        <tr><td>7</td><td>8</td><td>9</td></tr>
-        <tr><td>10</td><td>11</td><td>12</td></tr>
-      </table>
-    <h3>2.5. Not or empty</h3>
-      <h4>2.4.1. :not</h4>
-      <h4>2.4.2. :empty</h4>
-    <h3>2.6 Root, dir</h3>
-      <h4>:root</h4>
-      <h4>:dir(rtl), :dir(ltr)</h4>
 
+    <h4>2.4.1. :first-child</h4>
+    <div id='container5'>
+      <span>first, </span>
+      <span>second,</span>
+      <input type='radio'/>
+    </div>
+    <h4>2.4.2. :last-child</h4>
+    <div id='container6'>
+      <span>first, </span>
+      <span>second,</span>
+      <input type='radio'/>
+    </div>
+    <h4>2.4.3. :only-child</h4>
+    <div id='container7'>
+      <span>Selects if only child of parent (no siblings)</span>
+    </div>
+    <h4>2.4.4. :nth-child(number)</h4>
+    <div id='container8'>
+      <span>first, </span>
+      <span>second,</span>
+      <kbd>Selects nth child irrespective of type,</kbd>
+      <span>fourth</span>
+    </div>
+    <h4>2.4.5. :nth-last-child(number)</h4>
+    <div id='container9'>
+      <span>first, </span>
+      <span>second,</span>
+      <label for=radioInput>Radio</label><input id='radioInput' type='radio'/>
+      <span>fourth</span>
+    </div>
+    <h4>2.4.6. :nth-child(odd)</h4>
+    <table id='odd'>
+      <tr><td>1</td><td>2</td><td>3</td></tr>
+      <tr><td>4</td><td>5</td><td>6</td></tr>
+      <tr><td>7</td><td>8</td><td>9</td></tr>
+      <tr><td>10</td><td>11</td><td>12</td></tr>
+    </table>
+    <h4>2.4.7. :nth-child(even)</h4>
+    <table id='even'>
+      <tr><td>1</td><td>2</td><td>3</td></tr>
+      <tr><td>4</td><td>5</td><td>6</td></tr>
+      <tr><td>7</td><td>8</td><td>9</td></tr>
+      <tr><td>10</td><td>11</td><td>12</td></tr>
+    </table>
+
+    <h3>2.5. Not or empty</h3>
+    <style>
+    #container10 :not(.ex) {
+      color: blue;
+    }
+    .box {
+      background: pink;
+      height: 60px;
+      width: 60px;
+    }
+
+    .box:empty {
+      /* --bg-color declared below*/
+      background: var(--bg-color);
+    }
+    </style>
+    <h4>2.4.1. :not(selector)</h4>
+    <div id='container10'>
+      <span class='ex'>first, </span>
+      <span class='ex'>second,</span>
+      <span>selects elements</span>
+      <span>excluded by selector</span>
+    </div>
+    <h4>2.4.2. :empty</h4>
+    <div class='box'>I have content</div>
+    <div class='box'></div>
+
+    <h3>2.6 Root, dir, nesting</h3>
+    <style>
+    :root {
+      --bg-color: green;
+    }
+    :dir(rtl) {
+      color: green;
+    }
+    #nest :first-child::first-letter {
+      color: red;
+    }
+    </style>
+
+    <h4>:root</h4>
+    <p>Selects root element (html tag in most cases)<br/>
+    Used to declare variables</p>
+    <h4>:dir(rtl), :dir(ltr)</h4>
+    <p dir='rtl'>hello this is rtl</p>
+    <p>Matches elements based on directionality of text in them</br>
+    Currently, supported in firefox only</p>
+    <h4>nesting pseudo classes and selectors</h4>
+    <div id='nest'>
+      <p>Only select first letter of first child</p>
+      <p>Second child</p>
+    </div>
 
 </body>
 </html>
