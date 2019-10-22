@@ -6,7 +6,14 @@
           font-size: 17px;
           white-space: pre-line;
       }
-
+      #boxModel {
+          height: 70px;
+          width: 70px;
+          background: lightblue;
+          border: 5px solid green;
+          margin: 20px 20px;
+          padding: 20px 20px;
+      }
     </style>
   </head>
   <body>
@@ -16,13 +23,56 @@
       <li>The standard is called CSS box model</li>
       <li>It determines the size, position and properties of these boxes</li>
     </ul>
-    <div>Example goes here</div>
-
+    <div>Example goes here:</div>
+    <div id='boxModel'><span>Content, Padding, Border, Margin</span></div>
     <h2>3.2. box-sizing</h2>
-    <h3>3.2.1 content-box</h3>
+    <p>Sets how the total height and width of the element is calculated</p>
+    <h3>3.2.1 content-box (default)</h3>
+    <span>Height and width include <b>content area</b> only. Padding, margin and border add to the height and width</br>
+    <b>Default</b> for HTML elements</span>
     <h3>3.2.2 border-box</h3>
+    <span>Height and width include <b>content, padding and border</b>. Margin adds to the height and width</br>
+    <b>Default</b> for CSS grid</span>
     <h3>3.2.2 padding-box</h3>
-
+    <span>Height and width include <b>content and padding</b>. Margin and border add to the height and width</br>
     <h2>3.3. Inline, before, after</h2>
     <h3>3.3.1 Inline elements</h3>
+    <p>Inline elements do not affect vertical spacing</p>
+    <style>
+      #inlineBox {
+        border: 2px solid brown;
+        margin-top: 80px; /*No effect*/
+        margin-right: 20px;
+        padding: 10px 20px;
+      }
+    </style>
+    <span id='inlineBox'>Inline element</span>
+    <span id='newBox'>Other element</span>
     <h3>3.3.2 Before/after</h3>
+    <p>Before/after act like block elements within parent</br>
+    They accept all box properties and can be positioned as well</p>
+    <style>
+    #beforeAfter {
+      border: 2px solid green;
+      height: 80px;
+      width: 100px;
+      background: lightblue;
+      margin: 20px 20px;
+    }
+    #beforeAfter::before {
+      content: ':before';
+      padding: 10px;
+      border: 1px solid;
+      margin: 5px;
+      background: white;
+    }
+
+    #beforeAfter::after {
+      content: ':after';
+      padding: 10px;
+      border: 1px solid;
+      margin: 5px;
+      background: pink;
+    }
+    </style>
+    <div id='beforeAfter'><p>Hellow Hi</div>
