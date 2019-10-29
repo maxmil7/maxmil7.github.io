@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <title>Visual CSS: Positioning</title>
+    <style>
+      body {
+        background-color: azure;
+        font-size: 17px;
+      }
+      pre {
+        font-size: 17px;
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>4. Positioning</h2>
+    <p>By default elements are layed out top to bottom, left to right
+    Block elements are on a new line and have top bottom margins.</p>  
+  
+    <p>Inline elements only have left and right margins.  
+    They do not change the vertical layout of the page.</p>
+
+    <h3>4.1. Static</h3>
+    <p>Static elements (default positioning) do not have top, bottom,
+    left or right offsets. </p>
+    <p>They are just layed out according to the default flow.</p>
+    <div id='static'>top, left offset, no effect</div>
+    <style>
+      #static {
+        width: 75px; 
+        height: 75px;
+        top: 75px; 
+        left: 75px; 
+        position: static;
+        border: 2px solid brown;
+      }
+    </style> 
+    <h3>4.2. Relative</h3>
+    <p>Relative elements are similar to static elements. Except they can have a top and left offset
+    or a bottom and right offset.</br></br>
+    The top or bottom offset is from the element above.</br></br>
+    They can overlap other elements to meet offset requirements</p>
+    <div id='relative'>top 10px, left 20px</div>
+    <style>
+      #relative {
+        width: 75px; 
+        height: 75px;
+        left: 20px; 
+        top: 10px;
+        position: relative;
+        border: 2px solid brown;
+      }
+    </style> 
+    <h3>4.3. Absolute</h3>
+    <p> Absolute elements are taken out of the flow, thus, other elements are positioned as if they did not exist. <br/><br/>
+    They are positioned relative to their nearest positioned ancestor (relative, absolute, sticky or fixed but not static) </br></br>
+    If a positioned ancestor doesn't exist, it is positioned relative to the root document.</p>
+    <div id='parent'>
+      <div id='absolute'>top: 10px, left: 30px</div>
+    </div>
+    <style>
+      #parent {
+        position: relative;
+        padding: 50px; /*padding ensures absolute child doesn't overlap*/
+        border: 1px solid;
+      }
+      #absolute {
+        width: 75px; 
+        height: 75px;
+        left: 30px; 
+        top: 10px;
+        position: absolute;
+        border: 2px solid brown;
+      }
+    </style> 
+    
+    <h3>4.4. Fixed</h3>
+    <p>Fixed elements are similar to absolute elements except they are positioned relative to the viewport,
+    even if their parent container is positioned. </br></br>
+    Hence, they are not affected by scroll bar position.
+    </p>
+    <div id='parent2'>
+      <div id='fixed'>fixed element</div>
+    </div>
+    <style>
+      #parent2 {
+        position: relative;
+        padding: 1px; /*doesn't have any effect on fixed child*/
+      }
+      #fixed {
+        width: 100px; 
+        height: 20px;
+        left: 700px; 
+        top: 10px;
+        position: fixed;
+        border: 2px solid brown;
+      }  
+    </style> 
+    <h3>4.5. Sticky</h3>
+    <p>Sticky elements are similar to relative elements. Except they become 'fixed' once they are scrolled out of the viewport.</br></br>
+    They become relative again once inside the viewport</br></br>
+    </p>
+    <div id='sticky'>top 10px, left 20px</div>
+    <div id='demo_sticky'></div>
+    <style>
+      #sticky {
+        width: 75px; 
+        height: 75px;
+        left: 20px; 
+        top: 10px;
+        position: sticky;
+        border: 2px solid brown;
+      }
+     #demo_sticky {
+         padding: 400px;
+     }
+    </style> 
+
+
