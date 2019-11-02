@@ -18,25 +18,111 @@
     </p>  
 
     <h3>5.1. Styling</h3>
-    <p>Primary properties include font-family,
-    font-size, font-weight, font-style and text-decoration
-    (include text-decoration-skip ink and text-shadow)
+    <p>Primary pspanroperties include <ul><li>font-family</li>
+    <li>font-size</li>
+    <li>font-weight</li>
+    <li>font-style</li>
+    <li>text-decoration</li>
+    (text-decoration-skip-ink and text-shadow) </br></br>
+    When using font shorthand, specify atleast font-size and family.
     </p>
-    <text>Hello</text>
+    <span id='primary'>Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text</span>
     <style>
-    </style> 
+      #primary {
+        font: 14px monospace;
+        font-weight: normal;
+        font-style: normal; /*italic, oblique*/
+        text-decoration: underline blue;
+        text-decoration-skip-ink: auto; /*super impose text none, auto*/
+      }
+    </style>
+    <p><b>Shadow</b></p>
+    <span id='shadow'>CSS text shadow syntax: offset-x, offset-y, blur-radius, shadow color</span>
+      <style>
+      #shadow {
+        text-shadow: 2px 2px 25px brown;
+      }
+      </style>
 
     <h3>5.2. Alignment</h3>
     <p>Properites include text-align, text-align-last, text-indent, line-height, overflow</p>
-    <b>Overflow</b>
+    <div id='align'>
+    <span>Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text</text>
+    </div></br>
+    <p>To center text vertically, set line-height to height of container</p>
+    <style>
+        #align {
+            text-indent: 60px;
+            text-align: left;
+            text-align-last: center;
+            overflow: hidden;
+            height: 65px;
+            line-height: 18px; /*space between lines*/
+        }
+    </style>
 
 
     <h3>5.3. Text rendering</h3>
     <p>Properites include text-orientation, writing-mode,
         text-combine-upright, text-rendering and text roation
     </p>
+    <div id='render'>
+    <span></span>
+    </div></br>
+    <style>
+        #render {
+            text-anchor: start;
+            transform: rotate(4deg);
+        }
+    </style>
+     <b>Writing mode and precision</b>
+     <div>
+     <span id='writeMode'>This <span id='combine'>is</span> sample 
+     <span id='orient'>text</span></span></div></br>
+     <style>
+         #writeMode {
+             writing-mode: vertical-lr;
+             padding-top: 10px;
+             text-rendering: geometricPrecision;
+         }
+         #combine {
+             text-combine-upright: all;
+         }
+         #orient {
+             text-orientation: upright;
+         }
+     </style>
     <b>Rotation</b>
-    <p>Transform, anchor</p>
-    <h3>5.4. Modifying text via SVG</h3>
-    
+    <div id='rotation'>
+    <span>Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text</span></div></br>
+    <style>
+        #rotation {
+            transform: rotate(3deg);
+            padding-top: 10px;
+        }
+    </style>
+
+    <b>Modifying text via SVG</b>
+    <svg id='svgExample'>
+        <text id=svgText x='10' y='20' stroke='black' fill='white' transform='rotate(10)'>
+        Hello
+        </text>
+    </text></svg>
+    <style>
+        #svgExample {
+            width: 200px;
+            height: 60px;
+            border: 1px solid gray;
+            transform: rotate(10);
+            margin-top: 10px;
+        }
+        #svgText {
+            text-anchor: start; /*start of rendered element is at initial start*/
+
+        }
+    </style>
+
+
+
+
     
