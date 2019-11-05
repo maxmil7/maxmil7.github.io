@@ -1,0 +1,274 @@
+<html>
+  <head>
+    <title>Visual CSS: Positioning within container</title>
+    <style>
+      body {
+        background-color: azure;
+        font-size: 13px;
+      }
+      pre {
+        font-size: 17px;
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>6. Positioning within container</h2>
+    <p>Position and display of an element within a container
+    can be controlled by properties such as <b>postion</b>,
+    <b>Z index</b>, <b>overflow etc.</b>
+    </p>
+    <h3>6.1. Positioning</h3>
+    <p>Centering elements within parent</p>
+    <b>Block elements</b>
+    <div id='parent'><div id='child'></div></div>
+    <style>
+        #parent {
+            margin: 10px;
+            width: 100px;
+            height: 100px;
+            border: 1px solid gray;
+            position: relative;
+        }
+
+        #child {
+            width: 50%;
+            height: 50%;
+            border: 1px solid pink;
+            margin: 25% auto; /*margin auto for horizontal alignment*/
+            position: relative;
+        }
+
+    </style>
+    <b>Inline elements</b>
+    <div id='parentIn'><span id='txt'>this is text</span></div>
+    <style>
+        #parentIn {
+            margin: 10px;
+            width: 100px;
+            height: 30px;
+            border: 1px solid gray;
+            position: relative;
+            text-align: center;
+        }
+        #txt {
+            line-height: 30px; /*To center text vertically, set line height to width of container*/
+            color: brown;
+        }
+    </style>
+
+    <h3>6.2. Z index </h3>
+    <p>Determines elements drawing order (forward, backward etc)</p>
+    <div id='parentZ'>z=2
+        <div id='childZ'>Z=1</div>
+        <div id='childZ2'>Z=2</div>
+    </div>
+    <style>
+        #parentZ {
+            margin: 10px;
+            border: 1px solid gray;
+            background-color: rgb(151, 198, 182);
+            height: 75px;
+            width: 75px;
+            font-size: 11px;
+            position: relative;
+        }
+        #childZ {
+            border: 1px solid gray;
+            background-color: pink;
+            height: 40px;
+            width: 40px;
+            position: absolute;
+            top: 0px;
+            z-index: 1;
+        }
+        #childZ2 {
+            border: 1px solid gray;
+            background-color: burlywood;
+            height: 40px;
+            width: 40px;
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            z-index: 2;
+        }
+    </style>
+    <b>box-shadow</b>
+    <div id='shadow'>Sticky note</div>
+    <style>
+    #shadow {
+        margin: 10px;
+        height: 60px;
+        width: 60px;
+        box-shadow: 1px 1px 10px gray;
+        font-size: 10px;
+        padding: 5px
+    }
+    </style>
+    <b>border-radius</b>
+    <div id='radius'>radius 5px<div id='childRadius'>radius 40px</div></div>
+    <style>
+    #radius {
+        margin: 10px;
+        height: 90px;
+        width: 90px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        font-size: 10px;
+        padding: 5px;
+    }
+    #childRadius {
+        height: 60px;
+        width: 60px;
+        margin: 15px auto;
+        border-radius: 40px;
+        border: 1px solid pink;
+        text-align-last: center;
+        line-height: 60px;
+        position: relative;
+        bottom: 10px;
+        color: brown;
+    }
+    </style>
+    <h3>Overflow</h3>
+    <p>Specifies how overflown content should be displayed</p>
+    <div id='container'>overflow default</div>
+    <div id='container2'>overflow hidden</div>
+    <style>
+        #container {
+            height: 25px;
+            width: 70px;
+            border: 1px solid purple;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        #container2 {
+            height: 25px;
+            width: 70px;
+            border: 1px solid purple;
+            display: inline-block;
+            margin-left: 10px;
+            overflow: hidden;
+        }
+
+    </style>
+    </br><b>Hiding round elements within circle</b>
+    <div class='hiddenCircle'>
+        <div id='child1' class='hiddenCircle'></div>
+        <div id='child2' class='hiddenCircle'></div>
+    </div>
+    <style>
+        .hiddenCircle {
+            height: 70px;
+            width: 70px;
+            border: 1px solid gray;
+            position: relative;
+            border-radius: 50px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        #child1, #child2 {
+            position: absolute;
+            left: 20px;
+            margin-top: 0px;
+            border-color: brown;
+        }
+
+        #child2 {
+            left: 40px;
+            border-color: blue;
+        }
+    </style>
+    </br><b>Irregular shapes</b>
+    <div id='carBody'>
+        <div id='carChild1' class='children'></div>
+        <div id='carChild2' class='children'></div>
+        <div id='carChild3' class='children'></div>
+    </div>
+    <style>
+        #carBody {
+            height: 70px;
+            width: 200px;
+            border-radius: 1000px;
+            margin-top: 20px;
+            position: relative;
+            background-color: gray;
+            overflow: hidden
+        }
+        .children {
+            position: absolute;
+            border-radius: 1000px;
+            border: 1px solid gray;
+            height: 24px;
+            width: 60px;
+            background-color: white;
+        }
+        #carChild1 {
+            top: -12px;
+            left: 35px;
+        
+        }
+        #carChild2 {
+            top: 58px;
+            left: 35px;
+        }
+        #carChild3 {
+            top: 20px;
+            left: 120px;
+            width: 100px;
+            height: 30px;
+        }
+    </style>
+    </br><b>Nike logo</b>
+    <div id='nike'>NIKE</div>
+    <style>
+        #nike {
+            position: relative;
+            top: 40px; left: 10px;
+            width: 235px; height: 100px;
+            border: 1px solid gray;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            line-height: 150px;
+            text-indent: 165px;
+            overflow: hidden;
+            z-index: 3;
+        }
+        #nike:before {
+            content: '';
+            position: absolute;
+            top: -130px;
+            left: 100px;
+            width: 75px;
+            height: 275px;
+            border-top-left-radius: 30px 55px;
+            border-top-right-radius: 65px 110px;
+            transform: rotate(-110deg);
+            z-index: 1;
+            background: black;
+        }
+        #nike:after {
+            content: '';
+            position: absolute;
+            top: -140px;
+            left: 120px;
+            width: 75px;
+            height: 275px;
+            border-top-left-radius: 30px 55px;
+            border-top-right-radius: 65px 110px;
+            transform: rotate(-104deg);
+            z-index: 2;
+            background: white;
+        }
+    </style>
+
+
+
+
+
+    
+
+
+
+    
