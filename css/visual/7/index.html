@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <title>Visual CSS: Display</title>
+    <style>
+      body {
+        background-color: azure;
+        font-size: 13px;
+      }
+      pre {
+        font-size: 17px;
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>7. Display</h2>
+    <p>Display property controls how elements are laid out on a page.
+    Values include block, inline, inline-block and float.
+    </p>
+    <h3>7.1. Inline</h3>
+    <p>Elements are laid out side by side</br>
+    Default width is width of content</br>
+    Content and element wraps to the next line in overflow scenario</br>
+    Default for text elements like span, i, b, input etc</p>
+    <span class='textBlock'>Text 1</span>
+    <span class='textBlock'>Text 2</span>
+    <span class='textBlock'>Text 3</span></br>
+    <span class='textBlock' id='overflow'>Content and elemnt wraping to next line</span>
+    <style>
+        .textBlock {
+            border: 1px solid gray;
+            padding: 1px;
+        }
+        #overflow {
+            margin-left: 90%;
+        }
+        #centerTxtInline {
+            font-weight: bold;
+        }
+  
+    </style>
+    <p id='centerTxtInline'>Center text</p>
+    <p>Since width of inline element is determined directly by the content within it,
+        it is not possible or needed to center text within it</p>
+
+
+    <h3>7.2. Block</h3>
+    <p>Block elements are laid out one after another<br/>
+    Default width spans the entire width of the page<br/>
+    Only content wraps to the next line in overflow scenario<br/>
+    Default for elements like div, p, table etc</p>
+    <div class='blockdiv'>Div 1</div>
+    <div class='blockdiv'>Div 2</div>
+    <div class='blockdiv' id='overflowdiv'>Overflow div, element doesn't wrap. Height of element increases if no default height specified</div>
+    <style>
+        .blockdiv {
+            border: 1px solid gray;
+        }
+        #overflowdiv {
+            margin-left: 50%;
+        }
+        #centerTxtBlock {
+            font-weight: bold;
+        }
+        #centerTxtBlockDiv {
+            text-align: center;
+            width: 50%;
+        }
+    </style>
+    <p id='centerTxtBlock'>Center text</p>
+    <p>Text-align center can be used to center text</p>
+    <div class='blockdiv' id='centerTxtBlockDiv'>Text is centered</div>
+
+ 
+    <h3>7.3. Inline-block</h3>
+    <p>Compared to inline elemnts, allows settign width and height of elements
+    Top and bottom margins are respected</br>
+    Compared to inline elemnts, elements are laid side-by-side
+    </p>
+    <h3>7.4. Float</h3>
+    <p></p>
+    <h3>7.5. Visibility</h3>
+    <p></p>
+
+
+
+
+
+    
+
+
+
+    
