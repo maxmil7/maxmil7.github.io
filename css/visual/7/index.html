@@ -15,24 +15,25 @@
   <body>
     <h2>7. Display</h2>
     <p>Display property controls how elements are laid out on a page.
-    Values include block, inline, inline-block and float.
+    Values include block, inline, inline-block.
     </p>
     <h3>7.1. Inline</h3>
     <p>Elements are laid out side by side</br>
-    Default width is width of content</br>
+    Default height and width is based on content</br>
     Content and element wraps to the next line in overflow scenario</br>
     Default for text elements like span, i, b, input etc</p>
-    <span class='textBlock'>Text 1</span>
-    <span class='textBlock'>Text 2</span>
-    <span class='textBlock'>Text 3</span></br>
-    <span class='textBlock' id='overflow'>Content and elemnt wraping to next line</span>
+    <!-- <span class='textInline'>Text 1</span>
+    <span class='textInline'>Text 2</span>
+    <span class='textInline'>Text 3</span></br>
+    <span class='textInline' id='overflow'>Content and elemnt wraping to next line</span>
     <style>
-        .textBlock {
+        .textInline {
             border: 1px solid gray;
             padding: 1px;
+            margin-left: 10px; 
         }
         #overflow {
-            margin-left: 90%;
+            margin-left: 90%; /*top margin not applicable*/
         }
         #centerTxtInline {
             font-weight: bold;
@@ -41,9 +42,9 @@
     </style>
     <p id='centerTxtInline'>Center text</p>
     <p>Since width of inline element is determined directly by the content within it,
-        it is not possible or needed to center text within it</p>
+        it is not possible or needed to center text within it</p> -->
 
-
+<!-- 
     <h3>7.2. Block</h3>
     <p>Block elements are laid out one after another<br/>
     Default width spans the entire width of the page<br/>
@@ -59,26 +60,82 @@
         #overflowdiv {
             margin-left: 50%;
         }
-        #centerTxtBlock {
-            font-weight: bold;
-        }
-        #centerTxtBlockDiv {
-            text-align: center;
-            width: 50%;
-        }
+       
     </style>
     <p id='centerTxtBlock'>Center text</p>
     <p>Text-align center can be used to center text</p>
     <div class='blockdiv' id='centerTxtBlockDiv'>Text is centered</div>
-
+    <style>
+         #centerTxtBlock {
+            font-weight: bold;
+        }
+        #centerTxtBlockDiv {
+            text-align: center;
+            width: 50%;   
+        }
+    </style>
  
     <h3>7.3. Inline-block</h3>
-    <p>Compared to inline elemnts, allows settign width and height of elements
-    Top and bottom margins are respected</br>
-    Compared to inline elemnts, elements are laid side-by-side
+    <p>Inline-block elements are laid side-by-side.<br/>
+    Top-bottom margins and height-width are respected</br>
+    Useful for laying out nav bars etc.
     </p>
-    <h3>7.4. Float</h3>
-    <p></p>
+    <span class='inlineBlk'>Span 1 displayed as inline block</span>
+    <span class='inlineBlk'>Span 2 displayed as inline block</span>
+    <div class='inlineBlk'>Div displayed as inline block</div>
+
+    <style>
+        .inlineBlk {
+            display: inline-block;
+            border: 1px solid gray;
+            margin-top: 2px;
+            width: 70px;
+            border-color: brown;
+        }
+
+    </style> -->
+    <h3>7.4. Float and Clear</h3>
+    <p>Float places elements on left or right side of container,
+    allowing other elements to wrap around them </br></br>
+    The clear property specifies whether an element must be 
+    moved below floating elements that precede it.
+    </p>
+    <div class='floatdiv' id='floatLeft'>Float left div</div>
+    <div class='floatdiv' id='floatRight'>Float left div</div>
+    <div class='floatdiv'>Float none (default)</div>
+    <div class='floatdiv' id='floatLeft2'>Float left div 2 (clear left)</div>
+    <div class='floatdiv' id='clearBoth'>Clear both</div>
+
+    <style>
+        .floatdiv {
+            border: 1px solid black;
+            text-align: center;
+        
+        }
+        #floatLeft {
+            float: left;
+            border-color: green;
+            padding: 2px;
+        }
+        #floatLeft2 {
+            float: left;
+            clear: left;
+            border-color: green;
+            margin-top: 3px;
+
+        }
+        #floatRight {
+            float: right;
+            border-color: green;
+            padding: 2px
+        }
+
+        #clearBoth {
+            clear: both;
+        }
+
+    </style>
+    <p>Inline elements float?</p>
     <h3>7.5. Visibility</h3>
     <p></p>
 
