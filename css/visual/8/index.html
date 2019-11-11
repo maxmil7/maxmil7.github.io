@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <title>Visual CSS: Backgrounds</title>
+    <style>
+      body {
+        background-color: azure;
+        font-size: 13px;
+      }
+      pre {
+        font-size: 17px;
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>8. Backgrounds</h2>
+    <p>A variety of backgrounds can be created using gradients and images and their properties</p>
+    <h3>8.1. Gradients</h3>
+    <p>Possible types of gradients include: linear-gradient,
+      radial-gradient, repeating-linear-gradient, repating-radial-gradient<br/></br/>
+      Signature: type(rotation, color 1 px, color 2 px..)</br></br>
+      Rotation: degree, direction<br/>
+      Color: RGB, HCL, names<br/>
+      Length: %, pixels
+    </p>
+    <div class='container'>
+      <div class='sample' id='linear'></div>
+      <label>linear-gradient(brown, white);</label>
+    </div>
+    <div class='container'>
+      <div class='sample' id='radial'></div>
+      <label>radial-gradient(brown, white);</label>
+    </div>
+    <div class='container'>
+      <div class='sample' id='repeating-linear'></div>
+      <label>radial-gradient(brown, white);</label>
+    </div>
+    <div class='container'>
+      <div class='sample' id='repeating-radial'></div>
+      <label>radial-gradient(brown, white);</label>
+    </div>
+    <div class='container'>
+      <div class='sample' id='direction'></div>
+      <label>radial-gradient(brown, white);</label>
+    </div>
+    <div class='container'>
+      <div class='sample' id='direction-deg'></div>
+      <label>radial-gradient(brown, white);</label>
+    </div>
+    <div class='container'>
+      <div class='sample' id='distance-percent'></div>
+      <label>radial-gradient(brown, white);</label>
+    </div>
+    <div class='container'>
+      <div class='sample' id='color-hcl'></div>
+      <label>radial-gradient(brown, white);</label>
+    </div>
+
+    <style>
+      .container {
+        height: 120px;
+        width: 100px;
+        text-align: center;
+        display: inline-block;
+        margin: 10px;
+      }
+      .sample {
+        height: 100px;
+        width: 100px;
+        border: 1px solid gray;
+      }
+      #linear {
+        background: linear-gradient(brown, white, green 50px);
+      }
+      #radial {
+        background: radial-gradient(orange, white 50px);
+      }
+      #repeating-linear {
+        background: repeating-linear-gradient(brown, white, green 50px);
+      }
+      #repeating-radial {
+        background: repeating-radial-gradient(orange, white 50px);
+      }
+      #direction {
+        background: linear-gradient(to top left, blue, white 70px);
+      }
+      #direction-deg {
+        background: linear-gradient(20deg, blue, white 70px);
+      }
+      #distance-percent {
+        background: repeating-radial-gradient(orange, white 50px);
+
+      }
+      #color-hcl {
+        background: repeating-radial-gradient(orange, white 50px);
+      }
+
+      
+      
+
+    </style>
+  </body>
+</html>
+    
