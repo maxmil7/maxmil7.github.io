@@ -18,56 +18,72 @@
     <h3>8.1. Gradients</h3>
     <p>Possible types of gradients include: linear-gradient,
       radial-gradient, repeating-linear-gradient, repating-radial-gradient<br/></br/>
-      Signature: type(rotation, color 1 px, color 2 px..)</br></br>
+      Signature -  background: type(rotation, color 1 px, color 2 px etc) </br></br>
       Rotation: degree, direction<br/>
       Color: RGB, HCL, names<br/>
       Length: %, pixels
     </p>
-    <div class='container'>
+    <!-- <div class='container'>
+      <label>linear-gradient</label>
       <div class='sample' id='linear'></div>
-      <label>linear-gradient(brown, white);</label>
+      <label>linear-gradient(brown, white, green 50px);</label>
     </div>
     <div class='container'>
+      <label>radial-gradient</label>
       <div class='sample' id='radial'></div>
-      <label>radial-gradient(brown, white);</label>
+      <label>radial-gradient(orange, white 50px);</label>
     </div>
     <div class='container'>
+      <label>repeating-linear-gradient</label>
       <div class='sample' id='repeating-linear'></div>
-      <label>radial-gradient(brown, white);</label>
+      <label>repeating-linear-gradient(brown, white, green 50px);</label>
     </div>
     <div class='container'>
+      <label>repeating-radial-gradient</label>
       <div class='sample' id='repeating-radial'></div>
-      <label>radial-gradient(brown, white);</label>
+      <label>repeating-radial-gradient(orange, white 50px);</label>
     </div>
     <div class='container'>
+      <label>direction</label>
       <div class='sample' id='direction'></div>
-      <label>radial-gradient(brown, white);</label>
+      <label>linear-gradient(to top left, blue, white 70px);</label>
     </div>
     <div class='container'>
+      <label>direction-degree</label>
       <div class='sample' id='direction-deg'></div>
-      <label>radial-gradient(brown, white);</label>
+      <label>linear-gradient(20deg, blue, white 70px);</label>
     </div>
     <div class='container'>
+      <label>distance</label>
       <div class='sample' id='distance-percent'></div>
-      <label>radial-gradient(brown, white);</label>
+      <label>linear-gradient(20deg, blue, white 70px)</label>
     </div>
     <div class='container'>
+      <label>HSL color values</label>
       <div class='sample' id='color-hcl'></div>
-      <label>radial-gradient(brown, white);</label>
+      <label>linear-gradient(hsl(0,100%,50%), hsl(50, 100%, 50%)</label>
     </div>
 
     <style>
       .container {
-        height: 120px;
-        width: 100px;
+        height: 180px;
+        width: 120px;
         text-align: center;
         display: inline-block;
         margin: 10px;
+        vertical-align: top;
       }
+      .container label:first-child {
+          height: 30px;
+          display: block;
+          margin-bottom: 2px;
+      }
+
       .sample {
         height: 100px;
         width: 100px;
         border: 1px solid gray;
+        margin-left: 10px;
       }
       #linear {
         background: linear-gradient(brown, white, green 50px);
@@ -88,16 +104,48 @@
         background: linear-gradient(20deg, blue, white 70px);
       }
       #distance-percent {
-        background: repeating-radial-gradient(orange, white 50px);
+        background: linear-gradient(to left, red, white 40%);
 
       }
       #color-hcl {
-        background: repeating-radial-gradient(orange, white 50px);
+        background: linear-gradient(hsl(0,100%,50%), hsl(50, 100%, 50%));
       }
-
-      
-      
-
+    </style> -->
+    <h3>8.2. Filters</h3>
+    <p>Filters can be applied to any image or HTML element that produces graphic output<br/>
+    Signature - filter: type(value)</br>
+    Values can be specified in percent, number, px or degree depending on type of filter<br/><br/>
+    Fiters specified here because it is possible to set image as a background using background: url() or background-image: url() property
+    </p>
+    <div class='container'>
+    <label>blur(pixels)</label>
+      <div class='sample' id='linear'></div>
+      <label>filter: blur(100px)</label>
+    </div>
+    <style>
+      .container {
+        height: 180px;
+        width: 140px;
+        text-align: center;
+        display: inline-block;
+        margin: 10px;
+        vertical-align: top;
+        border: 1px solid gray;
+      }
+      .container label:first-child {
+        height: 20px;
+        display: block;
+        margin-bottom: 2px;
+      }
+      .sample {
+        height: 120px;
+        width: 120px;
+        border: 1px solid gray;
+        margin-left: 10px;
+        background: url('bird.jpeg');
+        background-size: 100%;
+        filter: blur(0px);
+      }
     </style>
   </body>
 </html>
