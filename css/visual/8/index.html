@@ -23,7 +23,7 @@
       Color: RGB, HCL, names<br/>
       Length: %, pixels
     </p>
-    <!-- <div class='container'>
+    <div class='container'>
       <label>linear-gradient</label>
       <div class='sample' id='linear'></div>
       <label>linear-gradient(brown, white, green 50px);</label>
@@ -110,7 +110,7 @@
       #color-hcl {
         background: linear-gradient(hsl(0,100%,50%), hsl(50, 100%, 50%));
       }
-    </style> -->
+    </style>
     <h3>8.2. Filters</h3>
     <p>Filters can be applied to any image or HTML element that produces graphic output<br/>
     Signature - filter: type(value)</br>
@@ -118,13 +118,63 @@
     Fiters specified here because it is possible to set image as a background using background: url() or background-image: url() property
     </p>
     <div class='container'>
-    <label>blur(pixels)</label>
-      <div class='sample' id='linear'></div>
+    <label>default</label>
+      <div class='sample' id='normal'></div>
+      <label>filter: none</label>
+    </div>
+    <div class='container'>
+      <label>blur(pixels)</label>
+      <div class='sample' id='blur'></div>
       <label>filter: blur(100px)</label>
+    </div>
+    <div class='container'>
+      <label>brightness(0 - 1)</label>
+      <div class='sample' id='bright'></div>
+      <label>filter: brightness(0.9)</label>
+    </div>
+    <div class='container'>
+      <label>contrast(%)</label>
+      <div class='sample' id='contrast'></div>
+      <label>filter: contrast(120%)</label>
+    </div>
+    <div class='container'>
+      <label>grayscale(%)</label>
+      <div class='sample' id='grayscale'></div>
+      <label>filter: grayscale(90%)</label>
+    </div>
+    <div class='container'>
+      <label>hue-rotate(0deg-360deg)</label>
+      <div class='sample' id='hue'></div>
+      <label>filter: hue-rotate(120deg)</label>
+    </div>
+    <div class='container'>
+      <label>invert(%)</label>
+      <div class='sample' id='invert'></div>
+      <label>filter: invert(10%)</label>
+    </div>
+    <div class='container'>
+      <label>opacity(%)</label>
+      <div class='sample' id='opacity'></div>
+      <label>filter: opacity(20%)</label>
+    </div>
+    <div class='container'>
+      <label>saturate(0-100)</label>
+      <div class='sample' id='saturate'></div>
+      <label>filter: saturate(5)</label>
+    </div>
+    <div class='container'>
+      <label>sepia(%)</label>
+      <div class='sample' id='sepia'></div>
+      <label>filter: sepia(90%)</label>
+    </div>
+    <div class='container'>
+      <label>drop-shadow(x, y, spread, color)</label>
+      <div class='sample' id='shadow'></div>
+      <label>filter: drop-shadow(100px)</label>
     </div>
     <style>
       .container {
-        height: 180px;
+        height: 190px;
         width: 140px;
         text-align: center;
         display: inline-block;
@@ -133,7 +183,7 @@
         border: 1px solid gray;
       }
       .container label:first-child {
-        height: 20px;
+        height: 30px;
         display: block;
         margin-bottom: 2px;
       }
@@ -144,8 +194,44 @@
         margin-left: 10px;
         background: url('bird.jpeg');
         background-size: 100%;
-        filter: blur(0px);
+        filter: none;
       }
+      #normal {
+        filter: none;
+      }
+      #blur {
+        filter: blur(10px);
+      }
+      #bright {
+        filter: brightness(0.9);
+      }
+      #contrast {
+        filter: contrast(120%)
+      }
+      #grayscale {
+        filter: grayscale(90%);
+      }
+      #hue {
+        filter: hue-rotate(120deg);
+      }
+      #invert {
+        filter: invert(10%)
+      }
+      #opacity {
+        filter: opacity(20%);
+      }
+      #saturate {
+        filter: saturate(5);
+      }
+      #sepia {
+        filter: sepia(90%);
+      }
+      #shadow {
+        filter: drop-shadow(2px 2px 10px green);
+      }
+
+
+
     </style>
   </body>
 </html>
