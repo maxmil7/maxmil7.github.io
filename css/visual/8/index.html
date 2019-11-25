@@ -174,7 +174,7 @@
     </div>
     <style>
       .sampleImage {
-        background: url('bird.jpeg');
+        background: url('images/bird.jpeg');
         background-size: 100%;
         filter: none;
       }
@@ -217,19 +217,74 @@
     <p>CSS properties like background-size, repeat, position, attachment, origin, object-fit etc
     can be used to control how an image gets displayed within a container </p>
     <div class='containerPos'>
-        <label>background</label>
-            <div class='samplePos pos' id='normal'></div>
-            <label>tbd</label>
-        </div>
-        <style>
-            .containerPos {
-            height: 180px;
-            width: 120px;
+        <label>default</label>
+        <div class='samplePos pos'></div>
+        <label>background: url(bird.png)</label>
+    </div>
+    <div class='containerPos'>
+        <label>repeat</label>
+        <div class='samplePos pos' id='repeat'></div>
+        <label>background: repeat-x</label>
+    </div>
+    <div class='containerPos'>
+        <label>size (x, y position)</label>
+        <div class='samplePos pos' id='size'></div>
+        <label>background-size: 100% (%, cover, contain)</label>
+    </div>
+    <div class='containerPos'>
+        <label>position</label>
+        <div class='samplePos pos' id='position'></div>
+        <label>background-position: center, %, px </label>
+    </div>
+    <div class='containerPos'>
+        <label>position-x, postion-y</label>
+        <div class='samplePos pos' id='positionXY'></div>
+        <label>background-position-x, (-y): center; background-repeat: x; </label>
+    </div>
+    <div class='containerPos'>
+        <label>origin (box-sizing behavior)</label>
+        <div class='samplePos pos' id='origin'></div>
+        <label>background-origin: content-box; padding: 20px;</label>
+    </div>
+    <div class='containerPos'>
+        <label>attachment (sroll behavior)</label>
+        <div class='samplePos pos' id='attachment'></div>
+        <label>background-attachment: fixed</label>
+    </div>
+    <div class='containerPos'>
+        <label>clip</label>
+        <div class='samplePos pos' id='clip'></div>
+        <label>background-</label>
+    </div>
+    <div class='containerPos'>
+        <label>multiple</label>
+        <div class='samplePos pos' id='multiple'></div>
+        <label>background: url('firefox'), url('bubbles'), radial-gradient(pink, white)</label>
+    </div>
+    <div class='containerPos'>
+        <label>color</label>
+        <div class='samplePos pos' id='color'></div>
+        <label>background: none; background-color: lavendar;</label>
+    </div>
+    <div class='containerPos'>
+        <label>object-fit (images/videos sizing inside container)</label>
+        <div class='samplePos pos' id='object-fit'><image id='img' src='images/firefox.png'/></image></div>
+        <label>img {
+            height: 100px;
+            width: 100px;
+            object-fit: contain}
+        </label>
+    </div>
+
+
+    <style>
+        .containerPos {
+            height: 210px;
+            width: 150px;
             text-align: center;
             display: inline-block;
             margin: 10px;
             vertical-align: top;
-            border: 1px solid gray;
         }
         .containerPos label:first-child {
             height: 30px;
@@ -237,21 +292,65 @@
             margin-bottom: 2px;
         }
         .samplePos {
-            height: 100px;
-            width: 100px;
+            height: 130px;
+            width: 130px;
             border: 1px solid gray;
             margin-left: 10px;
         }
         .pos {
-        background: url('bird.jpeg');
-        background-size: 100%;
-        filter: none;
+            background: url('images/bird2.jpg');
         }
-        #normal {
-        filter: none;
+        #repeat {
+            background-repeat: repeat-x
         }
-
-        </style>
+        #size {
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+        #position {
+            background-position: 50% 50%;
+            background-repeat: no-repeat; 
+        }
+        #positionXY {
+            background-repeat: repeat-x;
+            background-repeat: no-repeat;
+            background-position-x: center;
+            background-position-y: center;
+        }
+        #origin {
+            padding: 20px;
+            box-sizing: border-box;
+            background-repeat: no-repeat;
+            background-origin: content-box;
+        }
+        #attachment {
+            background-attachment: fixed;
+        }
+        #clip {
+            padding: 20px;
+            box-sizing: border-box;
+            background-clip: content-box;  
+        }
+        #multiple {
+            background: url('images/firefox.png'), 
+            url('images/bubbles.png'),
+            radial-gradient(pink, white 50px);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        #color {
+            background: none;
+            background-color:lavender;
+        }
+        #object-fit {
+            background: none;
+        }
+        #object-fit img {
+            height: 100px;
+            width: 100px;
+            object-fit: contain;
+        }
+    
+    </style>
   </body>
 </html>
-    
