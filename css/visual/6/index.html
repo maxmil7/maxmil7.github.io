@@ -104,30 +104,53 @@
         padding: 5px
     }
     </style>
-    <b>border-radius</b>
-    <div id='radius'>radius 5px<div id='childRadius'>radius 40px</div></div>
+    <b id='heading'>border-radius</b>
+    <div class='radius'>
+        <div class = 'child' id='childRadius'></div>
+        <label>radius: 40px</label> 
+    </div>
+    <div class='radius'>
+        <div class='child' id='top-left-radius'></div>
+        <label>border-top-left-radius: 80px</label> 
+    </div>
+    <div class='radius'>
+        <div class='child' id='elliptical'></div>
+        <label>border-radius: 100px 10px; (affects other corners)</label> 
+    </div>
     <style>
-    #radius {
+    #heading {
+        display: block;
+    }
+    .radius {
         margin: 10px;
-        height: 90px;
-        width: 90px;
-        border: 1px solid gray;
-        border-radius: 5px;
+        height: 120px;
+        width: 100px;
         font-size: 10px;
         padding: 5px;
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
     }
-    #childRadius {
-        height: 60px;
-        width: 60px;
-        margin: 15px auto;
-        border-radius: 40px;
-        border: 1px solid pink;
-        text-align-last: center;
-        line-height: 60px;
+    .child {
+        height: 80px;
+        width: 80px;
+        margin: 8px auto 0px;
         position: relative;
         bottom: 10px;
         color: brown;
+        border: 1px solid pink;
+
     }
+    #childRadius {
+        border-radius: 40px;
+    }
+    #top-left-radius {
+        border-top-left-radius: 80px;
+    }
+    #elliptical {
+        border-radius: 100px 10px;
+    }
+    
     </style>
     <h3>Overflow</h3>
     <p>Specifies how overflown content should be displayed</p>
