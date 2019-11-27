@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>Visual CSS: Transformation</title>
+    <style>
+      body {
+        background-color: azure;
+        font-size: 13px;
+      }
+      pre {
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>9. Transformation</h2>
+    <p>Elements can be transformed using the translate, scale and rotate
+    properties. Transformations can be applied in both 2D and 3D.
+    </p>
+    <h3>9.1. 2D transformations</h3>
+    <b>Translate</b>
+    <p>Moves the object on X and Y axis</p>
+    <div class='container'>
+        <div class='eg' id='translate2d'></div>
+        <label class='labelEg'>transform: translate(10px, 10px)</label>
+    </div>
+    <div class='container'>
+            <div></div>
+        </div>
+    <style>
+        .container {
+            height: 100px;
+            width: 100px;
+            display: inline-block;
+            vertical-align: top;
+            font-size: 10px;
+            text-align: center;
+        }
+        .labelEg {
+            padding: 10px;
+        }
+        .eg {
+            height: 50px;
+            width: 50px;
+            border: 1px solid pink;
+        }
+        #translate2d {
+           
+            transform: translate(10px, 10px);
+            margin: 0px 0px 10px 0px;
+        }
+    </style>
+    <br /><b>Scale</b>
+    <p>Scales the elements </p>
+    <div>Example</div><br/>
+    <b>Rotate</b>
+    <p>Rotates the element around origin (default center). Origin can be changed using the transform-origin property</p>
+    <div>Example</div><br/>
+    <h3>9.2. 3D transformations</h3>
+    <p>3D transformations are achieved by adding perspective to elements</p>
+    <b>Translate</b>
+    <p>Moves the element on X, Y, Z axis</p>
+    <div>Example</div><br/>
+    <b>Scale</b>
+    <p>Scales the element on X, Y, Z axis</p>
+    <div>Example</div><br/>
+    <b>Rotate</b>
+    <p>Rotates the element around origin (default center). Origin can be changed using the transform-origin property</p>
+    <div>Example</div><br/>
+    <b>Translate matrix</b>
+    <p>CSS matrix can be used to provide values for translation and perspective</p>
+    <div>Example</div><br/>
+    <b>3D cube</b>
+    <div>3D cube example</div><br/>
+
+
+
+    
+
+
+
+    
