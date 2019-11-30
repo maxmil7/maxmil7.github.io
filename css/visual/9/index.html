@@ -20,8 +20,12 @@
     <b>Translate: </b>Moves the object on X and Y axis<br/>
     <b>Scale: </b>Scales an element<br/>
     <b>Rotate: </b>Rotates the element around origin (default center). Origin can be changed using the transform-origin property<br/>
+    <b>Skew:</b>Skews the element around X and Y axis<br/>
+    <b>Matrix:</b> CSS matrix can be used to achive the same effect as the above translations.<br/>
+    Syntax: transform: matrix(a, b, c, d, e, f)<br/>
+    ad scale, bc skew, ef translate (rotation can be achieved w/ a combination of these.<br/>
 
-    <div class='container'>
+    <!-- <div class='container'>
         <div class='eg' id='translate2d'>sample</div>
         <label class='labelEg'>transform: translate(10px, 10px)</label>
     </div>
@@ -37,6 +41,14 @@
         <div class='eg' id='rotate2dorigin'>sample</div>
         <label class='labelEg'>transform: rotate(30deg) transform-origin: bottom;</label>
     </div>
+    <div class='container'>
+        <div class='eg' id='skew2d'>sample</div>
+        <label class='labelEg'>transform: rotate(30deg) translate(20px, -10px)</label>
+    </div>
+    <div class='container'>
+        <div class='eg' id='matrix2d'>sample</div>
+        <label class='labelEg'>transform: matrix(0.9, 0.1, 0.1, 0.9, 10, 1)</label>
+    </div>
     <style>
         .container {
             height: 100px;
@@ -46,7 +58,6 @@
             font-size: 10px;
             text-align: center;
             margin-top: 10px;
-            border: 1px solid gray;
         }
         .labelEg {
             padding: 10px;
@@ -73,10 +84,16 @@
             transform-origin: bottom;
             margin: 0px 0px 10px 0px;
         }
+        #skew2d {
+            transform: skew(10deg, 10deg) translate(20px, -5px)
+        }
+        #matrix2d {
+            transform: matrix(0.9, 0.1, 0.1, 0.9, 10, 1);
+        }
 
-    </style>
+    </style> -->
     
-    <h3>9.2. 3D transformations</h3>
+    <!-- <h3>9.2. 3D transformations</h3>
     <p>3D transformations are achieved by adding perspective to elements.
        Perspective can be added either at container level (perspective prop)
        or element level (transfrom: perspective()) 
@@ -94,6 +111,17 @@
         <div class='eg3d' id='scale3d'></div>
         <label class='labelEg'>transform: scaleX(1.2);</label>
     </div>
+    <div class='container container3d'>
+        <div class='eg3d' id='matrix3d'></div>
+        <label class='labelEg'>transform: matrix3d(
+            1,0,0,0,
+            0,1,0,0,
+            0,0,1,0,
+            12,0,0,1.1);
+        </label>
+    </div>
+    <p>3D transform matrix takes 16 values. First 12 describing linear transformation. Last four translation.</p>
+
     <style>
         .container3d {
             perspective: 100px;
@@ -104,7 +132,6 @@
             border: 1px solid pink;
             background: url('../8/images/bird.jpeg');
             background-size: 100%;
-
         }
         #translate3d {
             transform: translateZ(10px);
@@ -115,23 +142,33 @@
         #scale3d {
             transform: scaleX(1.2);
         }
-    </style>
+        #matrix3d {
+            transform: matrix3d(
+            1,0,0,0,
+            0,1,0,0,
+            0,0,1,0,
+            12,0,0,1.1);
+        }
+
+    </style> -->
+    <br/><h3>9.3. 3D Cube</h3>
+    <div class='view'>
+        <div class='cube'>
+            <div class='face front'>front</div>
+            <div class='face back'>back</div>
+            <div class='face right'>right</div>
+            <div class='face left'>left</div>
+            <div class='face top'>top</div>
+            <div class='face bottom'>bottom</div>
+        </div>
+    </div>
     <style>
+        .view {
+            width: 200px;
+            height: 200px;
+            perspective: 300px;
+        }
     </style>
-    <br/><br/><b>Translate</b>
-    <p>Moves the element on X, Y, Z axis</p>
-    <div>Example</div><br/>
-    <b>Scale</b>
-    <p>Scales the element on X, Y, Z axis</p>
-    <div>Example</div><br/>
-    <b>Rotate</b>
-    <p>Rotates the element around origin (default center). Origin can be changed using the transform-origin property</p>
-    <div>Example</div><br/>
-    <b>Translate matrix</b>
-    <p>CSS matrix can be used to provide values for translation and perspective</p>
-    <div>Example</div><br/>
-    <b>3D cube</b>
-    <div>3D cube example</div><br/>
 
 
 
