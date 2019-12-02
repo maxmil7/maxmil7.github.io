@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Visual CSS: Flex</title>
+    <style>
+      body {
+        background-color: azure;
+        font-size: 13px;
+      }
+      pre {
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>10. Flex</h2>
+    <p><b>dislpay: flex</b> is used to control the flow of items within a parent container.<br/>
+    A flex container has a start and an end and two main axis around which 
+    elements are laid out (main axis X, cross axis Y)<br/>
+    Parent can have multiple rows and columns<br/>    
+    Properties are available both on parent and on children to control the flow
+    </p>
+    <div id='flexEg'>
+      <div class='child'>Item1</div>
+      <div class='child'>Item2</div>
+      <div class='child'>Item3</div>
+      <div class='child'>Item4</div>
+    </div>
+    
+    <style>
+        #flexEg {
+            height: 100px;
+            width: 200px;
+            display: flex;
+            flex-wrap: wrap;
+            border: 1px solid gray;
+        }
+        #flexEg .child {
+          border: 1px solid pink;
+          width: 100px;
+          box-sizing: border-box; /*width including border*/
+          
+        }
+    </style>
+
+    <h3>9.1. 2D transformations</h3>
