@@ -17,14 +17,14 @@
     A flex container has a start and an end and two main axis around which 
     elements are laid out (main axis X, cross axis Y)<br/>
     Parent can have multiple rows and columns<br/>    
-    Properties are available both on parent and on children to control the flow
+    Properties are available on both parent and children to control the flow
     </p>
-    <div id='flexEg'>
+    <!-- <div id='flexEg'>
       <div class='child'>Item1</div>
       <div class='child'>Item2</div>
       <div class='child'>Item3</div>
       <div class='child'>Item4</div>
-    </div>
+    </div> -->
     
     <style>
         #flexEg {
@@ -37,9 +37,103 @@
         #flexEg .child {
           border: 1px solid pink;
           width: 100px;
+          height: 50px;
           box-sizing: border-box; /*width including border*/
           
         }
     </style>
 
-    <h3>9.1. 2D transformations</h3>
+    <h3>10.1. Flext container properties</h3>
+    <p><ul>
+      <li><b>flex-direction</b>: sets direction of flow of items</li>
+      <li><b>flext-wrap</b>: determines if elements are wrapped when parent container runs out of space </li>
+      <li><b>flex-flow</b>: shorthand for direction and flow</li>
+      <li><b>justify-content</b>: controls content width and gaps along the main axis (horizontal axis)</li>
+      <li><b>align-items</b>: controls alignment of items along the main axis</li>
+      <li><b>align-content</b>: controls content width and gaps along the cross axis (vertical axis)</li>
+    </ul></p>
+    <div class='wrapper'>
+      <div class='flexParentEg' id='direction'>
+        <div class='child'><label class='childLabel'>1</label></div>
+        <div class='child'><label class='childLabel'>2</label></div>
+        <div class='child'><label class='childLabel'>3</label></div>
+        <div class='child'><label class='childLabel'>4</label></div>
+      </div>
+      <label>flex-direction: column</label>
+    </div>
+    <div class='wrapper'>
+      <div class='flexParentEg' id='wrap'>
+        <div class='child'><label class='childLabel'>1</label></div>
+        <div class='child'><label class='childLabel'>2</label></div>
+        <div class='child'><label class='childLabel'>3</label></div>
+        <div class='child'><label class='childLabel'>4</label></div>
+      </div>
+      <label>flex-wrap: nowrap</label>
+    </div>
+    <div class='wrapper'>
+      <div class='flexParentEg' id='flow'>
+        <div class='child'><label class='childLabel'>1</label></div>
+        <div class='child'><label class='childLabel'>2</label></div>
+        <div class='child'><label class='childLabel'>3</label></div>
+        <div class='child'><label class='childLabel'>4</label></div>
+      </div>
+      <label>flex-flow:row-reverse wrap</label>
+    </div>
+    <div class='wrapper'>
+      <div class='flexParentEg' id='justifyContent'>
+        <div class='child'><label class='childLabel'>1</label></div>
+        <div class='child'><label class='childLabel'>2</label></div>
+        <div class='child'><label class='childLabel'>3</label></div>
+        <div class='child'><label class='childLabel'>4</label></div>
+      </div>
+      <label>flex-flow:row-reverse wrap</label>
+    </div>
+    <style>
+        .wrapper {
+          display: inline-block;
+          vertical-align: top;
+          text-align: center;
+        }
+        .flexParentEg {
+              height: 100px;
+              width: 200px;
+              display: flex;
+              flex-wrap: wrap;
+              border: 1px solid gray;
+          }
+          .flexParentEg .child {
+            border: 1px solid pink;
+            width: 100px;
+            height: 50px;
+            box-sizing: border-box; /*width including border*/
+            text-align: center;
+            line-height: 50px;
+
+          }
+          .childLabel {
+            font-size: 18px;
+            color: blue;
+          }
+          #direction {
+            flex-direction: column;
+          }
+          #wrap {
+            flex-wrap: nowrap;
+          }
+          #flow {
+            flex-flow:row-reverse wrap;
+          }
+          #justifyContent {
+            justify-content: center;
+            justify-content: space-evenly;
+          }
+          #justifyContent .child {
+            height: 40px;
+            width: 40px;
+          }
+
+
+       
+      </style>
+    
+
