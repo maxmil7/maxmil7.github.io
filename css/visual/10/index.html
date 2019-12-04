@@ -48,11 +48,11 @@
       <li><b>flex-direction</b>: sets direction of flow of items</li>
       <li><b>flext-wrap</b>: determines if elements are wrapped when parent container runs out of space </li>
       <li><b>flex-flow</b>: shorthand for direction and flow</li>
-      <li><b>justify-content</b>: controls content width and gaps along the main axis (horizontal axis)</li>
+      <li><b>justify-content</b>: controls content width and gaps between items in either row flow or column flow </li>
+      <li><b>align-content</b>: controls content width and gaps between rows (row flow) or columns (column flow)</li>
       <li><b>align-items</b>: controls alignment of items along the main axis</li>
-      <li><b>align-content</b>: controls content width and gaps along the cross axis (vertical axis)</li>
     </ul></p>
-    <div class='wrapper'>
+    <!-- <div class='wrapper'>
       <div class='flexParentEg' id='direction'>
         <div class='child'><label class='childLabel'>1</label></div>
         <div class='child'><label class='childLabel'>2</label></div>
@@ -78,21 +78,48 @@
         <div class='child'><label class='childLabel'>4</label></div>
       </div>
       <label>flex-flow:row-reverse wrap</label>
-    </div>
+    </div> -->
     <div class='wrapper'>
       <div class='flexParentEg' id='justifyContent'>
         <div class='child'><label class='childLabel'>1</label></div>
         <div class='child'><label class='childLabel'>2</label></div>
         <div class='child'><label class='childLabel'>3</label></div>
         <div class='child'><label class='childLabel'>4</label></div>
+        <div class='child'><label class='childLabel'>1</label></div>
+        <div class='child'><label class='childLabel'>2</label></div>
+        <div class='child'><label class='childLabel'>3</label></div>
+        <div class='child'><label class='childLabel'>4</label></div>
       </div>
-      <label>flex-flow:row-reverse wrap</label>
+      <label>justify-content: space-between;</label>
     </div>
+    <div class='wrapper'>
+      <div class='flexParentEg' id='alignContent'>
+        <div class='child'><label class='childLabel'>1</label></div>
+        <div class='child'><label class='childLabel'>2</label></div>
+        <div class='child'><label class='childLabel'>3</label></div>
+        <div class='child'><label class='childLabel'>4</label></div>
+        <div class='child'><label class='childLabel'>5</label></div>
+        <div class='child'><label class='childLabel'>6</label></div>
+        <div class='child'><label class='childLabel'>7</label></div>
+        <div class='child'><label class='childLabel'>8</label></div>
+      </div>
+      <label>align-content:flex-start;</body> flex-flow: column wrap</label>
+    </div>
+    <div class='wrapper'>
+      <div class='flexParentEg' id='alignItems'>
+        <div class='child'><label class='childLabel'>1</label></div>
+        <div class='child'><label class='childLabel'>2</label></div>
+        <div class='child'><label class='childLabel'>3</label></div>
+        <div class='child'><label class='childLabel'>4</label></div>
+      </div>
+      <label>justify-content: space-between;</label>
+      </div>
     <style>
         .wrapper {
           display: inline-block;
           vertical-align: top;
           text-align: center;
+          width: 200px;
         }
         .flexParentEg {
               height: 100px;
@@ -124,13 +151,38 @@
             flex-flow:row-reverse wrap;
           }
           #justifyContent {
-            justify-content: center;
             justify-content: space-evenly;
+            align-content: space-between;
+            flex-flow: row wrap;
           }
           #justifyContent .child {
             height: 40px;
             width: 40px;
           }
+          #alignContent {
+            flex-flow: column-reverse wrap;
+            align-content: space-around;
+            justify-content: space-between
+            
+          }
+
+          #alignContent .child {
+            height: 30px;
+            width: 40px;
+            line-height: 12px;
+          }
+
+          #alignContent .childLabel {
+            font-size: 12px;
+          }
+          #alignItems {
+            align-items:
+          }
+          #alignItems .child {
+            height: 40px;
+            width: 40px;
+          }
+
 
 
        
