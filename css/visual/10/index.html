@@ -15,7 +15,8 @@
     <h2>10. Flex</h2>
     <p><b>dislpay: flex</b> is used to control the flow of items within a parent container.<br/>
     A flex container has a start and an end and two main axis around which 
-    elements are laid out (main axis X, cross axis Y)<br/>
+    elements are laid out (main axis, cross axis)<br/>
+    In row flow, horizontal axis is main axis. In column flow, vertical axis is main axis.<br/>
     Parent can have multiple rows and columns<br/>    
     Properties are available on both parent and children to control the flow
     </p>
@@ -43,14 +44,15 @@
         }
     </style>
 
-    <h3>10.1. Flext container properties</h3>
+    <h3>10.1. Flex container properties</h3>
     <p><ul>
       <li><b>flex-direction</b>: sets direction of flow of items</li>
-      <li><b>flext-wrap</b>: determines if elements are wrapped when parent container runs out of space </li>
+      <li><b>flex-wrap</b>: determines if elements are wrapped when parent container runs out of space </li>
       <li><b>flex-flow</b>: shorthand for direction and flow</li>
-      <li><b>justify-content</b>: controls content width and gaps between items in either row flow or column flow </li>
-      <li><b>align-content</b>: controls content width and gaps between rows (row flow) or columns (column flow)</li>
-      <li><b>align-items</b>: controls alignment of items along the main axis</li>
+      <li><b>justify-content</b>: controls gaps between items along the main axis</li>
+      <li><b>align-items</b>: controls alignment of items along the cross axis</li>
+      <li><b>align-content</b>: controls gaps between item rows (row flow) or columns (column flow)
+        When there is only one line, align-content has no effect.</li>
     </ul></p>
     <!-- <div class='wrapper'>
       <div class='flexParentEg' id='direction'>
@@ -78,32 +80,15 @@
         <div class='child'><label class='childLabel'>4</label></div>
       </div>
       <label>flex-flow:row-reverse wrap</label>
-    </div> -->
+    </div>
     <div class='wrapper'>
       <div class='flexParentEg' id='justifyContent'>
         <div class='child'><label class='childLabel'>1</label></div>
         <div class='child'><label class='childLabel'>2</label></div>
         <div class='child'><label class='childLabel'>3</label></div>
         <div class='child'><label class='childLabel'>4</label></div>
-        <div class='child'><label class='childLabel'>1</label></div>
-        <div class='child'><label class='childLabel'>2</label></div>
-        <div class='child'><label class='childLabel'>3</label></div>
-        <div class='child'><label class='childLabel'>4</label></div>
       </div>
-      <label>justify-content: space-between;</label>
-    </div>
-    <div class='wrapper'>
-      <div class='flexParentEg' id='alignContent'>
-        <div class='child'><label class='childLabel'>1</label></div>
-        <div class='child'><label class='childLabel'>2</label></div>
-        <div class='child'><label class='childLabel'>3</label></div>
-        <div class='child'><label class='childLabel'>4</label></div>
-        <div class='child'><label class='childLabel'>5</label></div>
-        <div class='child'><label class='childLabel'>6</label></div>
-        <div class='child'><label class='childLabel'>7</label></div>
-        <div class='child'><label class='childLabel'>8</label></div>
-      </div>
-      <label>align-content:flex-start;</body> flex-flow: column wrap</label>
+      <label>justify-content: space-evenly;</label>
     </div>
     <div class='wrapper'>
       <div class='flexParentEg' id='alignItems'>
@@ -111,81 +96,135 @@
         <div class='child'><label class='childLabel'>2</label></div>
         <div class='child'><label class='childLabel'>3</label></div>
         <div class='child'><label class='childLabel'>4</label></div>
+
       </div>
-      <label>justify-content: space-between;</label>
+      <label>align-items: flex-end; flex-flow: row-reverse;</label>
+    </div>
+    <div class='wrapper'>
+      <div class='flexParentEg' id='alignContent'>
+        <div class='child'><label class='childLabel'>1</label></div>
+        <div class='child'><label class='childLabel'>2</label></div>
+        <div class='child'><label class='childLabel'>3</label></div>
+        <div class='child'><label class='childLabel'>4</label></div>
       </div>
+      <label>align-content: flex-start; flex-flow: row wrap;</label>
+      </div> -->
     <style>
-        .wrapper {
-          display: inline-block;
-          vertical-align: top;
-          text-align: center;
-          width: 200px;
+      .wrapper {
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
+        width: 200px;
+      }
+      .flexParentEg {
+            height: 100px;
+            width: 200px;
+            display: flex;
+            flex-wrap: wrap;
+            border: 1px solid gray;
         }
-        .flexParentEg {
-              height: 100px;
-              width: 200px;
-              display: flex;
-              flex-wrap: wrap;
-              border: 1px solid gray;
-          }
-          .flexParentEg .child {
-            border: 1px solid pink;
-            width: 100px;
-            height: 50px;
-            box-sizing: border-box; /*width including border*/
-            text-align: center;
-            line-height: 50px;
+        .flexParentEg .child {
+          border: 1px solid pink;
+          width: 100px;
+          height: 50px;
+          box-sizing: border-box; /*width including border*/
+          text-align: center;
+          line-height: 50px;
 
-          }
-          .childLabel {
-            font-size: 18px;
-            color: blue;
-          }
-          #direction {
-            flex-direction: column;
-          }
-          #wrap {
-            flex-wrap: nowrap;
-          }
-          #flow {
-            flex-flow:row-reverse wrap;
-          }
-          #justifyContent {
-            justify-content: space-evenly;
-            align-content: space-between;
-            flex-flow: row wrap;
-          }
-          #justifyContent .child {
-            height: 40px;
-            width: 40px;
-          }
-          #alignContent {
-            flex-flow: column-reverse wrap;
-            align-content: space-around;
-            justify-content: space-between
-            
-          }
+        }
+        .childLabel {
+          font-size: 18px;
+          color: blue;
+        }
+        #direction {
+          flex-direction: column;
+        }
+        #wrap {
+          flex-wrap: nowrap;
+        }
+        #flow {
+          flex-flow:row-reverse wrap;
+        }
+        #justifyContent {
+          justify-content: space-evenly; 
+          
+        }
+        #justifyContent .child {
+          height: 40px;
+          width: 40px;
+        }
+        #alignItems {
+          flex-flow: row-reverse;
+          align-items: flex-end;
+          
+        }
+        #alignItems .child {
+          height: 40px;
+          width: 40px;
+        }
+        #alignContent {
+          flex-flow: row wrap;
+          align-content: flex-start; 
+          flex-basis: 50px;
+        }
+        #alignContent .child {
+          height: auto;
+          width: auto;
+          flex-basis: 30px;
 
-          #alignContent .child {
-            height: 30px;
-            width: 40px;
-            line-height: 12px;
-          }
-
-          #alignContent .childLabel {
-            font-size: 12px;
-          }
-          #alignItems {
-            align-items:
-          }
-          #alignItems .child {
-            height: 40px;
-            width: 40px;
-          }
-
-
-
-       
+        }
       </style>
+
+      <h3>10.1. Flex children properties</h3>
+      <p><ul>
+        <li><b>flex-basis</b>: sets initial main size of flex item. Defaults to content-box</li>
+        <li><b>flex-grow, flex-shrink</b>: sets how a flex item will grow or shrink to fit the space available in flex container</li>
+        <li><b>flex</b>: shorthand for flex-grow, flex-shrink and flex-basis</li>
+        <li><b>order</b>: order in which to lay out an item in a flex container. Items are laid out in ascending order value. Defaults to source code order </li>
+        <li><b>align-self</b>: overrides align-content for a specific item. Aligns item on cross axis </li>
+      </ul></p>
+      <div class='flexChildWrapper'>
+        <div class='flexChildContainer'>
+          <div class='item basis'><label class='label'>1</label></div>
+          <div class='item basis'><label class='label'>2</label></div>
+          <div class='item basis'><label class='label'>3</label></div>
+          <div class='item basis'><label class='label'>4</label></div>
+        </div>
+        <label>flex-basis: 40px;</label>
+      </div>
+      <style>
+      .flexChildWrapper {
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
+        width: 200px;
+      }
+      .flexChildContainer {
+        height: 100px;
+        width: 200px;
+        display: flex;
+        flex-wrap: wrap;
+        border: 1px solid gray;
+      }
+      .flexChildContainer .item {
+        border: 1px solid pink;
+  
+        box-sizing: border-box; /*width including border*/
+        text-align: center;
+        line-height: 50px;
+      }
+      .label {
+        font-size: 18px;
+        color: blue;
+      }
+      .basis {
+        flex-basis: 40px;
+
+      }
+      </style>
+      <!--
+      In flexbox, justify-content doesn't affect element size
+      justify-self is ignored
+      -->
     
 
