@@ -20,12 +20,12 @@
     Parent can have multiple rows and columns<br/>    
     Properties are available on both parent and children to control the flow
     </p>
-    <!-- <div id='flexEg'>
+    <div id='flexEg'>
       <div class='child'>Item1</div>
       <div class='child'>Item2</div>
       <div class='child'>Item3</div>
       <div class='child'>Item4</div>
-    </div> -->
+    </div>
     
     <style>
         #flexEg {
@@ -49,12 +49,12 @@
       <li><b>flex-direction</b>: sets direction of flow of items</li>
       <li><b>flex-wrap</b>: determines if elements are wrapped when parent container runs out of space </li>
       <li><b>flex-flow</b>: shorthand for direction and flow</li>
-      <li><b>justify-content</b>: controls gaps between items along the main axis</li>
+      <li><b>justify-content</b>: controls gaps between items along the main axis. 'strech' value not supported in flex layout</li>
       <li><b>align-items</b>: controls alignment of items along the cross axis</li>
       <li><b>align-content</b>: controls gaps between item rows (row flow) or columns (column flow)
         When there is only one line, align-content has no effect.</li>
     </ul></p>
-    <!-- <div class='wrapper'>
+    <div class='wrapper'>
       <div class='flexParentEg' id='direction'>
         <div class='child'><label class='childLabel'>1</label></div>
         <div class='child'><label class='childLabel'>2</label></div>
@@ -108,7 +108,7 @@
         <div class='child'><label class='childLabel'>4</label></div>
       </div>
       <label>align-content: flex-start; flex-flow: row wrap;</label>
-      </div> -->
+      </div>
     <style>
       .wrapper {
         display: inline-block;
@@ -182,6 +182,7 @@
         <li><b>flex</b>: shorthand for flex-grow, flex-shrink and flex-basis</li>
         <li><b>order</b>: order in which to lay out an item in a flex container. Items are laid out in ascending order value. Defaults to source code order </li>
         <li><b>align-self</b>: overrides align-content for a specific item. Aligns item on cross axis </li>
+        <li><b>justify-self</b>: ignored in flexbox</li>
       </ul></p>
       <div class='flexChildWrapper'>
         <div class='flexChildContainer'>
@@ -191,6 +192,51 @@
           <div class='item basis'><label class='label'>4</label></div>
         </div>
         <label>flex-basis: 40px;</label>
+      </div>
+      <div class='flexChildWrapper'>
+        <div class='flexChildContainer'>
+          <div class='item grow'><label class='label'>1</label></div>
+          <div class='item'><label class='label'>2</label></div>
+          <div class='item'><label class='label'>3</label></div>
+          <div class='item'><label class='label'>4</label></div>
+        </div>
+        <label>flex-grow: 0.5</label>
+      </div>
+      <div class='flexChildWrapper'>
+        <div class='flexChildContainer' id='shrinkContainer'>
+          <div class='item basis shrink'><label class='label'>1</label></div>
+          <div class='item basis shrink'><label class='label'>2</label></div>
+          <div class='item basis'><label class='label'>3</label></div>
+          <div class='item basis'><label class='label'>4</label></div>
+        </div>
+        <label>flex-basis: 60px; flex-shrink: 12</label>
+      </div>
+      <div class='flexChildWrapper'>
+        <div class='flexChildContainer' id='flex'>
+          <div class='item basis'><label class='label'>1</label></div>
+          <div class='item basis'><label class='label'>2</label></div>
+          <div class='item basis flexItem'><label class='label'>3</label></div>
+          <div class='item basis flexItem'><label class='label'>4</label></div>
+        </div>
+        <label>flex: 0 0 50px;</label>
+      </div>
+      <div class='flexChildWrapper'>
+        <div class='flexChildContainer'>
+          <div class='item basis order'><label class='label'>1</label></div>
+          <div class='item basis'><label class='label'>2</label></div>
+          <div class='item basis'><label class='label'>3</label></div>
+          <div class='item basis'><label class='label'>4</label></div>
+        </div>
+        <label>order: 2;</label>
+      </div>
+      <div class='flexChildWrapper'>
+        <div class='flexChildContainer' id='align'>
+          <div class='item basis align-self'><label class='label'>1</label></div>
+          <div class='item basis'><label class='label'>2</label></div>
+          <div class='item basis'><label class='label'>3</label></div>
+          <div class='item basis'><label class='label'>4</label></div>
+        </div>
+        <label>height: 40px; align-self: flex-end;</label>
       </div>
       <style>
       .flexChildWrapper {
@@ -203,12 +249,10 @@
         height: 100px;
         width: 200px;
         display: flex;
-        flex-wrap: wrap;
         border: 1px solid gray;
       }
       .flexChildContainer .item {
         border: 1px solid pink;
-  
         box-sizing: border-box; /*width including border*/
         text-align: center;
         line-height: 50px;
@@ -219,12 +263,30 @@
       }
       .basis {
         flex-basis: 40px;
-
       }
+      .grow {
+        flex-grow: 0.5;
+      }
+      #shrinkContainer .basis {
+        flex-basis: 60px;
+      }
+      .shrink {
+        flex-shrink: 15;
+      }
+      .flexItem {
+        flex: 0 0 50px;  
+      }
+      .order {
+        order: 2;
+      }
+      #align .item {
+        height: 40px;
+        line-height: 40px;
+      }
+      #align .align-self {
+        align-self: flex-end;
+      }
+    
       </style>
-      <!--
-      In flexbox, justify-content doesn't affect element size
-      justify-self is ignored
-      -->
     
 
