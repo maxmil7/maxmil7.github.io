@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Visual CSS: Grid</title>
+    <style>
+      body {
+        background-color: azure;
+        font-size: 13px;
+      }
+      pre {
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>11. Grid</h2>
+    <p><b>dislpay: grid</b> is used to divide a page into major regions. <br/>
+    It also defines the relationship between the regions in terms of size, postion and layer. 
+    </p>
+    <div id="page">
+        <div id='header'>Header</div>
+        <div id='nav'>Navigation</div>
+        <div id='main'>Main area</div>
+        <div id='footer'>Footer</div>
+        <div id='other'>other</div>
+      </section>
+    
+    <style>
+#page {
+  display: grid;
+  width: 100%;
+  height: 300px;
+
+                    
+  grid-template-rows: 60px 1fr 60px;
+}
+
+#page > #header {
+  background-color: #8ca0ff;
+}
+
+#page > #nav {
+  background-color: #ffa08c;
+}
+
+#page > #main {
+  background-color: #ffff64;
+}
+
+#page > #footer {
+  background-color: #8cffa0;
+}
+
+#page > #other {
+    background-color: red;
+}
+
+</style>
+
+   
