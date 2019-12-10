@@ -13,63 +13,113 @@
   </head>
   <body>
     <h2>11. Grid</h2>
-    <p><b>dislpay: grid</b> is used to divide a page into major regions. <br/>
-    It also defines the relationship between the regions in terms of size, postion and layer. 
+    <p><b>dislpay: grid</b> is used to divide a page into multiple regions based on rows and columns. <br/>
+    Grid properties define the postion, size and gaps and layering between the regions.<br/>
+    Grid is automatically extended based on the regions within a grid.
     </p>
     <div id="page">
-        <div id='header'>Header</div>
-        <div id='nav'>Navigation</div>
-        <div id='main'>Main area</div>
-        <div id='footer'>Footer</div>
-        <div id='other'>other</div>
-      </section>
-    
+      <div id='header'>Header</div>
+      <div id='nav'>Navigation</div>
+      <div id='main'>Main area</div>
+      <div id='footer'>Footer</div>
+      <div id='other'>other</div>
+    </div>
+      <label>By default, items are laid out one per row (single column layout)</label>
     <style>
-#page {
-  display: grid;
-  width: 100%;
-  height: 300px;
+      #page {
+        display: grid;                    
+      }
+      #page > #header {
+        background-color: #8ca0ff;
+      }
+      #page > #nav {
+        background-color: #ffa08c;
+      }
+      #page > #main {
+        background-color: #ffff64;
+      }
+      #page > #footer {
+        background-color: #8cffa0;
+      }
+      #page > #other {
+          background-color: red;
+      }
+    </style>
+    <h3>11.1. Rows and columns within grid</h3>
+    <ul>
+      <li><b>grid-template-columns</b>: definies column size within the grid</li>
+      <li><b>grid-template-rows</b>: defines row size within grid</li>
+      <li><b>grid-auto-columns</b>: defines column size for implicit (automatic) columns</li>
+      <li><b>grid-auto-rows</b>: defines row size for  implicit (automatic) rows</li>
+    </ul>
+    <div class='container'>
+      <div class='gridLayout'>
+        <div class='child'><label>1</label></div>
+        <div class='child'><label>2</label></div>
+        <div class='child'><label>3</label></div>
+        <div class='child'><label>4</label></div>
+        <div class='child'><label>auto</label></div>
+        <div class='child'><label>auto</label></div>
+      </div>
+      <label>grid-template-columns: 60px 1fr;<br/>
+          grid-template-rows: 0.5fr 0.5fr;<br/>
+          grid-auto-rows: 40px;</label>
+    </div>
+    <div class='container'>
+        <div class='gridAutoColumn'>
+          <div class='child'><label>1</label></div>
+          <div class='child'><label>auto</label></div>
+          <div class='child'><label>3</label></div>
+          <div class='child'><label>auto</label></div>
+        </div>
+        <label>grid-template-areas: 'a a';<br/>
+            grid-template-columns: 50px;<br/>
+            grid-auto-columns: 1fr;</label>
+      </div>
+    <style>
+      .gridLayout {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        grid-template-rows: 0.5fr 0.5fr;
+        grid-auto-rows: 40px;
+        grid-auto-columns: 60px; 
+      }
+      .child {
+        border: 1px solid pink;
+        text-align: initial;
+      }
+      .child label {
+        font-size: 16px;
+        color: blue;
+      }
+      .container {
+        text-align: center
+      }
+      .container > label {
+        font-size: 12px
+      }
+      .gridAutoColumn {
+        display: grid;
+        grid-template-areas: 'a a';
+        grid-template-columns: 40px;
+        grid-auto-columns: 1fr;
 
-                    
-  grid-template-rows: 60px 1fr 60px;
-}
+      }
+    </style>
 
-#page > #header {
-  background-color: #8ca0ff;
-}
 
-#page > #nav {
-  background-color: #ffa08c;
-}
-
-#page > #main {
-  background-color: #ffff64;
-}
-
-#page > #footer {
-  background-color: #8cffa0;
-}
-
-#page > #other {
-    background-color: red;
-}
-</style>
-<h3>11.1. Rows and column within grid</h3>
-<ul>
-    <li><b>grid-template-columns</b>:</li>
-    <li><b>grid-template-rows</b>:</li>
-    <li><b>grid-auto-rows</b>:</li>
-    <li><b>grid-auto-columns</b>:</li>
-</ul>
 <h3>11.2. Template areas that span multiple columns and row</h3>
 <ul>
-    <li><b>grid-column-start</b>:</li>
-    <li><b>grid-column-end</b>:</li>
+    <li><b>grid-column-start</b>: start position within grid column</li>
+    <li><b>grid-column-end</b>: end position within grid column</li>
+    <li><b>grid-column</b>: short hand for grid-column-start, grid-column-end</li>
     <li><b>grid-row-start</b>:</li>
     <li><b>grid-row-end</b>:</li>
+    <li><b>grid-row</b>:</li>
+    <li><b>grid-area</b>:</li>
     <li><b>grid-template-area</b>:</li>
 </ul>
-<h3>11.3. Flow of items within grid</h3>
+<!-- <h3>11.3. Flow of items within grid</h3>
 <ul>
     <li><b>grid-auto-flow</b>:</li>
 </ul>
@@ -87,4 +137,4 @@
 
 
 
-   
+    -->
