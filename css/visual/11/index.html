@@ -66,16 +66,18 @@
           grid-auto-rows: 40px;</label>
     </div>
     <div class='container'>
-        <div class='gridAutoColumn'>
-          <div class='child'><label>1</label></div>
-          <div class='child'><label>auto</label></div>
-          <div class='child'><label>3</label></div>
-          <div class='child'><label>auto</label></div>
-        </div>
-        <label>grid-template-areas: 'a a';<br/>
-            grid-template-columns: 50px;<br/>
-            grid-auto-columns: 1fr;</label>
+      <div class='gridAutoColumn'>
+        <div class='child'><label>1</label></div>
+        <div class='child'><label>auto</label></div>
+        <div class='child'><label>3</label></div>
+        <div class='child'><label>auto</label></div>
       </div>
+      <label>
+        grid-template-areas: 'a a';<br/>
+        grid-template-columns: 50px;<br/>
+        grid-auto-columns: 1fr;
+      </label>
+    </div>
     <style>
       .gridLayout {
         display: grid;
@@ -84,7 +86,7 @@
         grid-auto-rows: 40px;
         grid-auto-columns: 60px; 
       }
-      .child {
+      .gridLayout .child, .gridAutoColumn .child {
         border: 1px solid pink;
         text-align: initial;
       }
@@ -107,18 +109,73 @@
       }
     </style>
 
+    <h3>11.2. Template areas that span multiple columns and row</h3>
+    <ul>
+      <li><b>grid-row-start</b>: start position within grid row</li>
+      <li><b>grid-row-end</b>: end position within grid row</li>
+      <li><b>grid-row</b>: shorthand for grid-row-start, grid-row-end</li>
+      <li><b>grid-column-start</b>: start position within grid column</li>
+      <li><b>grid-column-end</b>: end position within grid column</li>
+      <li><b>grid-column</b>: short hand for grid-column-start, grid-column-end</li>
+      <li><b>grid-template-area</b>: specifies named grid areas</li>
+      <li><b>grid-area</b>: short hand for grid-row and grid-column or grid-area name</li>
+    </ul>
+    <div class='container'>
+      <div id='gridMultiple'>
+        <div class='child' id='one'><label>1</label></div>
+        <div class='child'><label>2</label></div>
+        <div class='child' id='three'><label>3</label></div>
+        <div class='child'><label>4</label></div>
+        <div class='child' id='five'><label>5</label></div>
+        <div class='child'><label>6</label></div>
+        <div class='child'><label>7</label></div>
+        <div class='child'><label>8</label></div>
+        <div class='child' id='nine'><label>9</label></div>
+      </div>
+      <label>
+        grid-template-columns: 60px 1fr;<br/>
+        grid-template-rows: 0.5fr 0.5fr;<br/>
+        grid-auto-rows: 40px;
+      </label>
+    </div>
+    <style>
+      #gridMultiple {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: 'a b c'
+                             'd e f'
+                             'g h i'
+                             'j j k';
+      }
+      #gridMultiple .child {
+        border: 1px solid pink;
+      }
+      #three {
+        grid-column-start: 3;
+        grid-column-end: 4;
+        grid-row-gap: 1;
+        grid-row-end: 2;
+        background-color: #8cffa0;
+      }
+      #five {
+        grid-row: 2/4;
+        grid-column: 2/3;
+        background-color: #ffff64;
+      }
+      #one {
+        grid-area: 1/2, 1/2;
+        background-color:bisque
+      }
+      #nine {
+        grid-area: j;
+        background-color: #ff8cff;
+      }
 
-<h3>11.2. Template areas that span multiple columns and row</h3>
-<ul>
-    <li><b>grid-column-start</b>: start position within grid column</li>
-    <li><b>grid-column-end</b>: end position within grid column</li>
-    <li><b>grid-column</b>: short hand for grid-column-start, grid-column-end</li>
-    <li><b>grid-row-start</b>:</li>
-    <li><b>grid-row-end</b>:</li>
-    <li><b>grid-row</b>:</li>
-    <li><b>grid-area</b>:</li>
-    <li><b>grid-template-area</b>:</li>
-</ul>
+
+
+
+
+    </style>
 <!-- <h3>11.3. Flow of items within grid</h3>
 <ul>
     <li><b>grid-auto-flow</b>:</li>
