@@ -86,16 +86,24 @@
         grid-auto-rows: 40px;
         grid-auto-columns: 60px; 
       }
-      .gridLayout .child, .gridAutoColumn .child {
+      .gridLayout .child, 
+      .gridAutoColumn .child, 
+      .gridMultiple .child,
+      .gridFlow .child,
+      .gridFlowDense .child {
         border: 1px solid pink;
-        text-align: initial;
+      }
+
+      .gridLayout .child, 
+      .gridAutoColumn .child {
+        text-align: initial
       }
       .child label {
         font-size: 16px;
         color: blue;
       }
       .container {
-        text-align: center
+        text-align: center;
       }
       .container > label {
         font-size: 12px
@@ -121,7 +129,7 @@
       <li><b>grid-area</b>: short hand for grid-row and grid-column or grid-area name</li>
     </ul>
     <div class='container'>
-      <div id='gridMultiple'>
+      <div class='gridMultiple'>
         <div class='child' id='one'><label>1</label></div>
         <div class='child'><label>2</label></div>
         <div class='child' id='three'><label>3</label></div>
@@ -142,7 +150,7 @@
         background-color: #8cffa0; }<br/>
       </label>
       <label class='area'>
-        <span>#five</span> { grid-row: 2/4;<br/>
+        <span>#five</span> { grid-row: 2/span 2;<br/>
         grid-column: 2/3;<br/>
         background-color: #ffff64;}<br/>
       </label>
@@ -156,7 +164,7 @@
       </label>
     </div>
     <style>
-      #gridMultiple {
+      .gridMultiple {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-areas: 'a b c'
@@ -164,10 +172,8 @@
                              'g h i'
                              'j j k';
       }
-      #gridMultiple .child {
-        border: 1px solid pink;
-      }
-      .area span {
+
+      .area span:first-of-type {
         color: blue;
       }
       #three {
@@ -178,7 +184,7 @@
         background-color: #8cffa0;
       }
       #five {
-        grid-row: 2/4;
+        grid-row: 2/span 2;
         grid-column: 2/3;
         background-color: #ffff64;
       }
@@ -191,15 +197,44 @@
         background-color: #ff8cff;
       }
 
-
-
-
-
     </style>
-<!-- <h3>11.3. Flow of items within grid</h3>
+<h3>11.3. Flow of items within grid</h3>
 <ul>
-    <li><b>grid-auto-flow</b>:</li>
+    <li><b>grid-auto-flow</b>: Specifies auto flow items gets placed in the grid. Eg: row, column, dense</li>
 </ul>
+<div class='container'>
+  <div class='gridFlow'>
+    <div class='child'><label>1</label></div>
+    <div class='child'><label>2</label></div>
+    <div class='child'><label>3</label></div>
+    <div class='child'><label>4</label></div>
+  </div>
+  <label>grid-auto-flow: column</label>
+</div>
+</div>
+<div class='container'>
+  <div class='gridFlowDense'>
+      <div class='child' id='dense1'><label>1</label></div>
+      <div class='child'><label>2</label></div>
+      <div class='child' id='dense3'><label>3</label></div>
+    </div>
+    <label>grid-auto-flow: column</label>
+  </div>
+</div>
+<style>
+  .gridFlow {
+    display: grid;
+    grid-auto-flow: column;
+  }
+  .gridFlowDense {
+    display: grid;
+    grid-auto-flow: row dense;
+  }
+  #dense1, #dense3 {
+    width:30px;
+  }
+</style>
+
 <h3>11.4. Gaps between rows and columns</h3>
 <ul>
     <li><b>grid-row-gap</b>:</li>
@@ -211,7 +246,7 @@
 <p>Fraction of available space in a grid container. It respects grid gaps as well</p>
 
 
+//css grid Template
+//dense flow
 
 
-
-    -->
