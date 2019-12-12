@@ -130,12 +130,29 @@
         <div class='child'><label>6</label></div>
         <div class='child'><label>7</label></div>
         <div class='child'><label>8</label></div>
-        <div class='child' id='nine'><label>9</label></div>
+        <div class='child' id='nine'><label>9</label>
+            
+        </div>
       </div>
-      <label>
-        grid-template-columns: 60px 1fr;<br/>
-        grid-template-rows: 0.5fr 0.5fr;<br/>
-        grid-auto-rows: 40px;
+      <label class='area'>
+        <span>#three</span> { grid-column-start: 3;<br/>
+        grid-column-end: 4;<br/>
+        grid-row-gap: 1;<br/>
+        grid-row-end: 2;<br/>
+        background-color: #8cffa0; }<br/>
+      </label>
+      <label class='area'>
+        <span>#five</span> { grid-row: 2/4;<br/>
+        grid-column: 2/3;<br/>
+        background-color: #ffff64;}<br/>
+      </label>
+      <label class='area'>
+        <span>#one</span> { grid-area: 1/2, 1/2;<br/>
+        background-color:bisque }</br>
+      </label>
+      <label class='area'>
+        <span>#nine</span>{ grid-area: j; <br/>
+        background-color: #ff8cff; } <br/>
       </label>
     </div>
     <style>
@@ -149,6 +166,9 @@
       }
       #gridMultiple .child {
         border: 1px solid pink;
+      }
+      .area span {
+        color: blue;
       }
       #three {
         grid-column-start: 3;
