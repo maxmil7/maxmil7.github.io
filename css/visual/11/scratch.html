@@ -1,0 +1,91 @@
+<br/><br/><br/><br/><br/><br/>
+
+<section id="page">
+  <header>Header</header>
+  <nav>Navigation</nav>
+  <main>Main area</main>
+  <footer>Footer</footer>
+</section>
+<style>
+
+
+#page {
+    display: grid;
+    width: 100%;
+
+    height: 200px;
+    grid-template: "head head" 20px
+                   "nav  main" 1fr
+                   "nav  foot" 50px /2fr 1fr;
+    /*
+     grid-template: [header-left] "head head" 30px [header-right]
+                   [main-left]   "nav  main" 1fr  [main-right]
+                   [footer-left] "nav  foot" 30px [footer-right]
+                   / 120px 1fr;
+    */
+  }
+  
+  
+  header {
+    background-color: lime;
+    grid-column: head;
+    
+  }
+  
+  nav {
+    background-color: lightblue;
+    grid-area: nav;
+  }
+  
+  main {
+    background-color: yellow;
+    grid-area: main;
+  }
+  
+  footer {
+    background-color: red;
+    grid-column: foot;
+  }
+</style>
+
+
+<!--
+//GRID
+display: grid //composed of rows and columns. additional rows are added based on content
+grid-template-rows: row size
+grid-template-columns: column size (use auto for implicit/automatic)
+//grid rows and columns can be named as well during definition ^^
+grid-template-areas: define a mapping area, doesn't create new row
+grid-template: combination of grid-template-areas, grid-row and grid-column (column is the very last)
+grid: like grid-template but doesn't inherit
+..todo include grid gaps
+
+//Placing items within grid
+placed according to row/column definition: one per cell (1,2,3) (grid-auto flow determines behavior)
+grid-column-start, grid-column-end, grid-column: specify no. of columns
+grid-row-start, grid-row-end, grid-row: specify no. of rows
+grid-area (short for grid-row, grid-column or area)
+..todo alignment of items within grid
+
+//glossary: grid tracks/grid lines
+-->
+<br/><br/><br/><br/>
+<div id="container">
+<div id="header">Header</div>
+<div id="nav">Navigation</div>
+<div id="main">Main area</div>
+<div id="foot">Footer</div>
+</div>
+
+<style>
+    #container {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+
+        grid-auto-flow: column;
+    }
+    #header {
+        background-color: yellow;
+    }
+
+</style>

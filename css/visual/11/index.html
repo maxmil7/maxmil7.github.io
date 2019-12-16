@@ -17,14 +17,15 @@
     Grid properties define the postion, size and gaps and layering between the regions.<br/>
     Grid is automatically extended based on the regions within a grid.
     </p>
-    <div id="page">
+    <!-- <div id="page">
       <div id='header'>Header</div>
       <div id='nav'>Navigation</div>
       <div id='main'>Main area</div>
       <div id='footer'>Footer</div>
       <div id='other'>other</div>
     </div>
-      <label>By default, items are laid out one per row (single column layout)</label>
+    <label>By default, items are laid out one per row (single column layout)</label> -->
+
     <style>
       #page {
         display: grid;                    
@@ -46,13 +47,13 @@
       }
     </style>
     <h3>11.1. Rows and columns within grid</h3>
-    <ul>
+    <!-- <ul>
       <li><b>grid-template-columns</b>: definies column size within the grid</li>
       <li><b>grid-template-rows</b>: defines row size within grid</li>
       <li><b>grid-auto-columns</b>: defines column size for implicit (automatic) columns</li>
       <li><b>grid-auto-rows</b>: defines row size for  implicit (automatic) rows</li>
-    </ul>
-    <div class='container'>
+    </ul> -->
+    <!-- <div class='container'>
       <div class='gridLayout'>
         <div class='child'><label>1</label></div>
         <div class='child'><label>2</label></div>
@@ -77,7 +78,7 @@
         grid-template-columns: 50px;<br/>
         grid-auto-columns: 1fr;
       </label>
-    </div>
+    </div> -->
     <style>
       .gridLayout {
         display: grid;
@@ -118,16 +119,18 @@
     </style>
 
     <h3>11.2. Template areas that span multiple columns and row</h3>
-    <ul>
+    <!-- <ul>
       <li><b>grid-row-start</b>: start position within grid row</li>
       <li><b>grid-row-end</b>: end position within grid row</li>
-      <li><b>grid-row</b>: shorthand for grid-row-start, grid-row-end</li>
+      <li><b>grid-row</b>: shorthand for grid-row-start, grid-row-end or grid-area name</li>
       <li><b>grid-column-start</b>: start position within grid column</li>
       <li><b>grid-column-end</b>: end position within grid column</li>
-      <li><b>grid-column</b>: short hand for grid-column-start, grid-column-end</li>
-      <li><b>grid-template-area</b>: specifies named grid areas</li>
+      <li><b>grid-column</b>: short hand for grid-column-start, grid-column-end or grid-area name</li>
+      <li><b>grid-template-areas</b>: specifies named grid areas</li>
       <li><b>grid-area</b>: short hand for grid-row and grid-column or grid-area name</li>
-    </ul>
+      <li><b>grid-template</b>:
+      <li><b>grid<b></b>
+    </ul> -->
     <div class='container'>
       <div class='gridMultiple'>
         <div class='child' id='one'><label>1</label></div>
@@ -142,7 +145,7 @@
             
         </div>
       </div>
-      <label class='area'>
+      <!-- <label class='area'>
         <span>#three</span> { grid-column-start: 3;<br/>
         grid-column-end: 4;<br/>
         grid-row-gap: 1;<br/>
@@ -161,16 +164,16 @@
       <label class='area'>
         <span>#nine</span>{ grid-area: j; <br/>
         background-color: #ff8cff; } <br/>
-      </label>
+      </label> -->
     </div>
     <style>
       .gridMultiple {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-areas: 'a b c'
-                             'd e f'
-                             'g h i'
-                             'j j k';
+        /*grid-template-rows: 60px 60px;*/
+        grid-template-areas: '. . .' 60px
+                   '. . .' 40px
+                   '. . .' 40px
+                   'j j .' 80px;
       }
 
       .area span:first-of-type {
@@ -179,7 +182,7 @@
       #three {
         grid-column-start: 3;
         grid-column-end: 4;
-        grid-row-gap: 1;
+        grid-row-start: 1;
         grid-row-end: 2;
         background-color: #8cffa0;
       }
@@ -203,7 +206,7 @@
     <li><b>grid-auto-flow</b>: Specifies auto flow items gets placed in the grid. Eg: row, column, dense</li>
 </ul>
 <div class='container'>
-  <div class='gridFlow'>
+  <!-- <div class='gridFlow'>
     <div class='child'><label>1</label></div>
     <div class='child'><label>2</label></div>
     <div class='child'><label>3</label></div>
@@ -220,7 +223,7 @@
     </div>
     <label>grid-auto-flow: column</label>
   </div>
-</div>
+</div> -->
 <style>
   .gridFlow {
     display: grid;
@@ -247,6 +250,8 @@
 
 
 //css grid Template
+//whats the use of naming lines
+//syntax for grid or grid-template
 //dense flow
 
 
