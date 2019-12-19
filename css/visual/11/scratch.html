@@ -49,7 +49,7 @@
 </style>
 
 
-<!--
+
 //GRID
 display: grid //composed of rows and columns. additional rows are added based on content
 grid-template-rows: row size
@@ -69,7 +69,7 @@ grid-area (short for grid-row, grid-column or area)
 
 //glossary: grid tracks/grid lines
 //flow within grid
--->
+
 <br/><br/><br/><br/>
 <div id="grid">
     <div id="item1">item1</div>
@@ -113,3 +113,30 @@ grid-area (short for grid-row, grid-column or area)
         background-color: aqua;
     }
 </style>
+
+
+CSS grid level alignment props:
+align-items, justify-items, align-content, justify-content
+Item level props:
+justify-self, align-self
+
+How would the layout look like?
+
+<!-- Grid props:
+grid-template-columns
+grid-template-rows
+grid-template-area
+grid-template: combo of above
+grid - same as grid-template w/o inheritance
+grid-gaps
+align-items, justify-items, align-content, justify-content
+
+Grid item props:
+grid-row-start/end grid-row
+grid-column-start/end grid-column
+grid-area
+order
+align-self, justify-self
+
+Glossary:
+tracks, naming grid lines, repeating, span, minMax, box model used -->
