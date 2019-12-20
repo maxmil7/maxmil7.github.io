@@ -14,18 +14,18 @@
   <body>
     <h2>11. Grid</h2>
     <p><b>dislpay: grid</b> is used to divide a page into multiple regions based on rows and columns (known as tracks) <br/>
-    Grid properties define track size, gaps, flow and mapping of items within tracks.<br/>
-    Properties on grid items
-    Grid is automatically extended based on grid content
+    Grid properties define track size, gaps, alignment, flow and mapping of items within tracks.<br/>
+    Properties on grid items define order, span and alignment.</br>
+    Grid is automatically extended based on grid content.
     </p>
-    <!-- <div id="page">
+    <div id="page">
       <div id='header'>Header</div>
       <div id='nav'>Navigation</div>
       <div id='main'>Main area</div>
       <div id='footer'>Footer</div>
       <div id='other'>other</div>
     </div>
-    <label>By default, items are laid out one per row (single column layout)</label> -->
+    <label>By default, items are laid out one per row (single column layout)</label>
 
     <style>
       #page {
@@ -47,13 +47,61 @@
           background-color: red;
       }
     </style>
-    <h3>11.1. Rows and columns within grid</h3>
+    <h3>11.1. Grid container properties</h3>
+    <ul>
+      <li><b>grid-template-columns</b>: definies column size within the grid</li>
+      <li><b>grid-template-rows</b>: defines row size within grid</li>
+      <li><b>grid-auto-columns</b>: defines column size for implicit (automatic) columns</li>
+      <li><b>grid-auto-rows</b>: defines row size for  implicit (automatic) rows</li>
+      <li><b>grid-template-area</b>:
+      <li><b>grid-template</b>:
+      <li><b>grid</b>:
+      <li><b>grid-gaps</b>:
+      <li><b>align-items</b>:
+      <li><b>justify-items</b>:
+      <li><b>align-content</b>:
+      <li><b>justify-content</b>:
+    </ul> 
+    <h3>11.2. Grid item properties</h3>
+    <ul>
+        <li><b>grid-row-start, grid-row-end</b>:
+        <li><b>grid-row</b>:
+        <li><b>grid-column-start, grid-column-end</b>:
+        <li><b>grid-column</b>:
+        <li><b>grid-area</b>:
+        <li><b>order</b>:
+        <li><b>align-self</b>:
+        <li><b>justify-self</b>:
+    </ul>
+    <h3>11.3. Glossary</h3>
+    <ul>
+        <li><b>tracks</b>:
+        <li><b>naming grid lines</b>:
+        <li><b>repeat</b>:
+        <li><b>span</b>:
+        <li><b>minMax</b>:
+        <li><b>order</b>:
+        <li><b>fractional</b>:
+        <li><b>boxModel</b>:
+    </ul>
+    
+    
+
+
     <!-- <ul>
       <li><b>grid-template-columns</b>: definies column size within the grid</li>
       <li><b>grid-template-rows</b>: defines row size within grid</li>
       <li><b>grid-auto-columns</b>: defines column size for implicit (automatic) columns</li>
       <li><b>grid-auto-rows</b>: defines row size for  implicit (automatic) rows</li>
-    </ul> -->
+      <li><b>grid-template-area</b>:
+      <li><b>grid-template</b>:
+      <li><b>grid</b>:
+      <li><b>grid-gaps</b>:
+      <li><b>align-items</b>:
+      <li><b>justify-items</b>:
+      <li><b>align-content</b>:
+      <li><b>justify-content</b>:
+    </ul>  -->
     <!-- <div class='container'>
       <div class='gridLayout'>
         <div class='child'><label>1</label></div>
