@@ -50,9 +50,12 @@
       <li><b>flex-wrap</b>: determines if elements are wrapped when parent container runs out of space </li>
       <li><b>flex-flow</b>: shorthand for direction and flow</li>
       <li><b>justify-content</b>: controls gaps between items along the main axis. 'strech' value not supported in flex layout</li>
-      <li><b>align-items</b>: controls alignment of items along the cross axis</li>
-      <li><b>align-content</b>: controls gaps between item rows (row flow) or columns (column flow)
+      <li><b>align-content</b>: controls gaps between items along the cross axis
         When there is only one line, align-content has no effect.</li>
+      <li><b>align-items</b>: controls alignment of items along the cross axis. No effect if align-content present</li>
+      <li><b>justify-items</b>: Not supported/needed in flexbox. Use above properties for alignment. Flexbox specifies how
+        content flows within it as opposed to a grid which divides the page into multiple regions.</li>
+
     </ul></p>
     <div class='wrapper'>
       <div class='flexParentEg' id='direction'>
@@ -182,7 +185,7 @@
         <li><b>flex</b>: shorthand for flex-grow, flex-shrink and flex-basis</li>
         <li><b>order</b>: order in which to lay out an item in a flex container. Items are laid out in ascending order value. Defaults to source code order </li>
         <li><b>align-self</b>: overrides align-content for a specific item. Aligns item on cross axis </li>
-        <li><b>justify-self</b>: ignored in flexbox</li>
+        <li><b>justify-self</b>: Ignored in flexbox</li>
       </ul></p>
       <div class='flexChildWrapper'>
         <div class='flexChildContainer'>
