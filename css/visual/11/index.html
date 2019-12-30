@@ -56,11 +56,12 @@
       <li><b>grid-template-area</b>: specifies named grid areas. Can be later associated with grid items
       <li><b>grid-template</b>: shorthand for grid-template-area, grid-template-rows, grid-template-columns
       <li><b>grid</b>: same as grid-template but prevents values from cascading in separately
-      <li><b>grid-auto-flow</b>: specifies how items get flowed in the grid</li>
+      <li><b>grid-auto-flow</b>: specifies how items get flowed in the grid (row, column, dense or their combination)</li>
       <li><b>row-gap, column-gap, grid-gap</b>: sets gaps between rows and columns. Shorthand for row-gap and column-gap.</li>
-      <li><b>align-items</b>: controls item alignment along the block (column) axis
-      Does axis change like flexbox???
+      <li><b>align-items</b>: controls item alignment along the block (column) axis.
+      Axis doesn't not switch like flexbox
       <li><b>justify-items</b>: controls item alignment along the inline (row) axis
+      <li><b>place-items</b>: shorthand for align-items and justify-items
       <li><b>align-content</b>: controls track alignment along block axis
       <li><b>justify-content</b>: controls track alignment along inline axis
     </ul> 
@@ -367,10 +368,12 @@
 <ul>
     <li><b>tracks</b>: space between two grid lines. Can be row track or column track.
     <li><b>naming grid lines</b>: grid lines can be named when defining tracks (using grid-template-rows, grid-template-columns or grid-template)</br>
-    Names can then be used when defining item areas
+    If areas are defined, areaname-start or areaname-end can be used as grid line names. Names can then be used when defining item areas. 
     <li><b>fractional</b>: represents fraction of space available. Useful when defining track sizes
     <li><b>repeat()</b>: function representing a repeated fragment of the track list
     <li><b>minmax()</b>: function defining a size >= min and >= max 
+    <li><b>auto-fill, auto-fit</b>: can be used for automatically creating columns eg.(repeat(auto-fit, minmax(150px, 1fr));
+    <li><b>fit-content</b>:  function used to define row/column width based on content Eg. fit-content(max value).
     <li><b>span</b>: can be used to define item span along row or column 
 </ul>
 
