@@ -1,0 +1,214 @@
+<html>
+  <head>
+    <title>Visual CSS: Animation</title>
+    <style>
+      body {
+        background-color: azure;
+        font-size: 13px;
+      }
+      pre {
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>11. Animation</h2>
+    <p>Any element whose <b>position</b>, <b>dimensions</b>, <b>angle</b> or <b>color</b> can be changed can be animated.
+     Animation is implemented using <b>@keyframes</b> at-rule  and <b>animation</b> property.
+     <ul>
+       <li>Keyframes define the <b>from</b> and <b>to</b> state of an animated element</li>
+       <li>Animation property shorthand controls name, duration, easing, delay, count, direction, fill-mode and state of animation</li>
+     </ul>
+    </p>
+    <div class="animateDiv"></div>
+    <label>@keyframes animateDiv { from { margin-left: 0%;} to { margin-left: 50%; }  }</br>
+    .animateDev { animation: animateDiv 2s ease 1s 2 alternate backwards running ; }
+    </label>
+    <style>
+      @keyframes animateDiv {
+        0% { 
+          margin-left: 0%;
+        }
+        100% { 
+          margin-left: 50%; 
+        }  
+      }
+
+      .animateDiv {
+        height: 50px;
+        width: 100px;
+        border: 1px solid pink;
+        background: yellowgreen;
+        animation: animateDiv 2s ease 1s 1 normal backwards running ;
+      }
+    </style>
+    <div class='wrapper'>
+      <div class='allprop'></div>
+      <div class='step'>
+        <div class='one'>1</div>
+        <div class='two'>2</div>
+        <div class='three'>3</div>
+        <div class='four'>4</div>
+      </div>
+      <div class='font'>Hello</div>
+      <div>@keyframes allprop { 0% { border-radius: 0px; }
+        100% { border-radius: 50px; }}
+        </br>animation: allprop 2s ease-in-out 1s 2 reverse forwards running;
+      </div>
+      <div>@keyframes step { 0% { grid-gap: 2px; } 50% { grid-gap: 5px; }
+        100% { grid-gap: 10px; } }
+        </br>animation: step 2s steps(2, start) 1s 2 normal forwards running;
+      </div>
+      <div>@keyframes font { 0% { margin-top: 20px; } 100% {
+          margin-top: 90px; font-size: 20px; color: indianred; } }
+        </br>font 2s cubic-bezier(0.25, 0.1, 0.78, 1) 1s 2;
+      </div>
+    </div>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: repeat(3,minmax(200px, 1fr));
+        grid-column-gap: 20px;
+        grid-template-rows: 110px 110px;
+      }
+      .wrapper > * {
+        margin-top: 20px;
+      }
+      .ul {
+        text-decoration: underline;
+      }
+      .allprop {
+        height: 100px;
+        width: 100px;
+        background: antiquewhite;
+        animation: allprop 2s ease-in-out 1s 2 reverse forwards running;
+      }
+      @keyframes allprop {
+        0% {
+          border-radius: 0px;
+        }
+        100% {
+          border-radius: 50px;
+        }
+      }
+      .step {
+        width: 100px;
+        align-self: start;
+        display: grid;
+        animation: step 2s steps(2, start) 1s 2 normal forwards running;
+      }
+      .step div {
+        border: 1px solid gray;
+      }
+      @keyframes step {
+        0% {
+          grid-gap: 2px;
+        }
+        50% {
+          grid-gap: 5px;
+        }
+        100% {
+          grid-gap: 10px;
+        }
+      }
+      .font {
+        animation: font 2s cubic-bezier(0.25, 0.1, 0.78, 1) 1s 2;
+      }
+      @keyframes font {
+        0% {
+          margin-top: 20px;
+        }
+        100% {
+          margin-top: 90px;
+          font-size: 20px;
+          color: indianred;
+        }
+      }
+    </style>
+    <h3> Animation properites</h3>
+    <ul>
+      <li><b>animation-name</b>: name of keyframe specified by @keyframes directive</li>
+      <li><b>animation-duration</b>: duration of animation in milliseconds or seconds</li>
+      <li><b>animation-timing-function</b>: easing function defined by Bezier curve or steps</br>
+      <span class="ul">Bezier curve</span> (time X asis, velocity Y axis)takes x, y coordinates of 2 points along the curve</br>
+      <span class="ul">Predifined values</span> for bezier curve include ease, ease-in, ease-out etc.</br>
+      <span class="ul">Steps(n, jumpterm)</span> define number of stops along the transition points. Jumpterm specifies wherther to skip start, end etc.</li>
+      <li><b>animation-delay</b>: delay before animation start in milliseconds or seconds</li>
+      <li><b>animation-iteration-count</b>: number of times animation should play</li>
+      <li><b>animation-direction</b>: normal, reverse, alternate or alternate-reverse animation direction</li>
+      <li><b>animation-fill-mode</b>: state of animation when not playing forwards, backwards, none, both </li>
+      <li><b>animation-play-mode</b>: paused, running (whether animation is paused or running)</li>
+    </ul>
+    <h3>Transition</h3>
+    <p>Transition is used to define the transition between two states of elements specified.</br>
+      States can be changed via CSS properties, pseudo-classes or via Javascript</br>
+      Shorthand for property name, duration, easing function and delay</br>
+      Transactions can be specified for multiple properties by providing comma separated values.
+    </p>
+    <div class='transition'></br>hover</br>over</div>
+    <label class='inline'>transition: background 1s ease-in 0.5s;</br>
+      .transition:hover { background: greenyellow; }</label>
+    
+    <style>
+      .transition {
+        height: 60px;
+        width: 60px;
+        border: 1px solid pink;
+        border-radius: 30px;
+        transition: background 1s ease-in 0.5s;
+        text-align: center;
+      
+      }
+      .transition:hover {
+        background: greenyellow;
+      }
+    </style>
+    <div class="twrap">
+      <div class="tr_one">hover left</div>
+      <div class="tr_two">hover right</div>
+      <div><b>transition</b>: all 1s ease-in-out 1s;</br>
+      <b>.tr_one:hover</b> { transform: rotate(30deg); border: 2px solid yellowgreen;}</div>
+      <div><b>transition</b>: transform 1s ease-in-out 1s, border 1s;</br>
+      <b>transition</b>: transform 1s ease-in-out 1s, border 1s;
+      </div>
+    </div>
+    <style>
+      .twrap {
+        display: grid;
+        grid-template-columns: repeat(2, 120px);
+        grid-template-rows: repeat(2, 110px);
+        grid-column-gap: 20px;
+        margin-top: 20px;
+        align-items: center;
+      } 
+      .tr_one {
+        height: 70px;
+        width: 70px;
+        border: 1px solid pink;
+        transition: all 1s ease-in-out 1s;
+      }
+      .tr_one:hover {
+        transform: rotate(30deg);
+        border: 2px solid yellowgreen;
+      }
+      .tr_two {
+        height: 70px;
+        width: 70px;
+        border: 1px solid pink;
+        transition: transform 1s ease-in-out 1s, border 1s;
+      }
+      .tr_two:hover {
+        transform: rotate(-30deg);
+        border: 2px solid yellowgreen;
+      }
+
+    </style>
+    <h3>Transition properites</h3>
+    <li><b>transition-property</b>: CSS properties to which transition effect should be applied (margin, all, none etc.)
+    <li><b>transition-duration</b>: Duration of transition
+    <li><b>transition-timing-function</b>: Easing function similar to animation
+    <li><b>transition-delay</b>: Delay before transition is applied
+    
+  </body>
+
+</html>
