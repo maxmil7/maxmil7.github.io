@@ -1,0 +1,92 @@
+.container {
+  display: grid;
+  grid-template-areas: "h h h h"  "ln c c rn" "ln c c rn" "f f f f";
+  grid-template-rows: repeat(4, 100px);
+  grid-template-columns: repeat(4, 100px);
+  width: 400px;
+  border: 1px solid gray; }
+
+.header {
+  grid-area: h;
+  background: pink;
+  font-size: 30px;
+  text-align: center;
+  line-height: 90px;
+  font-family: 'comic sans'; }
+
+.leftnav, .rightnav {
+  grid-area: ln;
+  display: flex;
+  flex-direction: column;
+  background-color: peachpuff;
+  color: rebeccapurple;
+  font-size: 14px; }
+
+.rightnav {
+  grid-area: rn; }
+
+.leftnav > div, .rightnav > div {
+  flex-basis: 30px; }
+
+.rightnav > .heading {
+  text-decoration: underline;
+  font-weight: bold; }
+
+.rightnav > div {
+  flex-basis: 30px; }
+
+.content {
+  grid-area: c;
+  background-image: url("../images/smallplate.jpeg");
+  background-size: cover;
+  background-position: center; }
+
+.footer {
+  grid-area: f;
+  background: pink;
+  display: flex; }
+
+.footer > div {
+  flex-grow: 1;
+  align-self: center;
+  text-align: center;
+  border: 1px solid;
+  font-size: 14px; }
+
+.ln-1 {
+  font-size: 16px; }
+
+.ln-2 {
+  font-size: 16px; }
+
+.ln-3 {
+  font-size: 16px; }
+
+.ln-4 {
+  font-size: 16px; }
+
+.ln-5 {
+  font-size: 16px; }
+
+.rn-1 {
+  font-size: 16px; }
+
+.rn-2 {
+  font-size: 16px; }
+
+.rn-3 {
+  font-size: 16px; }
+
+.rn-4 {
+  font-size: 16px; }
+
+f-one {
+  font-size: 16px; }
+
+f-two {
+  font-size: 16px; }
+
+f-three {
+  font-size: 16px; }
+
+/*# sourceMappingURL=maps/eats.css.map */

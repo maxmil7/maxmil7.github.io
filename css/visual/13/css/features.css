@@ -1,0 +1,32 @@
+.feature_item {
+  margin-top: 10px; }
+
+.feature_one, .feature_three {
+  text-align: center;
+  font-size: 14px; }
+
+.feature_container {
+  display: grid;
+  width: 300px;
+  border: 1px solid gray;
+  grid-template-columns: repeat(2, 100px);
+  grid-auto-rows: 30px;
+  background-color: bisque;
+  grid-gap: 20px; }
+
+.feature_five {
+  grid-column: span 2;
+  justify-self: center;
+  width: 90px; }
+  .feature_five:hover {
+    background-color: greenyellow; }
+
+.feature_five, .feature_two, .feature_four {
+  border: 1px solid black; }
+
+.feature_container .feature_caption {
+  grid-column: span 2;
+  justify-self: center;
+  text-decoration: underline; }
+
+/*# sourceMappingURL=maps/features.css.map */

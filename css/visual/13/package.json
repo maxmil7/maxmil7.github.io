@@ -1,0 +1,20 @@
+{
+  "name": "sass-css",
+  "version": "0.0.1",
+  "description": "Compiles sass files to css",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "convert": "node loader.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.0"
+  },
+  "dependencies": {
+    "gulp-sourcemaps": "^2.6.5"
+  }
+}

@@ -23,7 +23,7 @@
     <b>Skew:</b>Skews the element around X and Y axis<br/>
     <b>Matrix:</b> CSS matrix can be used to achive the same effect as the above translations.<br/>
     Syntax: transform: matrix(a, b, c, d, e, f)<br/>
-    ad scale, bc skew, ef translate (rotation can be achieved w/ a combination of these.<br/>
+    ad scale, bc skew, ef translate (rotation can be achieved w/ a combination of these)<br/>
 
     <div class='container'>
         <div class='eg' id='translate2d'>sample</div>
@@ -203,6 +203,42 @@
             transform: rotateX(-90deg) translateZ(50px);
         }
     </style>
+    <h3>9.4 Kinematics</h3>
+    <p>Kinematics is the idea of translating rotation angle across multiple
+        objects attached to each other at pivot point.</p>
+    <p>There is no inbuilt support for it in CSS but effect can be simulated using <b>rotate(degree)</b> and
+        and <b>transform-origin</b> property to specify the pivot point between parent and child element
+    </p>
+    <div class='elementA'>A</div>
+    <div class='elementB'>B</div>
+    <style>
+        .elementA, .elementB {
+            height: 30px;
+            width: 100px;
+            border: 1px solid gray;
+            margin-top: 20px;
+            position: absolute;
+            background-color: antiquewhite;
+            opacity: 0.7;
+        }
+        .elementA::before {
+            content: 'root point';
+            display: block;
+        }
+        .elementB::before {
+            content: 'pivot point';
+            display: block;
+        }
+        .elementB {
+            margin-left: 70px;
+            transform: rotate(-10deg);
+            transform-origin: left;
+            background-color: unset;
+        }
+    </style>
+
+    
+    </p>
 
 
 

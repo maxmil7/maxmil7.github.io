@@ -1,0 +1,103 @@
+@mixin flexbasis {
+  flex-basis: 30px;
+}
+@function gridlines() {
+  @return repeat(4, 100px);
+}
+$gridwidth: 400px;
+$fontsize: 16px;
+  
+.container {
+  display: grid;
+  grid-template-areas: "h h h h" 
+                       "ln c c rn"
+                       "ln c c rn"
+                       "f f f f";
+  grid-template-rows: gridlines();
+  grid-template-columns: gridlines();
+  width: $gridwidth;
+  border: if($gridwidth, 1px, 2px) solid gray;
+}
+
+.header {
+  grid-area: h;
+  background: pink;
+  font-size: 30px;
+  text-align: center;
+  @if ($gridwidth > 90px) { 
+    line-height: 90px; 
+  };
+  font-family: 'comic sans';
+}
+
+.leftnav {
+  grid-area: ln;
+  display: flex;
+  flex-direction: column;
+  background-color: peachpuff;
+  color: rebeccapurple;
+  font-size: 14px;
+}
+
+.rightnav {
+  @extend .leftnav;
+  grid-area: rn;
+}
+
+.leftnav > div {
+  @include flexbasis;
+}
+
+.rightnav > .heading {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.rightnav > div {
+  flex-basis: 30px;
+}
+
+.content {
+  grid-area: c;
+  background-image: url("../images/smallplate.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+.footer {
+  grid-area: f;
+  background: pink;
+  display: flex;
+}
+
+.footer > div {
+  flex-grow: 1;
+  align-self: center;
+  text-align: center;
+  border: 1px solid ;
+  font-size: 14px;
+}
+
+$from: 1;
+$to: 5;
+@for $i from $from through $to {
+  .ln-#{$i} {
+      font-size: $fontsize;
+  }
+}
+  
+$until: 4;
+$j: 1;
+@while($j <= $until ) {
+  .rn-#{$j} {
+    font-size: $fontsize;
+  }
+  $j: $j+1;
+}
+  
+$children: one, two, three;
+@each $child in $children {
+  f-#{$child} {
+    font-size: $fontsize;
+  } 
+}

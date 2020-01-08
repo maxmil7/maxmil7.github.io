@@ -1,0 +1,176 @@
+<html>
+  <head>
+    <title>Visual CSS: CSS pre-processors</title>
+    <link rel="stylesheet" href="./css/features.css"/>
+    <link rel="stylesheet" href="./css/eats.css"/> 
+    <style>
+      body {
+        background-color: azure;
+        font-size: 13px;
+      }
+      pre {
+        white-space: pre-line;
+      }
+      .title, .def {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>13. CSS pre-processors</h2>
+    <p>CSS pre-processors add <b>new features</b> to the syntax of CSS such
+      as <b>loops</b>, <b>conditionals</b>, <b>imports</b>, <b>functions</b> etc.</br>
+      They are a superset of CSS language and need to be compiled
+      to CSS for use in browsers.</br></br>
+      There are five CSS pre-processors <b>Sass</b>, <b>SCSS</b>,<b>Less</b>,
+      <b>Stylus</b> and <b>PostCSS</b></br>
+    </p>
+    <b class='title'>SCSS</b>
+    <p>SCSS language adds new features, @rules and global functions to shorten the 
+      amount of time spent in writing CSS
+    </p>
+   <b>features</b>
+    <ul>
+      <li><span class='def'>Variables</span>: Declared using $ sign as opposed to --var <code>$number: 1</code></li>
+      <li><span class='def'>Nested rules</span>: Nested elements in CSS are accessed via space character.
+        In SCSS they can be chained.
+        <br/><code>#A { color: red; #B { color:green; } }</code>
+      </li>
+      <li><span class='def'>& character</span>: Converted to name of parent element
+      <br/><code>a { font-weight: bold; { &:hover { color: red } }  
+      </code></li>
+      <li><span class='def'>arithmetic operators</span>: +, -, *, /, % instead of calc(). Also supports mod (%)
+      <br/><code>div { width: 5px + (10px/2) * 3 - 1px <br/>
+      height: 120px % 100 }
+      </code></li>
+      <li><span class='def'>comparison operators</span>: ==, !=, &gt;, &lt;, &gt;=, &lt;=
+      <br/><code>@if ($padding > $margin) {</br>
+      padding: $padding }<br/>
+      @else { padding: $margin }
+      </code></li>
+      <li><span class='def'>String addition</span>: String addition is supported as long as added string is trailing 
+      <br/><code>{ p font: 50px Ari + "al";}
+      </code></li>
+    </ul>
+    <form>
+      <div class='feature_container'>
+      <label class='feature_item feature_one'>Username: </label>
+      <input type='text' class='feature_item feature_two'/>
+      <label class='feature_item feature_three' >Password:</label>
+      <input type='text' class='feature_item feature_four'/>
+      <input type='reset' class='feature_item feature_five'/>
+      <label class='feature_caption'> SCSS features example</label>
+      </div>
+      </form>
+    <b>@rules</b>
+    <ul>
+      <li><span class='def'>@use/@include</span> loads mixins, functions, and variables from other SASS stylesheets or builtin sass modules
+        <br/><code>@use 'styles/marketing';</code>
+      </li>
+      <li><span class='def'>@forward</span> makes public members of loaded module available to end user as though they were defined in the file which loaded the module
+        <br/>Functionality is not available for use within the module though (use @use instead)<br/>
+        <code>
+          //bootstrap.scss<br/>
+          @forward "src/list";<br/>
+          //styles.scss<br/>
+          @use "bootstrap";<br/>
+          li { @include bootstrap.list-reset; }
+        </code>
+      </li>
+      <li><span class='def'>@mixin/@include</span>: used to define reusable pieces of styles
+        <br/><code>
+          @mixin reset-list { <br/>
+            margin: 0; <br/>
+            padding: 0; <br/>
+            list-style: none; } <br/>
+          nav ul { @include horizontal-list; } <br/>
+        </code>
+      </li>
+      <li><span class='def'>@extend</span>: used to inherit styles of another selector
+        <br/><code>.error { <br/>
+          border: 1px solid gray; <br/>
+          &--serious { <br/>
+            @extend .error; <br/>
+            border-width: 2px; } <br/>
+          
+        </code>
+      </li>
+      <li><span class='def'>@function/@return</span>: allows defining complex operations that can be reused
+        <br/><code>
+          @function timesTwo($val) { <br/>
+            $result: $val*2; <br/>
+          @return $result } <br/>
+          .sidebar { margin-left: timesTwo(5) * 1px; }
+        </code>
+      </li>
+      <li><span class='def'>@if &lt;expression&gt;{...}: </span>controls whether block gets evaluated
+        <br/><code>
+          .test { <br/>
+            $var: true; <br/>
+            @if($var) { border: 1px solid gray; } }<br/>
+        </code>
+      </li>
+      <li><span class='def'>@each &lt;variable&gt; in &lt;expression&gt; {...}</span>: evaluated for each element of the list
+        <br/><code>
+        $classes: one, two, three; <br/>
+        @each $class in $classes { <br/>
+        .item-#{$class} { font-color: blue; } } <br/>
+        </code>
+      </li>
+      <li><span class='def'>@for &lt;variable&gt; from &lt;expression&gt; to (or through) &lt;expression&gt; {...}</span>: for loop
+        <br/><code>
+        @for $i from 1 to 3 { <br/>
+        .item-#{$i} { <br/>
+        font-color: blue; } }
+        </code>
+      </li>
+      <li><span class='def'>@while &lt;expression&gt; {...}</span>: evaluates block until expression returns true
+        <br/><code>
+        $i:1; <br/>
+        @while $i < 3 { <br/>
+          .item-#{$i} { font-color: blue; } <br/>
+          $i: $i+1; } <br/>
+        </code>
+      </li>
+    </ul>
+    <div class='container'>
+      <div class="item header">Max's Cheap Eats</div>
+      <div class="item leftnav">
+        <div class="ln-1">About</div>
+        <div class="ln-2">Hours</div>
+        <div class="ln-3">Menu</div>
+        <div class="ln-4">Directions</div>
+        <div class="ln-5">Reviews</div>
+      </div>
+      <div class="item rightnav">
+        <div class='heading'>Happy hour</div>
+        <div class="rn-1">Drinks</div>
+        <div class="rn-2">Small plates</div>
+        <div class="rn-3">Salads</div>
+        <div class="rn-4">Deserts</div>
+      </div>
+      <div class="item content"></div>
+      <div class="item footer">
+        <div class="f-one">Contact</div>
+        <div class="f-two">Nutrition</div>
+        <div class="f-three">Help</div>
+      </div>
+    </div>
+    <b>global functions</b>
+    <ul>
+      <li><span class='def'>if(&lt;expression&gt;, val1, val2)</span>: global function returns one of the values depending on condition
+        <br/><code>
+        $condition: false; </br>
+        .item { border: if($condition, 1px, 2px) solid black; }
+        </code>
+      </li>
+    </ul>
+    <b>Oscillator animation</b>
+
+
+   
+
+
+  </body>
+</html>
+ 
