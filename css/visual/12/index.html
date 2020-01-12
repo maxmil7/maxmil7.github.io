@@ -16,12 +16,12 @@
     <p>Any element whose <b>position</b>, <b>dimensions</b>, <b>angle</b> or <b>color</b> can be changed can be animated.
      Animation is implemented using <b>@keyframes</b> at-rule  and <b>animation</b> property.
      <ul>
-       <li>Keyframes define the <b>from</b> and <b>to</b> state of an animated element</li>
+       <li>Keyframes define the <b>start (%)</b> and <b>end (%)</b> state of an animated element</li>
        <li>Animation property shorthand controls name, duration, easing, delay, count, direction, fill-mode and state of animation</li>
      </ul>
     </p>
     <div class="animateDiv"></div>
-    <label>@keyframes animateDiv { from { margin-left: 0%;} to { margin-left: 50%; }  }</br>
+    <label>@keyframes animateDiv { 0% { margin-left: 0%;} to { margin-left: 50%; }  }</br>
     .animateDev { animation: animateDiv 2s ease 1s 2 alternate backwards running ; }
     </label>
     <style>
@@ -29,7 +29,7 @@
         0% { 
           margin-left: 0%;
         }
-        100% { 
+        50% {
           margin-left: 50%; 
         }  
       }

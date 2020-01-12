@@ -1,0 +1,50 @@
+.atom {
+  text-align: center;
+  border-radius: 5px;
+  height: 10px;
+  width: 10px;
+  margin: 1px;
+  display: inline-block;
+  border: 1px #189375 solid;
+  animation: oscillate 3s ease-in-out infinite; }
+  .atom:nth-child(1) {
+    animation-delay: 0.38942s; }
+  .atom:nth-child(2) {
+    animation-delay: 0.77884s; }
+  .atom:nth-child(3) {
+    animation-delay: 1.16826s; }
+  .atom:nth-child(4) {
+    animation-delay: 1.55767s; }
+  .atom:nth-child(5) {
+    animation-delay: 1.94709s; }
+  .atom:nth-child(6) {
+    animation-delay: 2.33651s; }
+  .atom:nth-child(7) {
+    animation-delay: 2.72593s; }
+  .atom:nth-child(8) {
+    animation-delay: 3.11535s; }
+  .atom:nth-child(9) {
+    animation-delay: 3.50477s; }
+  .atom:nth-child(10) {
+    animation-delay: 3.89418s; }
+  .atom:nth-child(11) {
+    animation-delay: 4.2836s; }
+  .atom:nth-child(12) {
+    animation-delay: 4.67302s; }
+  .atom:nth-child(13) {
+    animation-delay: 5.06244s; }
+  .atom:nth-child(14) {
+    animation-delay: 5.45186s; }
+  .atom:nth-child(15) {
+    animation-delay: 5.84128s; }
+
+@keyframes oscillate {
+  0% {
+    transform: translateY(0px); }
+  50% {
+    transform: translateY(100px); } }
+
+.clear {
+  margin-top: 120px; }
+
+/*# sourceMappingURL=maps/trig.css.map */
