@@ -1,0 +1,179 @@
+<html>
+  <head>
+    <title>14. Miscellaneous</title>
+    <style>
+      body {
+        background-color: azure;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <h4>Table styling</h4>
+    <table>
+      <caption>Table styling</caption>
+      <thead>
+        <tr>
+          <th></th>
+          <th scope='col'>Month</th>
+          <th scope='col'>Day</th>
+          <th scope='col'>Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope='row'>Alpha</th>
+          <td>August</td>
+          <td>9</td>
+          <td>2017</td>
+        </tr>
+        <tr>
+          <th scope='row'>Beta</th>
+          <td>Oct</td>
+          <td>12</td>
+          <td>2019</td>
+        </tr>
+        <tr>
+          <th scope='row'>Gamma</th>
+          <td>May</td>
+          <td>5</td>
+          <td>2010</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope='row'>Overall</th>
+          <td colspan="2"> span - 26</td>
+          <td>6046</td>
+        </tr>
+      </tfoot>
+    </table>
+    <style>
+    table {
+      width: 80%; /*width of total container*/
+      table-layout: fixed; /*flex or fixed*/
+      border: 1px solid brown;
+      background-color: aliceblue;
+      border-collapse: collapse; /*borders*/
+    }
+    thead th:nth-child(1),  thead th:nth-child(2) {
+      width: 30%; /*width of column*/
+    }
+    thead th:nth-child(3),  thead th:nth-child(4){
+      width: 20%
+    }
+    th, td {
+      padding: 10px;
+    }
+    thead th, tfoot th {
+      letter-spacing: 2px;
+    }
+    tfoot th {
+      text-align: right;
+    }
+    tbody tr:nth-child(odd) {
+      background-color: #ff33;
+    }
+    tbody tr:nth-child(even) {
+      background-color: rgba(51, 146, 255, 0.2);
+    }
+    caption {
+      caption-side: top; /*caption location*/
+      padding: 10px;
+      font-size: 16px;
+    }
+    
+    </style>
+    <h4>CSS at rules</h4>
+    <p>At rules are CSS statements instructing CSS how to behave.
+      They start with @. Common at rules include:
+      <ul>
+        <li>@import: used to import style rules from other style sheets. Optionally followed by media query for conditional imports.
+          <code>@import url('print.css') print;</code>
+        </li>
+        <li>@media: At rule that will apply its content if device meets criteria defined using media query
+          <code>@media screen and (min-width: 900px) { <br/>
+            article {
+              padding: 1rem;
+            }
+          }
+          </code>
+        </li>
+        <li>@supports: At rule that will apply its content if browser supports given feature
+        <code>@supports (display: flex) { </br>
+          article { display: flex } }
+
+
+        </code></li>
+        <li>@keyframes: Defines steps in a CSS animation sequence</li>
+        <code>
+          @keyframes slidein {<br/>
+            0% { transform: translateX(0%); } <br/>
+            100% { transform: translateX(100%); }
+          }
+        </code>
+        <li>@page: Used to modify <b>some</b> CSS properties like margins, page-breaks etc. while printing a page
+        <code>@page { margin: 1cm; }</code>
+        </li>
+      </ul>
+      <div class='container'>
+        <div class='child'>1</div>
+        <div class='child'>2</div>
+        <div class='child'>3</div>
+        <div class='child'>4</div>
+      </div>
+      <style>
+        .container {
+          display: grid;
+          grid-template-columns: repeat(2, 100px);
+          grid-gap: 5px;
+        }
+        .child {
+          border: 1px solid pink;
+          animation: change_color 2s 2;
+        }
+        @keyframes change_color {
+          0% { color: blue; }
+          100% {color: green; }
+        }
+      </style>
+    </p>
+    <h4>CSS global functions</h4>
+    <p>Common CSS global functions include:</p>
+    <ul>
+      <li>url(): Used to include a file
+        <code>background-image: url('https://abc.com')</code>
+      </li>
+      <li>attr(attr-name type, fallback): Used to retrieve value of an attribute of selected element and use it
+        <code>attr(data-count number, 0);</code>
+      </li>
+      <li>calc(): Used to perform calculations
+        <code>width: calc(100% - 80px)</code>
+      </li>
+      <li>minmax(min, max): Used in CSS grids, defines a size range >= min and &lt; =max
+        <code>minmax(200px, 1fr)</code>
+      </li>
+      <li>var(custom value): Used to insert value of a custom property
+        <code>:root { --main-bg-color: coral; }</br>
+           div { background-color: var(--main-bg-color)}</code>
+      </li>
+      <li>contrast(value): Adjusts contrast of input image
+        <code>filter: contrast(1)</code>
+      </li>
+      <li>translate(x, y): Repositions element in horizontal or vertical directions
+        <code>transform: translate(100px, 200px)</code>
+      </li>
+      <li>rotate(angle): Rotates element around a fixed point
+        <code>transform: rotate(45deg)</code>
+      </li>
+      <li>scale(x-scale, y-scale): Resizes element on 2d plane
+        <code>transform: scale(0.7)</code>
+      </li>
+      <li>skew(x-angle, y-angle): Skews an element on 2d plane
+        <code>transform: skew(15deg, 15deg)</code>
+      </li>
+
+    </ul>
+
+  </body>
+</html>
