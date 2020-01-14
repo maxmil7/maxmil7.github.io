@@ -7,6 +7,7 @@
         font-size: 13px;
       }
     </style>
+    <link rel='stylesheet' href="css/at.css"/>
   </head>
   <body>
     <h4>Table styling</h4>
@@ -122,21 +123,6 @@
         <div class='child'>3</div>
         <div class='child'>4</div>
       </div>
-      <style>
-        .container {
-          display: grid;
-          grid-template-columns: repeat(2, 100px);
-          grid-gap: 5px;
-        }
-        .child {
-          border: 1px solid pink;
-          animation: change_color 2s 2;
-        }
-        @keyframes change_color {
-          0% { color: blue; }
-          100% {color: green; }
-        }
-      </style>
     </p>
     <h4>CSS global functions</h4>
     <p>Common CSS global functions include:</p>
@@ -144,8 +130,8 @@
       <li>url(): Used to include a file
         <code>background-image: url('https://abc.com')</code>
       </li>
-      <li>attr(attr-name type, fallback): Used to retrieve value of an attribute of selected element and use it
-        <code>attr(data-count number, 0);</code>
+      <li>attr(attr-name): Used to retrieve value of an attribute of selected element and use it
+        <code>attr(data-count);</code>
       </li>
       <li>calc(): Used to perform calculations
         <code>width: calc(100% - 80px)</code>
@@ -172,8 +158,31 @@
       <li>skew(x-angle, y-angle): Skews an element on 2d plane
         <code>transform: skew(15deg, 15deg)</code>
       </li>
-
     </ul>
-
+    <div class='fun_container'>
+      <div class='fun_div' data-sample='Bye!'></div>
+    </div>
+    <style>
+      .fun_container {
+        display: grid;
+        grid-template-rows: minmax(10px, 172px);
+        width: 300px;
+        border: 1px solid gray;
+        margin-bottom: 10px;
+      }
+      .fun_div {
+        --div-height: 120px;
+        background: url('images/car.jpeg');
+        height: var(--div-height);
+        width: calc(160px - 20px);
+        filter: contrast(1.2);
+        background-size: cover;
+        transform: rotate(10deg) translate(60px, 20px) scale(1.1) skew(1deg);
+      }
+      .fun_div::after {
+        color: blanchedalmond;
+        content: attr(data-sample);
+      }
+    </style>
   </body>
 </html>
